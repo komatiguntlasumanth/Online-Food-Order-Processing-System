@@ -1,0 +1,112 @@
+version: "3.9"
+
+services:
+
+  # ─────────────────────────────────────────
+  # Apache ActiveMQ (JMS broker)
+  # ─────────────────────────────────────────
+  activemq:
+    image: apache/activemq-classic:5.18.4
+    container_name: activemq
+    ports:
+      - "61616:61616"   # JMS / TCP
+      - "8161:8161"     # Web console  →  http://localhost:8161  (admin/admin)
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8161 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ─────────────────────────────────────────
+  # Order Service  (port 8080)
+  # Camunda cockpit → http://localhost:8080/camunda
+  # ─────────────────────────────────────────
+  order-service:
+    build:
+      context: .
+      dockerfile: order-service/Dockerfile
+    container_name: order-service
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_JMS_ACTIVEMQ_USER: admin
+      SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+    depends_on:
+      activemq:
+        condition: service_healthy
+    restart: on-failure
+
+  # ─────────────────────────────────────────
+  # Payment Service  (port 8081)
+  # ─────────────────────────────────────────
+  payment-service:
+    build:
+      context: .
+      dockerfile: payment-service/Dockerfile
+    container_name: payment-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_JMS_ACTIVEMQ_USER: admin
+      SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+    depends_on:
+      activemq:
+        condition: service_healthy
+    restart: on-failure
+
+  # ─────────────────────────────────────────
+  # Kitchen Service  (port 8082)
+  # ─────────────────────────────────────────
+  kitchen-service:
+    build:
+      context: .
+      dockerfile: kitchen-service/Dockerfile
+    container_name: kitchen-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_JMS_ACTIVEMQ_USER: admin
+      SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+    depends_on:
+      activemq:
+        condition: service_healthy
+    restart: on-failure
+
+  # ─────────────────────────────────────────
+  # Delivery Service  (port 8083)
+  # ─────────────────────────────────────────
+  delivery-service:
+    build:
+      context: .
+      dockerfile: delivery-service/Dockerfile
+    container_name: delivery-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      SPRING_JMS_ACTIVEMQ_USER: admin
+      SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+    depends_on:
+      activemq:
+        condition: service_healthy
+    restart: on-failure
+
+  # ─────────────────────────────────────────
+  # React/Vite UI served by nginx  (port 3000)
+  # ─────────────────────────────────────────
+  food-delivery-ui:
+    build:
+      context: food-delivery-ui
+      dockerfile: Dockerfile
+    container_name: food-delivery-ui
+    ports:
+      - "3000:80"
+    depends_on:
+      - order-service
+    restart: on-failure

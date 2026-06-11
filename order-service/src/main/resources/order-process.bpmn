@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_1"
+  targetNamespace="http://bpmn.io/schema/bpmn">
+  
+  <bpmn:process id="order-fulfillment-process" name="Order Fulfillment Process" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:startEvent id="StartEvent_OrderCreated" name="Order Created">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_OrderCreated" targetRef="ServiceTask_Payment" />
+    
+    <bpmn:serviceTask id="ServiceTask_Payment" name="Payment Processing" camunda:delegateExpression="${paymentServiceTask}">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="ServiceTask_Payment" targetRef="Gateway_Payment" />
+    
+    <bpmn:exclusiveGateway id="Gateway_Payment" name="Payment Successful?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_PaymentSuccess</bpmn:outgoing>
+      <bpmn:outgoing>Flow_PaymentFail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    
+    <bpmn:sequenceFlow id="Flow_PaymentSuccess" name="Yes" sourceRef="Gateway_Payment" targetRef="ServiceTask_Kitchen">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentSuccess == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    
+    <bpmn:sequenceFlow id="Flow_PaymentFail" name="No" sourceRef="Gateway_Payment" targetRef="ServiceTask_CancelOrder">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentSuccess == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    
+    <bpmn:serviceTask id="ServiceTask_Kitchen" name="Kitchen Prep" camunda:delegateExpression="${kitchenServiceTask}">
+      <bpmn:incoming>Flow_PaymentSuccess</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="ServiceTask_Kitchen" targetRef="ServiceTask_Delivery" />
+    
+    <bpmn:serviceTask id="ServiceTask_Delivery" name="Delivery Assignment" camunda:delegateExpression="${deliveryServiceTask}">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ServiceTask_Delivery" targetRef="EndEvent_Completed" />
+    
+    <bpmn:serviceTask id="ServiceTask_CancelOrder" name="Cancel Order" camunda:delegateExpression="${cancelOrderTask}">
+      <bpmn:incoming>Flow_PaymentFail</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="ServiceTask_CancelOrder" targetRef="EndEvent_Cancelled" />
+    
+    <bpmn:endEvent id="EndEvent_Completed" name="Order Completed">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+    
+    <bpmn:endEvent id="EndEvent_Cancelled" name="Order Cancelled">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="order-fulfillment-process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_OrderCreated">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1_di" bpmnElement="ServiceTask_Payment">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1_di" bpmnElement="Gateway_Payment" isMarkerVisible="true">
+        <dc:Bounds x="415" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_2_di" bpmnElement="ServiceTask_Kitchen">
+        <dc:Bounds x="520" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_3_di" bpmnElement="ServiceTask_Delivery">
+        <dc:Bounds x="680" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_completed_di" bpmnElement="EndEvent_Completed">
+        <dc:Bounds x="842" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_cancel_di" bpmnElement="ServiceTask_CancelOrder">
+        <dc:Bounds x="520" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_cancelled_di" bpmnElement="EndEvent_Cancelled">
+        <dc:Bounds x="682" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
