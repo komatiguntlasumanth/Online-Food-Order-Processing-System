@@ -251,8 +251,8 @@ function App() {
         const localOrders = JSON.parse(localStorage.getItem('swiggy_orders') || '[]');
         const storedOrder = {
           ...newOrder,
-          driverName: null,
-          driverMobile: null,
+          driverName: "John Doe", // Simulated driver assignment
+          driverMobile: "9876543210",
           status: 'PLACED',
           createdAt: new Date().toISOString()
         };
@@ -266,8 +266,12 @@ function App() {
         setShowOrderSuccessPopup(true);
         setTimeout(() => {
           setShowOrderSuccessPopup(false);
-          setViewMode('tracking'); // Redirect next of payment page to the Tracking Page
+          setViewMode('assigning'); // Go to assigning page first
         }, 2000);
+        // After assigning, auto redirect to tracking after a short delay
+        setTimeout(() => {
+          setViewMode('tracking');
+        }, 5000);
 
         fetchOrders();
       } else {
@@ -276,12 +280,23 @@ function App() {
     } catch (err) {
       console.warn('[Sync Warning] Backend connection failed. Placing a simulated local order.');
       const mockId = Math.floor(100000 + Math.random() * 900000);
+
+      // Assign a random delivery partner from pool
+      const drivers = [
+        { name: 'Ravi Kumar', mobile: '9876543210' },
+        { name: 'Arjun Sharma', mobile: '9912345678' },
+        { name: 'Suresh Reddy', mobile: '9845001234' },
+      ];
+      const assigned = drivers[Math.floor(Math.random() * drivers.length)];
+
       const newOrder = {
         id: mockId,
         customerName: customerName,
         item: itemsSummary,
         amount: totalAmount,
         status: 'PLACED',
+        driverName: assigned.name,
+        driverMobile: assigned.mobile,
         createdAt: new Date().toISOString()
       };
 
@@ -294,8 +309,12 @@ function App() {
       setShowOrderSuccessPopup(true);
       setTimeout(() => {
         setShowOrderSuccessPopup(false);
-        setViewMode('tracking');
+        setViewMode('assigning');
       }, 2000);
+      // Auto-navigate to tracking after showing assignment screen
+      setTimeout(() => {
+        setViewMode('tracking');
+      }, 6000);
     } finally {
       setLoading(false);
     }
@@ -598,6 +617,93 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* Assigning Delivery Partner Page */}
+        {viewMode === 'assigning' && (() => {
+          // Get the most recently placed order's driver info
+          const localOrders = JSON.parse(localStorage.getItem('swiggy_orders') || '[]');
+          const lastOrder = localOrders[localOrders.length - 1] || {};
+          const driverName = lastOrder.driverName || 'Ravi Kumar';
+          const driverMobile = lastOrder.driverMobile || '9876543210';
+          const driverInitials = driverName.split(' ').map(n => n[0]).join('');
+
+          return (
+            <div className="max-w-lg mx-auto animate-fade-in">
+              {/* Main Card */}
+              <div className="bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden">
+                {/* Top gradient banner */}
+                <div className="bg-gradient-to-br from-[#fc8019] to-orange-500 p-8 text-center text-white">
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <Check className="w-5 h-5" />
+                    <span className="text-sm font-bold uppercase tracking-widest opacity-90">Payment Confirmed</span>
+                  </div>
+                  <h2 className="text-2xl font-black tracking-tight">Finding Your Rider</h2>
+                  <p className="text-orange-100 text-sm mt-1">Your order has been placed successfully</p>
+                </div>
+
+                {/* Pulsing rider animation */}
+                <div className="flex flex-col items-center justify-center py-10 px-8 space-y-6">
+                  {/* Animated pulse rings */}
+                  <div className="relative flex items-center justify-center">
+                    <div className="absolute w-28 h-28 rounded-full bg-orange-100 animate-ping opacity-40" />
+                    <div className="absolute w-20 h-20 rounded-full bg-orange-200 animate-ping opacity-30" style={{ animationDelay: '0.3s' }} />
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-[#fc8019] to-orange-500 rounded-full flex items-center justify-center shadow-lg shadow-orange-400/40 text-white text-3xl">
+                      🚴
+                    </div>
+                  </div>
+
+                  {/* Partner Assigned Badge */}
+                  <div className="text-center space-y-1">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Delivery Partner Assigned</span>
+                    <div className="flex items-center justify-center gap-3 mt-3">
+                      {/* Avatar circle with initials */}
+                      <div className="w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center font-extrabold text-lg shadow-md">
+                        {driverInitials}
+                      </div>
+                      <div className="text-left">
+                        <div className="font-extrabold text-lg text-slate-800">{driverName}</div>
+                        <div className="text-sm text-slate-500 font-medium">{driverMobile}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Steps timeline */}
+                  <div className="w-full bg-slate-50 rounded-2xl p-5 space-y-3">
+                    {[
+                      { icon: '✅', label: 'Payment Verified', done: true },
+                      { icon: '🤝', label: 'Delivery Partner Assigned', done: true },
+                      { icon: '👨‍🍳', label: 'Kitchen Preparing Your Order', done: false },
+                      { icon: '🛵', label: 'Out for Delivery', done: false },
+                    ].map((step, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <span className="text-lg">{step.icon}</span>
+                        <span className={`text-sm font-semibold ${step.done ? 'text-slate-800' : 'text-slate-400'}`}>
+                          {step.label}
+                        </span>
+                        {step.done && <Check className="w-4 h-4 text-green-500 ml-auto" />}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Spinner + redirect notice */}
+                  <div className="flex items-center gap-2 text-slate-400 text-sm">
+                    <Loader2 className="w-4 h-4 animate-spin text-[#fc8019]" />
+                    <span>Redirecting to live tracking in a moment...</span>
+                  </div>
+
+                  {/* Manual go to tracking button */}
+                  <button
+                    onClick={() => setViewMode('tracking')}
+                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all"
+                  >
+                    <Truck className="w-5 h-5" />
+                    Track My Order Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Tracking Dashboard */}
         {viewMode === 'tracking' && (
