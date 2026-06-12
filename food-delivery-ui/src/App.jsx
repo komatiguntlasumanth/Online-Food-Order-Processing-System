@@ -721,7 +721,7 @@ function App() {
               </button>
             </div>
 
-            {getCombinedOrders().length === 0 ? (
+            {orders.length === 0 ? (
               <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-16 text-center space-y-4">
                 <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mx-auto text-slate-300">
                   <Utensils className="w-8 h-8" />
@@ -733,7 +733,7 @@ function App() {
               </div>
             ) : (
               <div className="space-y-4">
-                {getCombinedOrders().map((order) => {
+                {orders.map((order) => {
                   const step = getStatusStep(order.status);
                   const isExpanded = expandedOrderId === order.id;
 
