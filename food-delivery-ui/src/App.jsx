@@ -38,15 +38,15 @@ import qrCodeImage from './assets/qr_code.png';
 
 const FOOD_ITEMS = {
   "What's on your mind?": [
-    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true },
-    { id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1668236543090-77ebf0ed0815?w=400&q=80', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true },
-    { id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1648965042079-8833919e83ec?w=400&q=80', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true },
-    { id: 'b4', name: 'Egg Dosa', price: 85.00, rating: 4.4, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1628286958448-e215f7996c56?w=400&q=80', desc: 'Crispy dosa topped with seasoned whisked egg.', veg: false },
-    { id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1589301760014-a929c51ffa09?w=400&q=80', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true },
-    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1626500057277-3e11736b412b?w=400&q=80', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true },
-    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true },
-    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=80', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true },
-    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: 'https://images.unsplash.com/photo-1615486171437-01e4ce421712?w=400&q=80', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true }
+    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: 'https://source.unsplash.com/400x400/?idly', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true },
+    { id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: 'https://source.unsplash.com/400x400/?plain-dosa', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true },
+    { id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: 'https://source.unsplash.com/400x400/?masala-dosa', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true },
+    { id: 'b4', name: 'Egg Dosa', price: 85.00, rating: 4.4, time: '20-25 mins', image: 'https://source.unsplash.com/400x400/?egg-dosa', desc: 'Crispy dosa topped with seasoned whisked egg.', veg: false },
+    { id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: 'https://source.unsplash.com/400x400/?karam-dosa', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true },
+    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: 'https://source.unsplash.com/400x400/?ghee-dosa', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true },
+    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: 'https://source.unsplash.com/400x400/?vada', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true },
+    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: 'https://source.unsplash.com/400x400/?poori', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true },
+    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: 'https://source.unsplash.com/400x400/?bonda', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true }
   ],
   "Main Course Meals": [
     { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80', desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true },
@@ -371,7 +371,7 @@ function App() {
       {/* SUCCESS ANIMATION POPUP OVERLAY */}
       {showOrderSuccessPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#131A2A] p-10 rounded-[2rem] shadow-2xl flex flex-col items-center animate-zoom-in text-center max-w-sm mx-4">
+          <div className="bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0B0F19] border border-[#1E293B] rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden backdrop-blur-md bg-opacity-80">
             <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-black/70 shadow-2xl shadow-green-500/30 text-white">
               <Check className="w-12 h-12" />
             </div>
