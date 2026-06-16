@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 /**
- * SplashScreen – 2-second premium Swiggy Express logo intro animation.
+ * SplashScreen – 3.5-second premium Swiggy Express logo intro animation.
  * Calls onComplete() once the animation finishes.
  */
 export default function SplashScreen({ onComplete }) {
@@ -10,12 +10,12 @@ export default function SplashScreen({ onComplete }) {
   useEffect(() => {
     // Phase timeline:
     //  0 ms  – logo enters (scale + fade)
-    //  800 ms – hold, tagline fades in
-    //  1600 ms – begin exit (fade-out + scale-up)
-    //  2000 ms – call onComplete
-    const t1 = setTimeout(() => setPhase('hold'), 800);
-    const t2 = setTimeout(() => setPhase('exit'), 1600);
-    const t3 = setTimeout(() => onComplete?.(), 2000);
+    //  1200 ms – hold, tagline fades in
+    //  3000 ms – begin exit (fade-out + scale-up)
+    //  3500 ms – call onComplete
+    const t1 = setTimeout(() => setPhase('hold'), 1200);
+    const t2 = setTimeout(() => setPhase('exit'), 3000);
+    const t3 = setTimeout(() => onComplete?.(), 3500);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onComplete]);
 
@@ -162,7 +162,7 @@ export default function SplashScreen({ onComplete }) {
           height: '100%',
           background: 'linear-gradient(90deg, #fc8019, #ff9340)',
           borderRadius: 99,
-          animation: 'splash-bar 1.1s cubic-bezier(0.4,0,0.2,1) forwards',
+          animation: 'splash-bar 1.8s cubic-bezier(0.4,0,0.2,1) forwards',
           boxShadow: '0 0 10px 2px rgba(252,128,25,0.55)',
         }} />
       </div>
