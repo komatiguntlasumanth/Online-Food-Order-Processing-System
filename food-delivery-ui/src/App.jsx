@@ -524,8 +524,8 @@ function App() {
                         </div>
 
                         <div className="flex items-center gap-3 text-[11px] font-bold text-slate-400 mb-3">
-                          <span className="flex items-center gap-0.5 text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
-                            <Star className="w-3 h-3 fill-green-700 text-green-700" /> {item.rating}
+                          <span className="flex items-center gap-0.5 text-green-400 bg-green-500/20 border border-green-500/30 px-1.5 py-0.5 rounded">
+                            <Star className="w-3 h-3 fill-green-400 text-green-400" /> {item.rating}
                           </span>
                           <span>•</span>
                           <span>{item.time}</span>
@@ -537,7 +537,7 @@ function App() {
                       {/* Add button styled like Swiggy */}
                       <div className="relative">
                         {cartItem ? (
-                          <div className="w-full flex items-center justify-between border border-[#fc8019] text-[#fc8019] rounded-2xl font-bold bg-orange-50/50 py-2.5 px-4">
+                          <div className="w-full flex items-center justify-between border border-[#fc8019] text-[#fc8019] rounded-2xl font-bold bg-orange-500/20 py-2.5 px-4">
                             <button onClick={() => updateQuantity(item.id, -1)} className="hover:scale-115 active:scale-95 transition-transform">
                               <Minus className="w-4 h-4" />
                             </button>
@@ -688,7 +688,7 @@ function App() {
         {viewMode === 'delivery_details' && (
           <div className="max-w-2xl mx-auto bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/70 shadow-2xl p-8 space-y-6 animate-fade-in">
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-900/30 text-blue-400 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-8 h-8" />
               </div>
               <h2 className="text-2xl font-black text-white">Delivery Details</h2>
@@ -696,7 +696,7 @@ function App() {
             </div>
 
             {error && (
-              <div className="p-3 bg-red-50 text-red-600 text-sm font-bold rounded-xl border border-red-100 flex items-center gap-2">
+              <div className="p-3 bg-red-900/30 text-red-400 text-sm font-bold rounded-xl border border-red-500/30 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" /> {error}
               </div>
             )}
@@ -903,7 +903,7 @@ function App() {
                           
                           {/* Live Delivered Overlay Animation inside the card */}
                           {order.status === 'DELIVERED' && (
-                            <div className="p-6 text-center bg-green-50 border border-green-200 rounded-3xl space-y-4 animate-zoom-in">
+                            <div className="p-6 text-center bg-green-900/20 border border-green-500/30 rounded-3xl space-y-4 animate-zoom-in">
                               <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-2xl shadow-black/70 shadow-2xl">
                                 🎉
                               </div>
@@ -911,7 +911,7 @@ function App() {
                                 <h4 className="font-black text-xl text-white tracking-tight animate-bounce">
                                   Items Delivered!
                                 </h4>
-                                <p className="text-sm font-semibold text-green-700 mt-1">
+                                <p className="text-sm font-semibold text-green-400 mt-1">
                                   Thank you for purchasing — Swiggy Express
                                 </p>
                               </div>
@@ -920,11 +920,11 @@ function App() {
 
                           {/* Order Cancelled details */}
                           {step === -1 && (
-                            <div className="flex gap-4 items-start p-4 bg-red-50 border border-red-100 rounded-2xl text-red-700 animate-zoom-in">
-                              <XCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex gap-4 items-start p-4 bg-red-900/20 border border-red-500/30 rounded-2xl text-red-400 animate-zoom-in">
+                              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
                               <div>
-                                <h5 className="font-bold text-sm">Order Cancelled</h5>
-                                <p className="text-xs text-red-500 mt-1">
+                                <h5 className="font-bold text-sm text-white">Order Cancelled</h5>
+                                <p className="text-xs text-red-400 mt-1">
                                   Reason: {order.cancelReason || 'No reason provided.'}
                                 </p>
                               </div>
@@ -933,7 +933,7 @@ function App() {
 
                           {/* Customer Delivery Location Details block */}
                           {order.address && (
-                            <div className="p-4 bg-orange-50 border border-orange-100 rounded-2xl flex items-start gap-3 animate-slide-up">
+                            <div className="p-4 bg-orange-900/20 border border-orange-500/30 rounded-2xl flex items-start gap-3 animate-slide-up">
                               <MapPin className="w-5 h-5 text-[#fc8019] flex-shrink-0 mt-0.5" />
                               <div>
                                 <h5 className="font-extrabold text-sm text-white">Delivery Address</h5>
@@ -1025,7 +1025,7 @@ function App() {
                           {order.driverName && (
                             <div className="p-4 bg-[#131A2A] border border-[#1E293B] rounded-2xl shadow-black/50 shadow-black/70 shadow-2xl flex items-center justify-between gap-4 animate-slide-up">
                               <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-orange-50 flex items-center justify-center rounded-xl text-[#fc8019]">
+                                <div className="w-10 h-10 bg-orange-900/30 border border-orange-500/30 flex items-center justify-center rounded-xl text-[#fc8019]">
                                   🚴
                                 </div>
                                 <div>
@@ -1051,7 +1051,7 @@ function App() {
                             <div className="pt-2 flex justify-end">
                               <button
                                 onClick={() => setCancelModalOrderId(order.id)}
-                                className="text-xs text-red-500 hover:text-red-700 font-extrabold transition-colors flex items-center gap-1 border border-red-200/50 hover:border-red-300 px-3.5 py-1.5 rounded-xl bg-red-50/50"
+                                className="text-xs text-red-400 hover:text-red-300 font-extrabold transition-colors flex items-center gap-1 border border-red-500/30 hover:border-red-500/50 px-3.5 py-1.5 rounded-xl bg-red-900/20"
                               >
                                 <XCircle className="w-3.5 h-3.5" /> Cancel Order
                               </button>
@@ -1206,7 +1206,7 @@ function App() {
 
           {/* Large Success Box Card */}
           <div className="bg-[#131A2A] rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-[#1E293B] text-center space-y-6 animate-zoom-in">
-            <div className="w-24 h-24 mx-auto bg-green-50 rounded-full flex items-center justify-center border-4 border-green-200">
+            <div className="w-24 h-24 mx-auto bg-green-900/30 rounded-full flex items-center justify-center border-4 border-green-500/30">
               <svg className="w-14 h-14" viewBox="0 0 52 52">
                 <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
                 <path className="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
@@ -1230,7 +1230,7 @@ function App() {
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-[#131A2A] rounded-3xl p-6 max-w-md w-full shadow-2xl border border-[#1E293B] space-y-5 animate-zoom-in">
             <div className="flex items-center gap-3 text-red-600">
-              <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-red-900/30 border border-red-500/30 rounded-xl flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div>
@@ -1240,7 +1240,7 @@ function App() {
             </div>
 
             {showCancelError && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs font-bold animate-zoom-in">
+              <div className="p-3 bg-red-900/30 border border-red-500/30 text-red-400 rounded-xl text-xs font-bold animate-zoom-in">
                 Please enter a cancellation reason to confirm!
               </div>
             )}
