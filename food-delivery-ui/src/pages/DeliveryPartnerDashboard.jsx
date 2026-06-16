@@ -552,7 +552,7 @@ export default function DeliveryPartnerDashboard() {
 
           {/* ── DELIVERED: Success + Ready for Next ──────────────────── */}
           {online && orderStep === 'DELIVERED' && (
-            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden">
+            <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden bg-gradient-to-r from-teal-500/20 to-indigo-500/10">
               {/* Background glow */}
               <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent pointer-events-none" />
 
