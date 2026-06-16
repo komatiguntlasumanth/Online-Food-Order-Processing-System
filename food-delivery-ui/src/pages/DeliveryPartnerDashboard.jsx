@@ -236,18 +236,18 @@ export default function DeliveryPartnerDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-12 font-sans text-slate-800">
+    <div className="min-h-screen bg-[#0B0F19] pb-12 font-sans text-white">
       
       {/* Dashboard Top bar */}
-      <header className="sticky top-0 z-40 bg-white border-b border-slate-200 px-6 py-4 shadow-sm">
+      <header className="sticky top-0 z-40 bg-[#131A2A] border-b border-[#334155] px-6 py-4 shadow-black/50 shadow-black/70 shadow-2xl">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#fc8019] rounded-xl flex items-center justify-center text-white shadow-md shadow-orange-500/25">
+            <div className="w-10 h-10 bg-[#fc8019] rounded-xl flex items-center justify-center text-white shadow-black/60 shadow-black/80 shadow-2xl shadow-orange-500/25">
               <Truck className="w-5 h-5" />
             </div>
             <div>
               <span className="text-lg font-black tracking-tighter text-[#fc8019]">swiggy</span>
-              <span className="text-[10px] uppercase font-black tracking-widest text-slate-400 block -mt-1">Express partner</span>
+              <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 block -mt-1">Express partner</span>
             </div>
           </div>
 
@@ -258,7 +258,7 @@ export default function DeliveryPartnerDashboard() {
                 <select
                   value={selectedStore}
                   onChange={(e) => setSelectedStore(e.target.value)}
-                  className="bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700 px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="bg-[#0B0F19] border border-[#334155] text-xs font-bold text-slate-200 px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 >
                   {STORES.map((s, idx) => (
                     <option key={idx} value={s}>{s}</option>
@@ -268,7 +268,7 @@ export default function DeliveryPartnerDashboard() {
             ) : (
               <div className="hidden md:flex items-center gap-1.5 text-xs font-extrabold text-slate-500">
                 <span>Working near:</span>
-                <span className="text-slate-800">{selectedStore}</span>
+                <span className="text-white">{selectedStore}</span>
               </div>
             )}
 
@@ -278,13 +278,13 @@ export default function DeliveryPartnerDashboard() {
               disabled={!!currentOrder}
               className={`flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-black tracking-wider transition-all uppercase ${
                 online
-                  ? 'bg-green-500 text-white shadow-md shadow-green-500/20'
-                  : 'bg-slate-200 text-slate-600'
+                  ? 'bg-green-500 text-white shadow-black/60 shadow-black/80 shadow-2xl shadow-green-500/20'
+                  : 'bg-slate-200 text-slate-300'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               {online ? (
                 <>
-                  <span className="w-2.5 h-2.5 bg-white rounded-full animate-ping mr-1" />
+                  <span className="w-2.5 h-2.5 bg-[#131A2A] rounded-full animate-ping mr-1" />
                   Online
                 </>
               ) : (
@@ -297,10 +297,10 @@ export default function DeliveryPartnerDashboard() {
 
             {/* User Logged In Info */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-700 hidden sm:inline">{user?.fullName || 'Partner'}</span>
+              <span className="text-xs font-bold text-slate-200 hidden sm:inline">{user?.fullName || 'Partner'}</span>
               <button
                 onClick={() => removeToken() || window.location.reload()}
-                className="p-2 text-slate-400 hover:text-red-500 rounded-full hover:bg-slate-100 transition-all"
+                className="p-2 text-slate-500 hover:text-red-500 rounded-full hover:bg-slate-100 transition-all"
                 title="Logout Portal"
               >
                 <LogOut className="w-4 h-4" />
@@ -318,23 +318,23 @@ export default function DeliveryPartnerDashboard() {
           
           {/* Active Job View or Waiting Area */}
           {!online ? (
-            <div className="bg-white border border-slate-100 rounded-3xl p-12 text-center shadow-sm space-y-5 animate-zoom-in">
-              <div className="w-20 h-20 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-300">
+            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center shadow-black/50 shadow-black/70 shadow-2xl space-y-5 animate-zoom-in">
+              <div className="w-20 h-20 bg-[#0B0F19] border border-[#1E293B] rounded-full flex items-center justify-center mx-auto text-slate-300">
                 <Truck className="w-10 h-10" />
               </div>
               <div className="max-w-md mx-auto">
-                <h3 className="font-extrabold text-lg text-slate-800">You are currently Offline</h3>
+                <h3 className="font-extrabold text-lg text-white">You are currently Offline</h3>
                 <p className="text-sm text-slate-500 mt-1">
                   Select your nearby Swiggy store location below and toggle "Online" at the top to start accepting food delivery orders.
                 </p>
               </div>
               
               <div className="max-w-xs mx-auto">
-                <label className="block text-[10px] text-left font-black text-slate-400 uppercase tracking-widest mb-1.5">Select store location</label>
+                <label className="block text-[10px] text-left font-black text-slate-500 uppercase tracking-widest mb-1.5">Select store location</label>
                 <select
                   value={selectedStore}
                   onChange={(e) => setSelectedStore(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 text-sm font-extrabold text-slate-700 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full bg-[#0B0F19] border border-[#334155] text-sm font-extrabold text-slate-200 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 >
                   {STORES.map((s, idx) => (
                     <option key={idx} value={s}>{s}</option>
@@ -344,21 +344,21 @@ export default function DeliveryPartnerDashboard() {
             </div>
           ) : !currentOrder ? (
             /* Online but waiting for order */
-            <div className="bg-white border border-slate-100 rounded-3xl p-12 text-center shadow-sm space-y-5 animate-zoom-in">
+            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center shadow-black/50 shadow-black/70 shadow-2xl space-y-5 animate-zoom-in">
               <div className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto text-[#fc8019] animate-bounce">
                 <RefreshCw className="w-9 h-9 animate-spin-slow" />
               </div>
               <div className="max-w-md mx-auto">
-                <h3 className="font-extrabold text-lg text-slate-800">Searching for Orders...</h3>
+                <h3 className="font-extrabold text-lg text-white">Searching for Orders...</h3>
                 <p className="text-sm text-slate-500 mt-1">
                   You are active in the system. Orders placed by customers near your selected location will be automatically assigned to you.
                 </p>
               </div>
 
               {/* Waiting status box */}
-              <div className="max-w-xs mx-auto bg-slate-50 border border-slate-100 rounded-2xl p-4 flex items-center justify-center gap-2">
+              <div className="max-w-xs mx-auto bg-[#0B0F19] border border-[#1E293B] rounded-2xl p-4 flex items-center justify-center gap-2">
                 <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping" />
-                <span className="text-xs font-bold text-slate-600">Waiting for your order...</span>
+                <span className="text-xs font-bold text-slate-300">Waiting for your order...</span>
               </div>
             </div>
           ) : (
@@ -366,10 +366,10 @@ export default function DeliveryPartnerDashboard() {
             <div className="space-y-6">
               
               {/* Status Header Indicator */}
-              <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-wrap justify-between items-center gap-4 animate-slide-up">
+              <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl flex flex-wrap justify-between items-center gap-4 animate-slide-up">
                 <div>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Job ID: #{currentOrder.id}</span>
-                  <h3 className="text-base font-extrabold text-slate-800 mt-0.5">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Active Job ID: #{currentOrder.id}</span>
+                  <h3 className="text-base font-extrabold text-white mt-0.5">
                     Delivery to: {currentOrder.customerName}
                   </h3>
                 </div>
@@ -394,15 +394,15 @@ export default function DeliveryPartnerDashboard() {
               )}
 
               {/* Job Details Card */}
-              <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-6 animate-slide-up">
+              <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl space-y-6 animate-slide-up">
                 <div>
-                  <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Order Items Package</h4>
+                  <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Order Items Package</h4>
                   <div className="space-y-2">
-                    <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                      <p className="text-sm font-extrabold text-slate-800 leading-relaxed">{currentOrder.item}</p>
-                      <div className="flex justify-between items-center mt-3 pt-3 border-t border-slate-200/60 text-xs">
+                    <div className="p-4 bg-[#0B0F19] rounded-2xl border border-[#1E293B]">
+                      <p className="text-sm font-extrabold text-white leading-relaxed">{currentOrder.item}</p>
+                      <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#334155]/60 text-xs">
                         <span className="text-slate-500">COD / Online Payment:</span>
-                        <span className="font-black text-slate-800 text-sm">₹{currentOrder.amount}</span>
+                        <span className="font-black text-white text-sm">₹{currentOrder.amount}</span>
                       </div>
                     </div>
                   </div>
@@ -417,7 +417,7 @@ export default function DeliveryPartnerDashboard() {
                       </div>
                       <button
                         onClick={handlePickUp}
-                        className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all text-sm uppercase tracking-wider"
+                        className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all text-sm uppercase tracking-wider"
                       >
                         Confirm Pick Up Items
                       </button>
@@ -431,7 +431,7 @@ export default function DeliveryPartnerDashboard() {
                       </div>
                       <button
                         onClick={handleArrived}
-                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all text-sm uppercase tracking-wider"
+                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-blue-500/25 transition-all text-sm uppercase tracking-wider"
                       >
                         Mark as Arrived
                       </button>
@@ -445,7 +445,7 @@ export default function DeliveryPartnerDashboard() {
                       </div>
                       <button
                         onClick={handleDelivered}
-                        className="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-green-500/25 transition-all text-sm uppercase tracking-wider"
+                        className="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-green-500/25 transition-all text-sm uppercase tracking-wider"
                       >
                         Handover & Mark Delivered
                       </button>
@@ -454,17 +454,17 @@ export default function DeliveryPartnerDashboard() {
 
                   {orderStep === 'DELIVERED' && (
                     <div className="space-y-5 text-center p-6 border-2 border-dashed border-green-200 rounded-3xl bg-green-50/50 animate-zoom-in">
-                      <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-3xl shadow-lg shadow-green-500/25">
+                      <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-3xl shadow-black/70 shadow-2xl shadow-green-500/25">
                         ✓
                       </div>
                       <div>
-                        <h4 className="font-extrabold text-lg text-slate-800">Order Delivered Successfully!</h4>
+                        <h4 className="font-extrabold text-lg text-white">Order Delivered Successfully!</h4>
                         <p className="text-xs text-slate-500 mt-1">₹20.00 has been credited to your express partner wallet balance.</p>
                       </div>
 
                       {/* Swipe reset button */}
                       <div className="max-w-sm mx-auto">
-                        <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Swipe to find next order</label>
+                        <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Swipe to find next order</label>
                         <div
                           onMouseMove={handleSwipeMouseMove}
                           onMouseLeave={handleSwipeMouseLeave}
@@ -481,7 +481,7 @@ export default function DeliveryPartnerDashboard() {
                           
                           {/* Inner slider drag circle */}
                           <div
-                            className="absolute bg-white rounded-xl shadow-lg w-12 h-10 flex items-center justify-center font-extrabold text-slate-800 text-sm transition-all"
+                            className="absolute bg-[#131A2A] rounded-xl shadow-black/70 shadow-2xl w-12 h-10 flex items-center justify-center font-extrabold text-white text-sm transition-all"
                             style={{ left: `calc(${swipeProgress}% - ${swipeProgress >= 80 ? '50px' : '0px'} + 4px)` }}
                           >
                             {isSwiped ? '✓' : '>>'}
@@ -507,7 +507,7 @@ export default function DeliveryPartnerDashboard() {
         <div className="space-y-6">
           
           {/* Earnings Wallet Card */}
-          <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4 relative overflow-hidden">
+          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl space-y-4 relative overflow-hidden">
             {/* Background design */}
             <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-bl-full pointer-events-none" />
 
@@ -516,25 +516,25 @@ export default function DeliveryPartnerDashboard() {
                 <Wallet className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Express Payout Wallet</h4>
-                <span className="text-2xl font-black text-slate-800 font-mono">₹{walletBalance.toFixed(2)}</span>
+                <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest">Express Payout Wallet</h4>
+                <span className="text-2xl font-black text-white font-mono">₹{walletBalance.toFixed(2)}</span>
               </div>
             </div>
 
-            <div className="text-[10px] text-slate-400 font-semibold leading-relaxed border-t border-slate-100 pt-3 flex items-center gap-1">
+            <div className="text-[10px] text-slate-500 font-semibold leading-relaxed border-t border-[#1E293B] pt-3 flex items-center gap-1">
               <span className="text-green-500 font-bold">●</span> Earnings rate: ₹20.00 standard credit per completed order.
             </div>
 
             {/* Delivery Logs list */}
             {completedDeliveries.length > 0 && (
               <div className="space-y-2 pt-2">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Delivery logs</span>
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block">Delivery logs</span>
                 <div className="max-h-36 overflow-y-auto space-y-1.5 pr-1.5 scrollbar-thin">
                   {completedDeliveries.map((d, index) => (
-                    <div key={index} className="flex justify-between items-center text-xs p-2 bg-slate-50 border rounded-xl">
+                    <div key={index} className="flex justify-between items-center text-xs p-2 bg-[#0B0F19] border rounded-xl">
                       <div className="truncate pr-2 max-w-[140px]">
-                        <span className="font-extrabold text-[10px] text-slate-400 uppercase mr-1">#{d.id}</span>
-                        <span className="font-bold text-slate-700">{d.item}</span>
+                        <span className="font-extrabold text-[10px] text-slate-500 uppercase mr-1">#{d.id}</span>
+                        <span className="font-bold text-slate-200">{d.item}</span>
                       </div>
                       <span className="font-black text-green-600 font-mono flex-shrink-0">+₹20</span>
                     </div>
@@ -545,14 +545,14 @@ export default function DeliveryPartnerDashboard() {
           </div>
 
           {/* Bank details settings config */}
-          <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 flex items-center justify-center text-green-600 rounded-xl">
                 <Landmark className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest text-slate-400">Direct Deposit Bank</h4>
-                <p className="text-xs font-bold text-slate-800">Link payout routing account</p>
+                <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest text-slate-500">Direct Deposit Bank</h4>
+                <p className="text-xs font-bold text-white">Link payout routing account</p>
               </div>
             </div>
 
@@ -564,31 +564,31 @@ export default function DeliveryPartnerDashboard() {
 
             <form onSubmit={handleSaveBankDetails} className="space-y-3 pt-2">
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Bank Name</label>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Bank Name</label>
                 <input
                   type="text"
                   required
                   value={bankName}
                   onChange={(e) => setBankName(e.target.value)}
                   placeholder="e.g. State Bank of India"
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Account Number</label>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Account Number</label>
                 <input
                   type="password"
                   required
                   value={accountNumber}
                   onChange={(e) => setAccountNumber(e.target.value.replace(/[^0-9]/g, ''))}
                   placeholder="Enter account number"
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">IFSC Code</label>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">IFSC Code</label>
                 <input
                   type="text"
                   required
@@ -597,13 +597,13 @@ export default function DeliveryPartnerDashboard() {
                   value={ifscCode}
                   onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
                   placeholder="e.g. SBIN0001234"
-                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all uppercase tracking-wider mt-2"
+                className="w-full py-3 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-black/60 shadow-black/80 shadow-2xl transition-all uppercase tracking-wider mt-2"
               >
                 Save Details <Save className="w-3.5 h-3.5" />
               </button>
