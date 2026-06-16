@@ -270,11 +270,11 @@ function App() {
         const newOrder = await response.json();
         
         // Save to localStorage list for Delivery Partner synchronization
+        // NOTE: driverName/driverUsername intentionally left empty so a logged-in
+        // delivery partner can claim this order from their dashboard.
         const localOrders = JSON.parse(localStorage.getItem('swiggy_orders') || '[]');
         const storedOrder = {
           ...newOrder,
-          driverName: "John Doe", // Simulated driver assignment
-          driverMobile: "9876543210",
           status: 'PLACED',
           address: deliveryAddress,
           createdAt: new Date().toISOString()
@@ -301,22 +301,14 @@ function App() {
       setError(null);
       const mockId = Math.floor(100000 + Math.random() * 900000);
 
-      // Assign a random delivery partner from pool
-      const drivers = [
-        { name: 'Ravi Kumar', mobile: '9876543210' },
-        { name: 'Arjun Sharma', mobile: '9912345678' },
-        { name: 'Suresh Reddy', mobile: '9845001234' },
-      ];
-      const assigned = drivers[Math.floor(Math.random() * drivers.length)];
-
+      // NOTE: driverName/driverUsername intentionally left empty so a logged-in
+      // delivery partner can claim this order from their dashboard.
       const newOrder = {
         id: mockId,
         customerName: customerName,
         item: itemsSummary,
         amount: totalAmount,
         status: 'PLACED',
-        driverName: assigned.name,
-        driverMobile: assigned.mobile,
         address: deliveryAddress,
         createdAt: new Date().toISOString()
       };

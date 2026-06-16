@@ -141,4 +141,32 @@
   position: relative;
   overflow: hidden;
   user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Slow spin for radar effect */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Slide down for notifications */
+@keyframes slide-down {
+  from { transform: translateY(-20px) translateX(-50%); opacity: 0; }
+  to { transform: translateY(0) translateX(-50%); opacity: 1; }
+}
+.animate-slide-down {
+  animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Order flash border glow */
+@keyframes order-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(252, 128, 25, 0); }
+  50% { box-shadow: 0 0 30px 8px rgba(252, 128, 25, 0.35); }
+}
+.animate-order-glow {
+  animation: order-glow 1.2s ease-in-out 3;
 }

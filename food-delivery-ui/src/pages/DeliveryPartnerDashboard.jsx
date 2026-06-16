@@ -1,135 +1,154 @@
-import React, { useState, useEffect } from 'react';
-import { Truck, Wallet, LogOut, CheckCircle2, ChevronRight, ToggleLeft, ToggleRight, Landmark, Save, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Truck, Wallet, LogOut, CheckCircle2, Landmark, Save,
+  RefreshCw, Package, MapPin, Navigation, ChevronRight,
+  Bell, Star, Zap
+} from 'lucide-react';
 import { removeToken, getUser } from '../api/auth';
 import DeliveryMap from './DeliveryMap';
+
+// Animated SVG checkmark component
+const AnimatedCheck = () => (
+  <svg className="w-24 h-24" viewBox="0 0 52 52">
+    <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+    <path className="checkmark-check" fill="none" stroke="#4ade80" strokeWidth="2.5" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+  </svg>
+);
+
+// Confetti burst component
+const ConfettiPiece = ({ style }) => <div className="confetti-piece" style={style} />;
+
+const CONFETTI_COLORS = ['#fc8019', '#4ade80', '#60a5fa', '#f472b6', '#facc15'];
 
 export default function DeliveryPartnerDashboard() {
   const user = getUser();
   const [online, setOnline] = useState(false);
   const [selectedStore, setSelectedStore] = useState('');
   const [currentOrder, setCurrentOrder] = useState(null);
-  const [orderStep, setOrderStep] = useState('ASSIGNED'); // 'ASSIGNED', 'PICKED_UP', 'ARRIVED', 'DELIVERED'
+  // Steps: 'WAITING', 'ASSIGNED', 'PICKED_UP', 'ARRIVED', 'DELIVERED'
+  const [orderStep, setOrderStep] = useState('WAITING');
   const [walletBalance, setWalletBalance] = useState(0);
   const [completedDeliveries, setCompletedDeliveries] = useState([]);
-  
-  // Bank details form state
+  const [showDeliveredPopup, setShowDeliveredPopup] = useState(false);
+  const [confettiPieces, setConfettiPieces] = useState([]);
+
+  // New order flash animation
+  const [newOrderFlash, setNewOrderFlash] = useState(false);
+
+  // Bank details
   const [bankName, setBankName] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [ifscCode, setIfscCode] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Swipe slider state
+  // Swipe state
   const [swipeProgress, setSwipeProgress] = useState(0);
   const [isSwiped, setIsSwiped] = useState(false);
+  const swipeRef = useRef(null);
+  const isDragging = useRef(false);
 
-  // Store options
   const STORES = [
-    "Swiggy Express Hub - Madhapur",
-    "Swiggy Express Hub - Kondapur",
-    "Swiggy Express Hub - Hitec City",
-    "Swiggy Express Hub - Gachibowli"
+    'Swiggy Express Hub - Madhapur',
+    'Swiggy Express Hub - Kondapur',
+    'Swiggy Express Hub - Hitec City',
+    'Swiggy Express Hub - Gachibowli',
   ];
 
-  // Load state from localStorage on mount
+  // ── Load persisted state ──────────────────────────────────────────────────
   useEffect(() => {
-    if (user) {
-      const savedBalance = localStorage.getItem(`wallet_${user.username}`) || '0';
-      setWalletBalance(parseInt(savedBalance, 10));
+    if (!user) return;
+    const savedBal = localStorage.getItem(`wallet_${user.username}`) || '0';
+    setWalletBalance(parseInt(savedBal, 10));
 
-      const savedDeliveries = localStorage.getItem(`deliveries_${user.username}`);
-      if (savedDeliveries) setCompletedDeliveries(JSON.parse(savedDeliveries));
+    const savedDel = localStorage.getItem(`deliveries_${user.username}`);
+    if (savedDel) setCompletedDeliveries(JSON.parse(savedDel));
 
-      const savedBank = localStorage.getItem(`bank_${user.username}`);
-      if (savedBank) {
-        const parsed = JSON.parse(savedBank);
-        setBankName(parsed.bankName || '');
-        setAccountNumber(parsed.accountNumber || '');
-        setIfscCode(parsed.ifscCode || '');
-      }
-
-      const storedStore = localStorage.getItem(`store_${user.username}`) || STORES[0];
-      setSelectedStore(storedStore);
+    const savedBank = localStorage.getItem(`bank_${user.username}`);
+    if (savedBank) {
+      const p = JSON.parse(savedBank);
+      setBankName(p.bankName || '');
+      setAccountNumber(p.accountNumber || '');
+      setIfscCode(p.ifscCode || '');
     }
+
+    const storedStore = localStorage.getItem(`store_${user.username}`) || STORES[0];
+    setSelectedStore(storedStore);
   }, []);
 
-  // Poll localStorage for new active orders
+  // ── Poll for new customer orders and assign to THIS logged-in partner ─────
   useEffect(() => {
     if (!online) {
       setCurrentOrder(null);
+      setOrderStep('WAITING');
       return;
     }
 
     const checkOrders = () => {
-      // Find orders that are ready to be picked up
-      const ordersRaw = localStorage.getItem('swiggy_orders');
-      if (ordersRaw) {
-        const orders = JSON.parse(ordersRaw);
-        // Find any order placed in the system that has status PLACED, PAYMENT_SUCCESS, or KITCHEN PREPARATION
-        // and is not yet assigned to any driver
-        const unassignedOrder = orders.find(
-          (o) => (o.status === 'PAYMENT_SUCCESS' || o.status === 'KITCHEN PREPARATION' || o.status === 'PLACED') && !o.driverName
-        );
+      if (currentOrder) return; // already have an active order
+      const raw = localStorage.getItem('swiggy_orders');
+      if (!raw) return;
+      const orders = JSON.parse(raw);
 
-        if (unassignedOrder && !currentOrder) {
-          // Assign this order to this delivery partner
-          unassignedOrder.driverName = user ? user.fullName : "Ramesh Kumar";
-          unassignedOrder.driverMobile = user ? user.mobile : "9876543210";
-          unassignedOrder.status = 'KITCHEN PREPARATION'; // Let kitchen know driver is assigned
-          unassignedOrder.assignedAt = new Date().toISOString();
+      // Find unassigned order (no driverUsername means truly unassigned)
+      const unassigned = orders.find(
+        (o) =>
+          ['PLACED', 'PAYMENT_SUCCESS', 'KITCHEN PREPARATION'].includes(o.status) &&
+          !o.driverUsername
+      );
 
-          // Save updated orders
-          localStorage.setItem('swiggy_orders', JSON.stringify(orders));
+      if (unassigned) {
+        // Assign to THIS logged-in delivery partner
+        unassigned.driverName = user ? (user.fullName || user.username) : 'Partner';
+        unassigned.driverUsername = user ? user.username : 'partner';
+        unassigned.driverMobile = user?.mobile || '9876543210';
+        unassigned.status = 'KITCHEN PREPARATION';
+        unassigned.assignedAt = new Date().toISOString();
 
-          // Set current order locally
-          setCurrentOrder(unassignedOrder);
-          setOrderStep('ASSIGNED');
-          setIsSwiped(false);
-          setSwipeProgress(0);
+        localStorage.setItem('swiggy_orders', JSON.stringify(orders));
+        setCurrentOrder(unassigned);
+        setOrderStep('ASSIGNED');
+        setIsSwiped(false);
+        setSwipeProgress(0);
 
-          // Alert notification sound or vibration simulation
-          if ('vibrate' in navigator) {
-            navigator.vibrate([200, 100, 200]);
-          }
-        }
+        // Flash animation + vibration
+        setNewOrderFlash(true);
+        setTimeout(() => setNewOrderFlash(false), 2500);
+        if ('vibrate' in navigator) navigator.vibrate([200, 100, 200, 100, 200]);
       }
     };
 
-    const interval = setInterval(checkOrders, 2000);
+    const interval = setInterval(checkOrders, 1500);
     return () => clearInterval(interval);
   }, [online, currentOrder]);
 
-  // Sync state updates of currentOrder to localStorage
+  // ── Order status sync helper ──────────────────────────────────────────────
   const updateOrderStatus = (newStatus) => {
     if (!currentOrder) return;
-    const ordersRaw = localStorage.getItem('swiggy_orders');
-    if (ordersRaw) {
-      const orders = JSON.parse(ordersRaw);
-      const updated = orders.map((o) => {
-        if (o.id === currentOrder.id) {
-          o.status = newStatus;
-          return o;
-        }
-        return o;
-      });
-      localStorage.setItem('swiggy_orders', JSON.stringify(updated));
-      setCurrentOrder({ ...currentOrder, status: newStatus });
-    }
+    const raw = localStorage.getItem('swiggy_orders');
+    if (!raw) return;
+    const orders = JSON.parse(raw);
+    const updated = orders.map((o) =>
+      o.id === currentOrder.id ? { ...o, status: newStatus } : o
+    );
+    localStorage.setItem('swiggy_orders', JSON.stringify(updated));
+    setCurrentOrder((prev) => ({ ...prev, status: newStatus }));
   };
 
-  const handleGoOnlineOffline = () => {
-    if (!online && !selectedStore) {
-      alert("Please select a nearby store first!");
-      return;
-    }
-    setOnline(!online);
-    if (user) {
-      localStorage.setItem(`store_${user.username}`, selectedStore);
-    }
+  // ── Step Handlers ─────────────────────────────────────────────────────────
+  const handleGoOnline = () => {
+    if (!selectedStore) { alert('Please select a nearby store first!'); return; }
+    setOnline(true);
+    if (user) localStorage.setItem(`store_${user.username}`, selectedStore);
+  };
+
+  const handleGoOffline = () => {
+    if (currentOrder) { alert('Cannot go offline during an active delivery!'); return; }
+    setOnline(false);
   };
 
   const handlePickUp = () => {
-    setOrderStep('PICKED_UP');
     updateOrderStatus('OUT_FOR_DELIVERY');
+    setOrderStep('PICKED_UP');
   };
 
   const handleArrived = () => {
@@ -137,56 +156,73 @@ export default function DeliveryPartnerDashboard() {
   };
 
   const handleDelivered = () => {
-    setOrderStep('DELIVERED');
     updateOrderStatus('DELIVERED');
+    setOrderStep('DELIVERED');
 
-    // Add ₹20 to wallet
-    const newBalance = walletBalance + 20;
-    setWalletBalance(newBalance);
+    // ₹20 wallet credit
+    const newBal = walletBalance + 20;
+    setWalletBalance(newBal);
     if (user) {
-      localStorage.setItem(`wallet_${user.username}`, newBalance.toString());
-
-      // Save to completed deliveries logs
-      const newLogs = [
-        {
-          id: currentOrder.id,
-          item: currentOrder.item,
-          amount: currentOrder.amount,
-          date: new Date().toLocaleDateString(),
-          time: new Date().toLocaleTimeString(),
-          earnings: 20
-        },
-        ...completedDeliveries
-      ];
-      setCompletedDeliveries(newLogs);
-      localStorage.setItem(`deliveries_${user.username}`, JSON.stringify(newLogs));
+      localStorage.setItem(`wallet_${user.username}`, newBal.toString());
+      const newLog = {
+        id: currentOrder.id,
+        item: currentOrder.item,
+        amount: currentOrder.amount,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        earnings: 20,
+      };
+      const logs = [newLog, ...completedDeliveries];
+      setCompletedDeliveries(logs);
+      localStorage.setItem(`deliveries_${user.username}`, JSON.stringify(logs));
     }
+
+    // Confetti burst
+    const pieces = Array.from({ length: 20 }, (_, i) => ({
+      left: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 1.5}s`,
+      animationDuration: `${1.5 + Math.random() * 1.5}s`,
+      background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+      transform: `rotate(${Math.random() * 360}deg)`,
+      width: `${6 + Math.random() * 8}px`,
+      height: `${6 + Math.random() * 8}px`,
+      borderRadius: Math.random() > 0.5 ? '50%' : '0',
+    }));
+    setConfettiPieces(pieces);
+    setShowDeliveredPopup(true);
+    setTimeout(() => {
+      setShowDeliveredPopup(false);
+      setConfettiPieces([]);
+    }, 4000);
   };
 
-  // Simulated swipe logic for next order resetting
-  const handleSwipeMouseMove = (e) => {
+  // ── Swipe "Ready for Next Order" ─────────────────────────────────────────
+  const getSwipeX = (e) => {
+    if (e.touches) return e.touches[0].clientX;
+    return e.clientX;
+  };
+
+  const handleSwipeStart = (e) => {
     if (isSwiped) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const width = rect.width;
-    const progress = Math.min(Math.max((x / width) * 100, 0), 100);
+    isDragging.current = true;
+  };
+
+  const handleSwipeMove = (e) => {
+    if (!isDragging.current || isSwiped || !swipeRef.current) return;
+    const rect = swipeRef.current.getBoundingClientRect();
+    const x = getSwipeX(e) - rect.left;
+    const progress = Math.min(Math.max((x / rect.width) * 100, 0), 100);
     setSwipeProgress(progress);
   };
 
-  const handleSwipeMouseLeave = () => {
-    if (swipeProgress < 85) {
-      setSwipeProgress(0);
-    }
-  };
-
-  const handleSwipeMouseUp = () => {
+  const handleSwipeEnd = () => {
+    isDragging.current = false;
     if (swipeProgress >= 85) {
       setSwipeProgress(100);
       setIsSwiped(true);
       setTimeout(() => {
-        // Reset state for next order
         setCurrentOrder(null);
-        setOrderStep('ASSIGNED');
+        setOrderStep('WAITING');
         setIsSwiped(false);
         setSwipeProgress(0);
       }, 800);
@@ -195,113 +231,114 @@ export default function DeliveryPartnerDashboard() {
     }
   };
 
-  // Touch handlers for mobile devices
-  const handleTouchMove = (e) => {
-    if (isSwiped) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const touch = e.touches[0];
-    const x = touch.clientX - rect.left;
-    const width = rect.width;
-    const progress = Math.min(Math.max((x / width) * 100, 0), 100);
-    setSwipeProgress(progress);
-  };
-
-  const handleTouchEnd = () => {
-    if (swipeProgress >= 85) {
-      setSwipeProgress(100);
-      setIsSwiped(true);
-      setTimeout(() => {
-        setCurrentOrder(null);
-        setOrderStep('ASSIGNED');
-        setIsSwiped(false);
-        setSwipeProgress(0);
-      }, 800);
-    } else {
-      setSwipeProgress(0);
-    }
-  };
-
-  const handleSaveBankDetails = (e) => {
+  // ── Bank details ─────────────────────────────────────────────────────────
+  const handleSaveBank = (e) => {
     e.preventDefault();
     if (!bankName.trim() || !accountNumber.trim() || !ifscCode.trim()) {
-      alert("Please fill in all bank details");
+      alert('Please fill in all bank details');
       return;
     }
-    const bankDetails = { bankName, accountNumber, ifscCode };
-    if (user) {
-      localStorage.setItem(`bank_${user.username}`, JSON.stringify(bankDetails));
-    }
+    if (user) localStorage.setItem(`bank_${user.username}`, JSON.stringify({ bankName, accountNumber, ifscCode }));
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 3000);
   };
 
+  // ── Step pill label ───────────────────────────────────────────────────────
+  const stepLabel = {
+    WAITING: 'Waiting',
+    ASSIGNED: 'New Order',
+    PICKED_UP: 'On The Way',
+    ARRIVED: 'Arrived',
+    DELIVERED: 'Completed',
+  }[orderStep] || orderStep;
+
+  const stepColor = {
+    WAITING: 'bg-slate-700 text-slate-300',
+    ASSIGNED: 'bg-orange-500/20 text-orange-400 border border-orange-500/30',
+    PICKED_UP: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
+    ARRIVED: 'bg-green-500/20 text-green-400 border border-green-500/30',
+    DELIVERED: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+  }[orderStep] || '';
+
   return (
-    <div className="min-h-screen bg-[#0B0F19] pb-12 font-sans text-white">
-      
-      {/* Dashboard Top bar */}
-      <header className="sticky top-0 z-40 bg-[#131A2A] border-b border-[#334155] px-6 py-4 shadow-black/50 shadow-black/70 shadow-2xl">
+    <div className="min-h-screen bg-[#0B0F19] pb-16 font-sans text-white">
+
+      {/* ── Delivered Success Popup ─────────────────────────────────────── */}
+      {showDeliveredPopup && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-md animate-fade-in">
+          {/* Confetti */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {confettiPieces.map((s, i) => <ConfettiPiece key={i} style={s} />)}
+          </div>
+          <div className="relative bg-[#131A2A] border border-[#1E293B] rounded-3xl p-10 max-w-sm mx-4 text-center space-y-4 animate-zoom-in shadow-2xl shadow-black/80">
+            <div className="flex justify-center">
+              <AnimatedCheck />
+            </div>
+            <h2 className="text-2xl font-black text-white leading-tight">Items delivered successfully,<br/>return to the store.</h2>
+            <p className="text-sm text-slate-400">₹20.00 has been credited to your wallet!</p>
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-bold">
+              <Zap className="w-4 h-4" /> Wallet Balance: ₹{walletBalance.toFixed(2)}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── New Order Flash Notification ────────────────────────────────── */}
+      {newOrderFlash && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 animate-slide-up">
+          <div className="bg-[#fc8019] text-white font-black px-6 py-3 rounded-2xl shadow-2xl shadow-orange-500/40 flex items-center gap-3">
+            <Bell className="w-5 h-5 animate-bounce" />
+            New Order Assigned to You!
+          </div>
+        </div>
+      )}
+
+      {/* ── Header ─────────────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-40 bg-[#131A2A]/95 backdrop-blur-xl border-b border-[#1E293B] px-6 py-4 shadow-2xl shadow-black/50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#fc8019] rounded-xl flex items-center justify-center text-white shadow-black/60 shadow-black/80 shadow-2xl shadow-orange-500/25">
-              <Truck className="w-5 h-5" />
+            <div className="w-10 h-10 bg-[#fc8019] rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/25">
+              <Truck className="w-5 h-5 text-white" />
             </div>
             <div>
               <span className="text-lg font-black tracking-tighter text-[#fc8019]">swiggy</span>
-              <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 block -mt-1">Express partner</span>
+              <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 block -mt-1">Express Partner</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            {/* Store selector when offline */}
-            {!online ? (
-              <div className="hidden md:block">
-                <select
-                  value={selectedStore}
-                  onChange={(e) => setSelectedStore(e.target.value)}
-                  className="bg-[#0B0F19] border border-[#334155] text-xs font-bold text-slate-200 px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
-                >
-                  {STORES.map((s, idx) => (
-                    <option key={idx} value={s}>{s}</option>
-                  ))}
-                </select>
-              </div>
-            ) : (
-              <div className="hidden md:flex items-center gap-1.5 text-xs font-extrabold text-slate-500">
-                <span>Working near:</span>
-                <span className="text-white">{selectedStore}</span>
+          <div className="flex items-center gap-5">
+            {online && (
+              <div className="hidden md:flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                <MapPin className="w-3.5 h-3.5 text-[#fc8019]" />
+                {selectedStore}
               </div>
             )}
 
-            {/* Online / Offline switch */}
+            {/* Online / Offline toggle */}
             <button
-              onClick={handleGoOnlineOffline}
-              disabled={!!currentOrder}
-              className={`flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-black tracking-wider transition-all uppercase ${
+              onClick={online ? handleGoOffline : handleGoOnline}
+              className={`flex items-center gap-2 px-5 py-2 rounded-2xl text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 online
-                  ? 'bg-green-500 text-white shadow-black/60 shadow-black/80 shadow-2xl shadow-green-500/20'
-                  : 'bg-slate-200 text-slate-300'
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  ? 'bg-green-500 text-white shadow-lg shadow-green-500/30'
+                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
             >
               {online ? (
-                <>
-                  <span className="w-2.5 h-2.5 bg-[#131A2A] rounded-full animate-ping mr-1" />
-                  Online
-                </>
+                <><span className="w-2 h-2 bg-white rounded-full animate-ping" />Online</>
               ) : (
-                <>
-                  <span className="w-2.5 h-2.5 bg-slate-400 rounded-full mr-1" />
-                  Offline
-                </>
+                <><span className="w-2 h-2 bg-slate-400 rounded-full" />Offline</>
               )}
             </button>
 
-            {/* User Logged In Info */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-200 hidden sm:inline">{user?.fullName || 'Partner'}</span>
+              <div className="w-7 h-7 bg-[#fc8019]/20 rounded-full flex items-center justify-center">
+                <span className="text-[#fc8019] text-xs font-black">{(user?.fullName || user?.username || 'P')[0].toUpperCase()}</span>
+              </div>
+              <span className="text-xs font-bold text-slate-300 hidden sm:inline">{user?.fullName || user?.username || 'Partner'}</span>
               <button
-                onClick={() => removeToken() || window.location.reload()}
-                className="p-2 text-slate-500 hover:text-red-500 rounded-full hover:bg-slate-100 transition-all"
-                title="Logout Portal"
+                onClick={() => { removeToken(); window.location.reload(); }}
+                className="p-1.5 text-slate-500 hover:text-red-400 rounded-lg transition-colors"
+                title="Logout"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -310,233 +347,299 @@ export default function DeliveryPartnerDashboard() {
         </div>
       </header>
 
-      {/* Main Grid content */}
+      {/* ── Main Content ───────────────────────────────────────────────── */}
       <main className="max-w-7xl mx-auto px-6 mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Left/Middle Column (Active workflow panels) */}
+
+        {/* Left: Active Workflow */}
         <div className="lg:col-span-2 space-y-6">
-          
-          {/* Active Job View or Waiting Area */}
-          {!online ? (
-            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center shadow-black/50 shadow-black/70 shadow-2xl space-y-5 animate-zoom-in">
-              <div className="w-20 h-20 bg-[#0B0F19] border border-[#1E293B] rounded-full flex items-center justify-center mx-auto text-slate-300">
-                <Truck className="w-10 h-10" />
+
+          {/* ── OFFLINE STATE ─────────────────────────────────────────── */}
+          {!online && (
+            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
+              <div className="w-20 h-20 bg-[#0B0F19] border border-[#1E293B] rounded-full flex items-center justify-center mx-auto">
+                <Truck className="w-10 h-10 text-slate-600" />
               </div>
-              <div className="max-w-md mx-auto">
-                <h3 className="font-extrabold text-lg text-white">You are currently Offline</h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  Select your nearby Swiggy store location below and toggle "Online" at the top to start accepting food delivery orders.
-                </p>
+              <div>
+                <h3 className="font-extrabold text-xl text-white">You are Offline</h3>
+                <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">Select your nearest Swiggy hub and tap Online to start receiving orders.</p>
               </div>
-              
               <div className="max-w-xs mx-auto">
-                <label className="block text-[10px] text-left font-black text-slate-500 uppercase tracking-widest mb-1.5">Select store location</label>
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 text-left">Select Hub Location</label>
                 <select
                   value={selectedStore}
                   onChange={(e) => setSelectedStore(e.target.value)}
-                  className="w-full bg-[#0B0F19] border border-[#334155] text-sm font-extrabold text-slate-200 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full bg-[#0B0F19] border border-[#334155] text-sm font-bold text-slate-200 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 >
-                  {STORES.map((s, idx) => (
-                    <option key={idx} value={s}>{s}</option>
-                  ))}
+                  {STORES.map((s, i) => <option key={i} value={s}>{s}</option>)}
                 </select>
               </div>
-            </div>
-          ) : !currentOrder ? (
-            /* Online but waiting for order */
-            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center shadow-black/50 shadow-black/70 shadow-2xl space-y-5 animate-zoom-in">
-              <div className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto text-[#fc8019] animate-bounce">
-                <RefreshCw className="w-9 h-9 animate-spin-slow" />
-              </div>
-              <div className="max-w-md mx-auto">
-                <h3 className="font-extrabold text-lg text-white">Searching for Orders...</h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  You are active in the system. Orders placed by customers near your selected location will be automatically assigned to you.
-                </p>
-              </div>
-
-              {/* Waiting status box */}
-              <div className="max-w-xs mx-auto bg-[#0B0F19] border border-[#1E293B] rounded-2xl p-4 flex items-center justify-center gap-2">
-                <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping" />
-                <span className="text-xs font-bold text-slate-300">Waiting for your order...</span>
-              </div>
-            </div>
-          ) : (
-            /* Active Job Lifecycle Flow */
-            <div className="space-y-6">
-              
-              {/* Status Header Indicator */}
-              <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl flex flex-wrap justify-between items-center gap-4 animate-slide-up">
-                <div>
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Active Job ID: #{currentOrder.id}</span>
-                  <h3 className="text-base font-extrabold text-white mt-0.5">
-                    Delivery to: {currentOrder.customerName}
-                  </h3>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-slate-500">Task Status:</span>
-                  <span className="text-xs px-3 py-1 font-black bg-orange-50 text-[#fc8019] border border-orange-100 rounded-full uppercase tracking-wider">
-                    {orderStep === 'ASSIGNED' ? 'Prepare Pickup' : orderStep === 'PICKED_UP' ? 'On The Way' : orderStep === 'ARRIVED' ? 'Arrived' : 'Completed'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Navigation map view */}
-              {orderStep !== 'ASSIGNED' && orderStep !== 'DELIVERED' && (
-                <div className="animate-fade-in">
-                  <DeliveryMap
-                    orderStatus={orderStep === 'PICKED_UP' ? 'OUT_FOR_DELIVERY' : 'ARRIVED'}
-                    isPartnerView={true}
-                    onArrived={handleArrived}
-                  />
-                </div>
-              )}
-
-              {/* Job Details Card */}
-              <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl space-y-6 animate-slide-up">
-                <div>
-                  <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Order Items Package</h4>
-                  <div className="space-y-2">
-                    <div className="p-4 bg-[#0B0F19] rounded-2xl border border-[#1E293B]">
-                      <p className="text-sm font-extrabold text-white leading-relaxed">{currentOrder.item}</p>
-                      <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#334155]/60 text-xs">
-                        <span className="text-slate-500">COD / Online Payment:</span>
-                        <span className="font-black text-white text-sm">₹{currentOrder.amount}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Workflow Interactive Action Buttons */}
-                <div className="pt-2">
-                  {orderStep === 'ASSIGNED' && (
-                    <div className="space-y-3">
-                      <div className="p-4 bg-yellow-50 border border-yellow-100 text-yellow-800 rounded-2xl text-xs font-bold">
-                        ⚠️ Please proceed to the store: <strong>{selectedStore}</strong>, inspect items, and click "Confirm Pick Up" to start driving.
-                      </div>
-                      <button
-                        onClick={handlePickUp}
-                        className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all text-sm uppercase tracking-wider"
-                      >
-                        Confirm Pick Up Items
-                      </button>
-                    </div>
-                  )}
-
-                  {orderStep === 'PICKED_UP' && (
-                    <div className="space-y-3">
-                      <div className="p-4 bg-blue-50 border border-blue-100 text-blue-800 rounded-2xl text-xs font-bold animate-pulse">
-                        🚴 Travelling to customer delivery location. Use the telemetry map above to track real-time position.
-                      </div>
-                      <button
-                        onClick={handleArrived}
-                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-blue-500/25 transition-all text-sm uppercase tracking-wider"
-                      >
-                        Mark as Arrived
-                      </button>
-                    </div>
-                  )}
-
-                  {orderStep === 'ARRIVED' && (
-                    <div className="space-y-3">
-                      <div className="p-4 bg-green-50 border border-green-100 text-green-800 rounded-2xl text-xs font-bold">
-                        🎉 You have arrived! Please hand over the food to <strong>{currentOrder.customerName}</strong> and request confirmation.
-                      </div>
-                      <button
-                        onClick={handleDelivered}
-                        className="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-green-500/25 transition-all text-sm uppercase tracking-wider"
-                      >
-                        Handover & Mark Delivered
-                      </button>
-                    </div>
-                  )}
-
-                  {orderStep === 'DELIVERED' && (
-                    <div className="space-y-5 text-center p-6 border-2 border-dashed border-green-200 rounded-3xl bg-green-50/50 animate-zoom-in">
-                      <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-3xl shadow-black/70 shadow-2xl shadow-green-500/25">
-                        ✓
-                      </div>
-                      <div>
-                        <h4 className="font-extrabold text-lg text-white">Order Delivered Successfully!</h4>
-                        <p className="text-xs text-slate-500 mt-1">₹20.00 has been credited to your express partner wallet balance.</p>
-                      </div>
-
-                      {/* Swipe reset button */}
-                      <div className="max-w-sm mx-auto">
-                        <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Swipe to find next order</label>
-                        <div
-                          onMouseMove={handleSwipeMouseMove}
-                          onMouseLeave={handleSwipeMouseLeave}
-                          onMouseUp={handleSwipeMouseUp}
-                          onTouchMove={handleTouchMove}
-                          onTouchEnd={handleTouchEnd}
-                          className="swipe-button-container bg-slate-900 border border-slate-800 rounded-2xl h-14 relative flex items-center justify-center cursor-ew-resize overflow-hidden"
-                        >
-                          {/* Progress bar background fill */}
-                          <div
-                            className="absolute left-0 top-0 bottom-0 bg-[#fc8019] transition-all duration-75"
-                            style={{ width: `${swipeProgress}%` }}
-                          />
-                          
-                          {/* Inner slider drag circle */}
-                          <div
-                            className="absolute bg-[#131A2A] rounded-xl shadow-black/70 shadow-2xl w-12 h-10 flex items-center justify-center font-extrabold text-white text-sm transition-all"
-                            style={{ left: `calc(${swipeProgress}% - ${swipeProgress >= 80 ? '50px' : '0px'} + 4px)` }}
-                          >
-                            {isSwiped ? '✓' : '>>'}
-                          </div>
-
-                          <span className="relative z-10 text-xs font-black tracking-widest text-white uppercase mix-blend-difference pointer-events-none">
-                            {isSwiped ? 'Connecting...' : 'Swipe Right to Reset'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-              </div>
-
+              <button
+                onClick={handleGoOnline}
+                className="mx-auto flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-black px-8 py-3 rounded-2xl shadow-lg shadow-green-500/30 transition-all text-sm uppercase tracking-wider"
+              >
+                <Zap className="w-4 h-4" /> Go Online
+              </button>
             </div>
           )}
 
-        </div>
-
-        {/* Right Column (Wallet & Bank account configuration details) */}
-        <div className="space-y-6">
-          
-          {/* Earnings Wallet Card */}
-          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl space-y-4 relative overflow-hidden">
-            {/* Background design */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-bl-full pointer-events-none" />
-
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-[#fc8019]">
-                <Wallet className="w-5 h-5" />
+          {/* ── ONLINE → WAITING FOR ORDER ───────────────────────────── */}
+          {online && orderStep === 'WAITING' && (
+            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
+              {/* Animated radar rings */}
+              <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full border-2 border-green-500/30 animate-ping" style={{ animationDuration: '1.5s' }} />
+                <div className="absolute inset-0 rounded-full border-2 border-green-500/20 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.5s' }} />
+                <div className="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center">
+                  <RefreshCw className="w-8 h-8 text-green-400 animate-spin" style={{ animationDuration: '3s' }} />
+                </div>
               </div>
               <div>
-                <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest">Express Payout Wallet</h4>
-                <span className="text-2xl font-black text-white font-mono">₹{walletBalance.toFixed(2)}</span>
+                <h3 className="font-extrabold text-xl text-white">Searching for Orders...</h3>
+                <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">You're active. Orders placed by customers near <span className="text-[#fc8019] font-bold">{selectedStore}</span> will be assigned to you.</p>
+              </div>
+              {/* Waiting status box */}
+              <div className="inline-flex items-center gap-3 bg-[#0B0F19] border border-[#1E293B] rounded-2xl px-6 py-4">
+                <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-sm font-bold text-slate-300">Waiting for your order...</span>
+              </div>
+            </div>
+          )}
+
+          {/* ── ASSIGNED: New Order received ─────────────────────────── */}
+          {online && orderStep === 'ASSIGNED' && currentOrder && (
+            <div className="space-y-5 animate-slide-up">
+              {/* Header bar */}
+              <div className="bg-gradient-to-r from-orange-500/20 to-transparent border border-orange-500/30 rounded-3xl p-6 flex flex-wrap justify-between items-center gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Bell className="w-4 h-4 text-[#fc8019] animate-bounce" />
+                    <span className="text-[10px] font-black text-orange-400 uppercase tracking-widest">New Order Assigned!</span>
+                  </div>
+                  <h3 className="text-lg font-black text-white">Job #{currentOrder.id}</h3>
+                  <p className="text-sm text-slate-400">Deliver to: <span className="text-white font-bold">{currentOrder.customerName}</span></p>
+                </div>
+                <span className={`text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider ${stepColor}`}>{stepLabel}</span>
+              </div>
+
+              {/* Order Items Card */}
+              <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Package className="w-4 h-4 text-[#fc8019]" />
+                  <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Items to Pick Up</h4>
+                </div>
+                <div className="bg-[#0B0F19] border border-[#334155] rounded-2xl p-4">
+                  <p className="text-sm font-bold text-white leading-relaxed">{currentOrder.item}</p>
+                  <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#334155]/60">
+                    <span className="text-xs text-slate-500">Order Total</span>
+                    <span className="font-black text-white">₹{currentOrder.amount}</span>
+                  </div>
+                </div>
+
+                {currentOrder.address && (
+                  <div className="bg-[#0B0F19] border border-[#334155] rounded-2xl p-4 flex items-start gap-3">
+                    <MapPin className="w-4 h-4 text-[#fc8019] mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Delivery Address</p>
+                      <p className="text-sm font-bold text-white">{currentOrder.address}</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-4 text-xs text-yellow-300 font-semibold">
+                  ⚠️ Proceed to <strong>{selectedStore}</strong>, verify & pack the items, then click <strong>"Picked Up Items"</strong>.
+                </div>
+
+                <button
+                  onClick={handlePickUp}
+                  className="w-full py-4 bg-[#fc8019] hover:bg-orange-500 text-white font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-orange-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                >
+                  <Package className="w-5 h-5" /> Picked Up Items
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── PICKED_UP: Map view + Mark as Arrived ─────────────────── */}
+          {online && orderStep === 'PICKED_UP' && currentOrder && (
+            <div className="space-y-5 animate-slide-up">
+              {/* Status bar */}
+              <div className="bg-gradient-to-r from-blue-500/20 to-transparent border border-blue-500/30 rounded-3xl p-6 flex flex-wrap justify-between items-center gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Navigation className="w-4 h-4 text-blue-400 animate-pulse" />
+                    <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest">On The Way</span>
+                  </div>
+                  <h3 className="text-lg font-black text-white">Navigating to Customer</h3>
+                  <p className="text-sm text-slate-400">Deliver to: <span className="text-white font-bold">{currentOrder.customerName}</span></p>
+                </div>
+                <span className={`text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider ${stepColor}`}>{stepLabel}</span>
+              </div>
+
+              {/* Live Map */}
+              <div className="rounded-3xl overflow-hidden border border-[#1E293B] animate-fade-in">
+                <DeliveryMap
+                  orderStatus="OUT_FOR_DELIVERY"
+                  isPartnerView={true}
+                  onArrived={handleArrived}
+                />
+              </div>
+
+              {/* Customer location info */}
+              {currentOrder.address && (
+                <div className="bg-[#131A2A] border border-[#1E293B] rounded-2xl p-4 flex items-start gap-3 animate-fade-in">
+                  <MapPin className="w-4 h-4 text-[#fc8019] mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Customer Location</p>
+                    <p className="text-sm font-bold text-white">{currentOrder.address}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Mark as Arrived */}
+              <div className="bg-[#131A2A] border border-blue-500/30 rounded-3xl p-5 space-y-3">
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-3 text-xs text-blue-300 font-semibold animate-pulse">
+                  🚴 You're on your way! Click below once you reach the customer's location.
+                </div>
+                <button
+                  onClick={handleArrived}
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-blue-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                >
+                  <MapPin className="w-5 h-5" /> Mark as Arrived
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── ARRIVED: Show map + Delivered button ─────────────────── */}
+          {online && orderStep === 'ARRIVED' && currentOrder && (
+            <div className="space-y-5 animate-slide-up">
+              {/* Status bar */}
+              <div className="bg-gradient-to-r from-green-500/20 to-transparent border border-green-500/30 rounded-3xl p-6 flex flex-wrap justify-between items-center gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <MapPin className="w-4 h-4 text-green-400" />
+                    <span className="text-[10px] font-black text-green-400 uppercase tracking-widest">Arrived at Location</span>
+                  </div>
+                  <h3 className="text-lg font-black text-white">Ready for Handover</h3>
+                  <p className="text-sm text-slate-400">Hand over to: <span className="text-white font-bold">{currentOrder.customerName}</span></p>
+                </div>
+                <span className={`text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider ${stepColor}`}>{stepLabel}</span>
+              </div>
+
+              {/* Map still showing */}
+              <div className="rounded-3xl overflow-hidden border border-green-500/20 animate-fade-in">
+                <DeliveryMap
+                  orderStatus="ARRIVED"
+                  isPartnerView={true}
+                  onArrived={handleArrived}
+                />
+              </div>
+
+              {/* Delivered button */}
+              <div className="bg-[#131A2A] border border-green-500/30 rounded-3xl p-5 space-y-3">
+                <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-xs text-green-300 font-semibold">
+                  🎉 You've arrived! Hand over the order to <strong>{currentOrder.customerName}</strong> and confirm delivery.
+                </div>
+                <button
+                  onClick={handleDelivered}
+                  className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-green-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                >
+                  <CheckCircle2 className="w-5 h-5" /> Delivered — Confirm Handover
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── DELIVERED: Success + Ready for Next ──────────────────── */}
+          {online && orderStep === 'DELIVERED' && (
+            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden">
+              {/* Background glow */}
+              <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent pointer-events-none" />
+
+              <div className="relative flex flex-col items-center gap-4">
+                <div className="flex justify-center">
+                  <AnimatedCheck />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-black text-white">Items delivered successfully,<br/>return to the store.</h3>
+                  <p className="text-sm text-slate-400 mt-2">₹20.00 credited to your wallet • Total: <span className="text-green-400 font-bold">₹{walletBalance.toFixed(2)}</span></p>
+                </div>
+
+                {/* Earnings badge */}
+                <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 px-5 py-2.5 rounded-full text-sm font-black animate-pulse-slow">
+                  <Star className="w-4 h-4" /> +₹20.00 Earned This Delivery
+                </div>
+              </div>
+
+              {/* Swipe to accept next order */}
+              <div className="relative max-w-sm mx-auto">
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Swipe to accept next order</label>
+                <div
+                  ref={swipeRef}
+                  className="swipe-button-container bg-[#0B0F19] border border-[#334155] rounded-2xl h-14 relative flex items-center justify-center cursor-ew-resize select-none overflow-hidden"
+                  onMouseDown={handleSwipeStart}
+                  onMouseMove={handleSwipeMove}
+                  onMouseUp={handleSwipeEnd}
+                  onMouseLeave={handleSwipeEnd}
+                  onTouchStart={handleSwipeStart}
+                  onTouchMove={handleSwipeMove}
+                  onTouchEnd={handleSwipeEnd}
+                >
+                  {/* Progress fill */}
+                  <div
+                    className="absolute left-0 top-0 bottom-0 bg-[#fc8019]/80 transition-none rounded-l-2xl"
+                    style={{ width: `${swipeProgress}%` }}
+                  />
+                  {/* Drag handle */}
+                  <div
+                    className="absolute flex items-center justify-center w-11 h-10 bg-[#fc8019] rounded-xl shadow-lg shadow-orange-500/30 font-black text-white text-sm transition-none pointer-events-none"
+                    style={{ left: `calc(${Math.min(swipeProgress, 90)}% - 4px)` }}
+                  >
+                    {isSwiped ? '✓' : '>>'}
+                  </div>
+                  <span className="relative z-10 text-xs font-black tracking-widest text-white uppercase mix-blend-difference pointer-events-none">
+                    {isSwiped ? 'Finding next order...' : 'Ready for Next Order'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── Right: Wallet + Bank ───────────────────────────────────── */}
+        <div className="space-y-6">
+
+          {/* Wallet Card */}
+          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 space-y-4 relative overflow-hidden">
+            {/* Decorative glow */}
+            <div className="absolute -top-6 -right-6 w-28 h-28 bg-orange-500/10 rounded-full blur-xl pointer-events-none" />
+
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 bg-orange-500/15 rounded-xl flex items-center justify-center">
+                <Wallet className="w-5 h-5 text-[#fc8019]" />
+              </div>
+              <div>
+                <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Express Payout Wallet</h4>
+                <span className="text-3xl font-black text-white font-mono tracking-tighter">₹{walletBalance.toFixed(2)}</span>
               </div>
             </div>
 
-            <div className="text-[10px] text-slate-500 font-semibold leading-relaxed border-t border-[#1E293B] pt-3 flex items-center gap-1">
-              <span className="text-green-500 font-bold">●</span> Earnings rate: ₹20.00 standard credit per completed order.
+            <div className="border-t border-[#1E293B] pt-3 flex items-center gap-2 text-[11px] text-slate-500 font-semibold">
+              <span className="text-green-500">●</span> Earnings: ₹20.00 per completed delivery
             </div>
 
-            {/* Delivery Logs list */}
+            {/* Delivery Logs */}
             {completedDeliveries.length > 0 && (
-              <div className="space-y-2 pt-2">
-                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block">Delivery logs</span>
-                <div className="max-h-36 overflow-y-auto space-y-1.5 pr-1.5 scrollbar-thin">
-                  {completedDeliveries.map((d, index) => (
-                    <div key={index} className="flex justify-between items-center text-xs p-2 bg-[#0B0F19] border rounded-xl">
-                      <div className="truncate pr-2 max-w-[140px]">
-                        <span className="font-extrabold text-[10px] text-slate-500 uppercase mr-1">#{d.id}</span>
-                        <span className="font-bold text-slate-200">{d.item}</span>
+              <div className="space-y-2">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Delivery Log</span>
+                <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1">
+                  {completedDeliveries.map((d, i) => (
+                    <div key={i} className="flex justify-between items-center text-xs p-2.5 bg-[#0B0F19] border border-[#1E293B] rounded-xl">
+                      <div className="truncate max-w-[140px]">
+                        <span className="text-[10px] font-black text-slate-600 uppercase mr-1">#{d.id}</span>
+                        <span className="font-bold text-slate-300">{d.item}</span>
                       </div>
-                      <span className="font-black text-green-600 font-mono flex-shrink-0">+₹20</span>
+                      <span className="font-black text-green-500 font-mono flex-shrink-0">+₹20</span>
                     </div>
                   ))}
                 </div>
@@ -544,80 +647,82 @@ export default function DeliveryPartnerDashboard() {
             )}
           </div>
 
-          {/* Bank details settings config */}
-          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 shadow-black/50 shadow-black/70 shadow-2xl space-y-4">
+          {/* Bank Details */}
+          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 flex items-center justify-center text-green-600 rounded-xl">
-                <Landmark className="w-5 h-5" />
+              <div className="w-11 h-11 bg-green-500/10 rounded-xl flex items-center justify-center">
+                <Landmark className="w-5 h-5 text-green-500" />
               </div>
               <div>
-                <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest text-slate-500">Direct Deposit Bank</h4>
-                <p className="text-xs font-bold text-white">Link payout routing account</p>
+                <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Direct Deposit Bank</h4>
+                <p className="text-sm font-bold text-white">Link payout routing account</p>
               </div>
             </div>
 
             {saveSuccess && (
-              <div className="p-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-xs font-bold flex items-center gap-2 animate-zoom-in">
-                <CheckCircle2 className="w-4 h-4" /> Bank details verified and updated!
+              <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl text-xs font-bold flex items-center gap-2 animate-zoom-in">
+                <CheckCircle2 className="w-4 h-4" /> Bank details saved!
               </div>
             )}
 
-            <form onSubmit={handleSaveBankDetails} className="space-y-3 pt-2">
-              <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Bank Name</label>
+            <form onSubmit={handleSaveBank} className="space-y-3">
+              <div>
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">Bank Name</label>
                 <input
                   type="text"
                   required
                   value={bankName}
                   onChange={(e) => setBankName(e.target.value)}
                   placeholder="e.g. State Bank of India"
-                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-sm text-white font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Account Number</label>
+              <div>
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">Account Number</label>
                 <input
                   type="password"
                   required
                   value={accountNumber}
-                  onChange={(e) => setAccountNumber(e.target.value.replace(/[^0-9]/g, ''))}
+                  onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, ''))}
                   placeholder="Enter account number"
-                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-sm text-white font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">IFSC Code</label>
+              <div>
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">IFSC Code</label>
                 <input
                   type="text"
                   required
+                  maxLength={11}
                   autoCapitalize="characters"
-                  maxLength="11"
                   value={ifscCode}
                   onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
                   placeholder="e.g. SBIN0001234"
-                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-sm text-white font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
+              </div>
+
+              {/* Weekly payout notice */}
+              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3">
+                <p className="text-[11px] text-blue-300 font-semibold leading-relaxed">
+                  📅 <strong>Every Monday</strong> the amount will be credited to your account.
+                </p>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-black/60 shadow-black/80 shadow-2xl transition-all uppercase tracking-wider mt-2"
+                className="w-full py-3 bg-[#fc8019] hover:bg-orange-500 text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-orange-500/20 transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-95"
               >
-                Save Details <Save className="w-3.5 h-3.5" />
+                Save Bank Details <Save className="w-3.5 h-3.5" />
               </button>
             </form>
 
-            <div className="p-3 bg-yellow-50 border border-yellow-100 rounded-xl text-[10px] text-yellow-800 leading-relaxed font-semibold">
-              ℹ️ <strong>Weekly Settlement Rule:</strong> Earnings are computed and automatically credited to the delivery partner's verified bank account every <strong>Monday</strong>.
+            <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-[10px] text-yellow-300 font-semibold leading-relaxed">
+              ℹ️ <strong>Weekly Settlement:</strong> Earnings are credited to your verified bank account every <strong>Monday</strong>.
             </div>
           </div>
-
         </div>
-
       </main>
-
     </div>
   );
 }
