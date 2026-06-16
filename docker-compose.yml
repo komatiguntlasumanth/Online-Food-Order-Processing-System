@@ -3,6 +3,24 @@ version: "3.9"
 services:
 
   # ─────────────────────────────────────────
+  # MySQL Database
+  # ─────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────────
   # Apache ActiveMQ (JMS broker)
   # ─────────────────────────────────────────
   activemq:
@@ -35,8 +53,16 @@ services:
       SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
       SPRING_JMS_ACTIVEMQ_USER: admin
       SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/order_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       activemq:
+        condition: service_healthy
+      mysql:
         condition: service_healthy
     restart: on-failure
 
@@ -54,8 +80,16 @@ services:
       SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
       SPRING_JMS_ACTIVEMQ_USER: admin
       SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/payment_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       activemq:
+        condition: service_healthy
+      mysql:
         condition: service_healthy
     restart: on-failure
 
@@ -73,8 +107,16 @@ services:
       SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
       SPRING_JMS_ACTIVEMQ_USER: admin
       SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/kitchen_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       activemq:
+        condition: service_healthy
+      mysql:
         condition: service_healthy
     restart: on-failure
 
@@ -92,8 +134,16 @@ services:
       SPRING_JMS_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
       SPRING_JMS_ACTIVEMQ_USER: admin
       SPRING_JMS_ACTIVEMQ_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/delivery_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       activemq:
+        condition: service_healthy
+      mysql:
         condition: service_healthy
     restart: on-failure
 

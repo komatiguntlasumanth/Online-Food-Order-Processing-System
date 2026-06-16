@@ -38,34 +38,34 @@ import qrCodeImage from './assets/qr_code.png';
 
 const FOOD_ITEMS = {
   "What's on your mind?": [
-    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', icon: '🥞', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true },
-    { id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', icon: '🥞', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true },
-    { id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', icon: '🥞', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true },
-    { id: 'b4', name: 'Egg Dosa', price: 85.00, rating: 4.4, time: '20-25 mins', icon: '🥚', desc: 'Crispy dosa topped with seasoned whisked egg.', veg: false },
-    { id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', icon: '🌶️', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true },
-    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', icon: '🥞', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true },
-    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', icon: '🍩', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true },
-    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', icon: '🍞', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true },
-    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', icon: '🧆', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true }
+    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1589301760014-a929c51ffa09?w=400&q=80', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true },
+    { id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1668236543090-77ebf0ed0815?w=400&q=80', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true },
+    { id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1648965042079-8833919e83ec?w=400&q=80', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true },
+    { id: 'b4', name: 'Egg Dosa', price: 85.00, rating: 4.4, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1628286958448-e215f7996c56?w=400&q=80', desc: 'Crispy dosa topped with seasoned whisked egg.', veg: false },
+    { id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1610192244261-3f3387eb372a?w=400&q=80', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true },
+    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1589301760014-a929c51ffa09?w=400&q=80', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true },
+    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true },
+    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=80', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true },
+    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: 'https://images.unsplash.com/photo-1589301760014-a929c51ffa09?w=400&q=80', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true }
   ],
   "Main Course Meals": [
-    { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', icon: '🍛', desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true },
-    { id: 'm2', name: 'Non Veg Meals Thali', price: 180.00, rating: 4.7, time: '25-30 mins', icon: '🍗', desc: 'Thali containing rice, aromatic chicken curry, fish gravy, and sides.', veg: false },
-    { id: 'm3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', icon: '🍚', desc: 'Long grain basmati rice cooked with succulent chicken and spices.', veg: false },
-    { id: 'm4', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', icon: '🍚', desc: 'Spiced basmati rice layered with soft paneer cubes.', veg: true },
-    { id: 'm5', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', icon: '🍚', desc: 'Fragrant biryani rice served with spiced boiled eggs.', veg: false }
+    { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80', desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true },
+    { id: 'm2', name: 'Non Veg Meals Thali', price: 180.00, rating: 4.7, time: '25-30 mins', image: 'https://images.unsplash.com/photo-1563379926898-05f4525c28ea?w=400&q=80', desc: 'Thali containing rice, aromatic chicken curry, fish gravy, and sides.', veg: false },
+    { id: 'm3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: 'https://images.unsplash.com/photo-1563379926898-05f4525c28ea?w=400&q=80', desc: 'Long grain basmati rice cooked with succulent chicken and spices.', veg: false },
+    { id: 'm4', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc0?w=400&q=80', desc: 'Spiced basmati rice layered with soft paneer cubes.', veg: true },
+    { id: 'm5', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: 'https://images.unsplash.com/photo-1631515243349-e0cb75bfceb1?w=400&q=80', desc: 'Fragrant biryani rice served with spiced boiled eggs.', veg: false }
   ],
   "Quick Bites & Snacks": [
-    { id: 's1', name: 'Samosa (2 Pcs)', price: 25.00, rating: 4.2, time: '10-15 mins', icon: '🥟', desc: 'Crispy pastry shells stuffed with spiced potatoes and peas.', veg: true },
-    { id: 's2', name: 'Onion Pakoda', price: 40.00, rating: 4.1, time: '10-15 mins', icon: '🍟', desc: 'Deep-fried crispy onion fritters seasoned with spices.', veg: true },
-    { id: 's3', name: 'Mirchi Bajji', price: 45.00, rating: 4.3, time: '15-20 mins', icon: '🌶️', desc: 'Spicy chili peppers batter-fried and stuffed with onions.', veg: true },
-    { id: 's4', name: 'Pav Bhaji', price: 80.00, rating: 4.5, time: '15-20 mins', icon: '🍔', desc: 'Thick vegetable curry served with soft buttered bread rolls.', veg: true }
+    { id: 's1', name: 'Samosa (2 Pcs)', price: 25.00, rating: 4.2, time: '10-15 mins', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80', desc: 'Crispy pastry shells stuffed with spiced potatoes and peas.', veg: true },
+    { id: 's2', name: 'Onion Pakoda', price: 40.00, rating: 4.1, time: '10-15 mins', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80', desc: 'Deep-fried crispy onion fritters seasoned with spices.', veg: true },
+    { id: 's3', name: 'Mirchi Bajji', price: 45.00, rating: 4.3, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80', desc: 'Spicy chili peppers batter-fried and stuffed with onions.', veg: true },
+    { id: 's4', name: 'Pav Bhaji', price: 80.00, rating: 4.5, time: '15-20 mins', image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80', desc: 'Thick vegetable curry served with soft buttered bread rolls.', veg: true }
   ],
   "Dinner Specialities": [
-    { id: 'd1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', icon: '🫓', desc: 'Soft butter naan served with rich and creamy paneer butter masala.', veg: true },
-    { id: 'd2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', icon: '🫓', desc: 'Soft whole wheat flatbread served with mixed vegetable kurma.', veg: true },
-    { id: 'd3', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', icon: '🥡', desc: 'Stir-fried rice loaded with veggies, soy sauce, and aromatics.', veg: true },
-    { id: 'd4', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', icon: '🍜', desc: 'Spicy noodles tossed with colorful vegetables and Schezwan sauce.', veg: true }
+    { id: 'd1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=80', desc: 'Soft butter naan served with rich and creamy paneer butter masala.', veg: true },
+    { id: 'd2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=80', desc: 'Soft whole wheat flatbread served with mixed vegetable kurma.', veg: true },
+    { id: 'd3', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec29a?w=400&q=80', desc: 'Stir-fried rice loaded with veggies, soy sauce, and aromatics.', veg: true },
+    { id: 'd4', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec29a?w=400&q=80', desc: 'Spicy noodles tossed with colorful vegetables and Schezwan sauce.', veg: true }
   ]
 };
 
@@ -91,6 +91,14 @@ function App() {
   const [cancelModalOrderId, setCancelModalOrderId] = useState(null);
   const [cancelReason, setCancelReason] = useState('');
   const [showCancelError, setShowCancelError] = useState(false);
+
+  // Payment & Delivery states
+  const [paymentMethod, setPaymentMethod] = useState('UPI');
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
 
   // Poll orders from backend and sync with local storage
   const fetchOrders = async () => {
@@ -219,9 +227,23 @@ function App() {
     setViewMode('payment');
   };
 
-  const handlePlaceOrder = async () => {
+  const handlePaymentSuccess = () => {
+    // Show popup
+    setShowOrderSuccessPopup(true);
+    setTimeout(() => {
+      setShowOrderSuccessPopup(false);
+      setViewMode('delivery_details');
+    }, 2000);
+  };
+
+  const handlePlaceOrder = async (e) => {
+    if (e) e.preventDefault();
+    if (!deliveryAddress.trim()) {
+      setError('Please provide your delivery address or live location.');
+      return;
+    }
     if (!customerName.trim()) {
-      setError('Please fill in your name.');
+      setError('Please provide your name.');
       return;
     }
     setError(null);
@@ -254,6 +276,7 @@ function App() {
           driverName: "John Doe", // Simulated driver assignment
           driverMobile: "9876543210",
           status: 'PLACED',
+          address: deliveryAddress,
           createdAt: new Date().toISOString()
         };
         localOrders.push(storedOrder);
@@ -262,12 +285,8 @@ function App() {
         setCart([]);
         setExpandedOrderId(newOrder.id);
 
-        // Display checkmark popup overlay for 2 seconds
-        setShowOrderSuccessPopup(true);
-        setTimeout(() => {
-          setShowOrderSuccessPopup(false);
-          setViewMode('assigning'); // Go to assigning page first
-        }, 2000);
+        setViewMode('assigning'); // Go to assigning page first
+        
         // After assigning, auto redirect to tracking after a short delay
         setTimeout(() => {
           setViewMode('tracking');
@@ -297,6 +316,7 @@ function App() {
         status: 'PLACED',
         driverName: assigned.name,
         driverMobile: assigned.mobile,
+        address: deliveryAddress,
         createdAt: new Date().toISOString()
       };
 
@@ -306,11 +326,8 @@ function App() {
 
       setCart([]);
       setExpandedOrderId(mockId);
-      setShowOrderSuccessPopup(true);
-      setTimeout(() => {
-        setShowOrderSuccessPopup(false);
-        setViewMode('assigning');
-      }, 2000);
+      
+      setViewMode('assigning');
       // Auto-navigate to tracking after showing assignment screen
       setTimeout(() => {
         setViewMode('tracking');
@@ -356,14 +373,27 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fcfcfc] pb-24 relative font-sans text-slate-800">
+    <div className="min-h-screen bg-[#0B0F19] pb-24 relative font-sans text-white">
       
+      {/* SUCCESS ANIMATION POPUP OVERLAY */}
+      {showOrderSuccessPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-[#131A2A] p-10 rounded-[2rem] shadow-2xl flex flex-col items-center animate-zoom-in text-center max-w-sm mx-4">
+            <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-black/70 shadow-2xl shadow-green-500/30 text-white">
+              <Check className="w-12 h-12" />
+            </div>
+            <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Order Placed<br/>Successfully!</h2>
+            <p className="text-slate-400 text-sm font-medium">Redirecting to delivery details...</p>
+          </div>
+        </div>
+      )}
+
       {/* Swiggy Premium Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-slate-100 shadow-sm px-6">
+      <header className="sticky top-0 z-40 bg-[#131A2A] border-b border-[#1E293B] shadow-black/50 shadow-black/70 shadow-2xl px-6">
         <div className="max-w-7xl mx-auto h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setViewMode('dashboard')}>
-              <div className="w-10 h-14 bg-[#fc8019] rounded-b-xl flex items-center justify-center text-white shadow-md">
+              <div className="w-10 h-14 bg-[#fc8019] rounded-b-xl flex items-center justify-center text-white shadow-black/60 shadow-black/80 shadow-2xl">
                 <ShoppingBag className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -374,7 +404,7 @@ function App() {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-[#fc8019] cursor-pointer">
+            <div className="hidden md:flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-[#fc8019] cursor-pointer">
               <MapPin className="w-4 h-4 text-[#fc8019]" />
               <span>Madhapur, Hyderabad</span>
               <ChevronDown className="w-3.5 h-3.5 text-[#fc8019]" />
@@ -384,7 +414,7 @@ function App() {
           <div className="flex items-center gap-8">
             <button 
               onClick={() => setViewMode('overview')} 
-              className="text-sm font-bold text-slate-600 hover:text-[#fc8019] transition-colors"
+              className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors"
             >
               How It Works
             </button>
@@ -392,7 +422,7 @@ function App() {
             {orders.length > 0 && (
               <button 
                 onClick={() => setViewMode('tracking')} 
-                className="text-sm font-bold text-slate-600 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
+                className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
               >
                 <Clock className="w-4 h-4 text-[#fc8019]" />
                 Track Orders
@@ -402,7 +432,7 @@ function App() {
             {user ? (
               <div className="flex items-center gap-3">
                 <User className="w-4 h-4 text-[#fc8019]" />
-                <span className="text-sm font-bold text-slate-700">{user.fullName || user.username}</span>
+                <span className="text-sm font-bold text-slate-200">{user.fullName || user.username}</span>
                 <button 
                   onClick={handleLogout}
                   className="p-1.5 hover:text-red-500 rounded-full transition-colors"
@@ -414,7 +444,7 @@ function App() {
             ) : (
               <button 
                 onClick={() => setShowAuth(true)}
-                className="text-sm font-bold text-slate-600 hover:text-[#fc8019] transition-colors flex items-center gap-2"
+                className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors flex items-center gap-2"
               >
                 <LogIn className="w-4 h-4 text-slate-400" />
                 Sign In / Register
@@ -424,7 +454,7 @@ function App() {
             {/* Cart Icon */}
             <button 
               onClick={() => setShowCartDrawer(true)}
-              className="relative p-2 text-slate-700 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
+              className="relative p-2 text-slate-200 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
             >
               <ShoppingCart className="w-5 h-5" />
               {cart.length > 0 && (
@@ -451,14 +481,14 @@ function App() {
                 placeholder="Search for dishes, snacks or meals..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-5 py-3.5 pl-12 bg-slate-100/60 border border-transparent rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fc8019] focus:bg-white transition-all text-sm font-medium shadow-inner"
+                className="w-full px-5 py-3.5 pl-12 bg-slate-100/60 border border-transparent rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fc8019] focus:bg-[#131A2A] transition-all text-sm font-medium shadow-inner"
               />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             </div>
 
             {/* Category Navigation */}
             <div className="space-y-6">
-              <h2 className="text-xl font-extrabold tracking-tight text-slate-800">
+              <h2 className="text-xl font-extrabold tracking-tight text-white">
                 {activeCategory}
               </h2>
               
@@ -469,8 +499,8 @@ function App() {
                     onClick={() => { setActiveCategory(category); setSearchQuery(''); }}
                     className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                       activeCategory === category
-                        ? 'bg-[#fc8019] text-white shadow-md shadow-orange-500/20'
-                        : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
+                        ? 'bg-[#fc8019] text-white shadow-black/60 shadow-black/80 shadow-2xl shadow-orange-500/20'
+                        : 'bg-[#131A2A] border border-[#334155] text-slate-300 hover:border-slate-300'
                     }`}
                   >
                     {category}
@@ -486,23 +516,23 @@ function App() {
                   return (
                     <div 
                       key={item.id}
-                      className="bg-white rounded-3xl border border-slate-100 p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+                      className="bg-[#131A2A] rounded-3xl border border-[#1E293B] p-5 flex flex-col justify-between shadow-black/50 shadow-black/70 shadow-2xl hover:shadow-black/60 shadow-black/80 shadow-2xl transition-shadow relative overflow-hidden group"
                     >
-                      <div className="h-40 bg-slate-50 rounded-2xl border border-slate-50 flex items-center justify-center text-5xl mb-4 relative">
-                        {item.icon}
-                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-0.5 rounded-full text-[10px] font-bold border flex items-center gap-1">
-                          <span className={item.veg ? 'text-green-600' : 'text-red-600'}>●</span>
-                          <span className="text-slate-600 uppercase tracking-widest">{item.veg ? 'Veg' : 'Non-Veg'}</span>
+                      <div className="h-44 bg-slate-800 rounded-2xl flex items-center justify-center text-5xl mb-4 relative overflow-hidden group-hover:shadow-black/70 shadow-2xl transition-all">
+                        <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                        <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1 shadow-black/80 shadow-2xl">
+                          <span className={item.veg ? 'text-green-500' : 'text-red-500'}>●</span>
+                          <span className="text-white uppercase tracking-widest">{item.veg ? 'Veg' : 'Non-Veg'}</span>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between items-baseline mb-1">
-                          <h3 className="font-extrabold text-base text-slate-800 group-hover:text-[#fc8019] transition-colors">{item.name}</h3>
-                          <span className="font-bold text-sm text-slate-900">₹{item.price}</span>
+                          <h3 className="font-extrabold text-base text-white group-hover:text-[#fc8019] transition-colors">{item.name}</h3>
+                          <span className="font-bold text-sm text-white">₹{item.price}</span>
                         </div>
 
-                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-500 mb-3">
+                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-400 mb-3">
                           <span className="flex items-center gap-0.5 text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
                             <Star className="w-3 h-3 fill-green-700 text-green-700" /> {item.rating}
                           </span>
@@ -528,7 +558,7 @@ function App() {
                         ) : (
                           <button
                             onClick={() => addToCart(item)}
-                            className="w-full py-2.5 bg-white border border-slate-200 hover:border-[#fc8019] hover:bg-orange-50/20 text-[#fc8019] font-bold rounded-2xl flex items-center justify-center gap-1.5 transition-all text-sm shadow-sm"
+                            className="w-full py-2.5 bg-[#131A2A] border border-[#334155] hover:border-[#fc8019] hover:bg-orange-50/20 text-[#fc8019] font-bold rounded-2xl flex items-center justify-center gap-1.5 transition-all text-sm shadow-black/50 shadow-black/70 shadow-2xl"
                           >
                             ADD
                           </button>
@@ -544,77 +574,184 @@ function App() {
 
         {/* Payment Screen */}
         {viewMode === 'payment' && (
-          <div className="max-w-2xl mx-auto bg-white rounded-3xl border border-slate-100 shadow-lg p-8 space-y-6">
+          <div className="max-w-2xl mx-auto bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/70 shadow-2xl p-8 space-y-6">
             <div className="text-center">
-              <h2 className="text-2xl font-black text-slate-800">Scan & Pay</h2>
-              <p className="text-sm text-slate-500 mt-1">Complete your transaction to register the active order.</p>
+              <h2 className="text-2xl font-black text-white">Select Payment Method</h2>
+              <p className="text-sm text-slate-400 mt-1">Complete your transaction to proceed to delivery details.</p>
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-2xl flex justify-between items-center text-sm font-medium">
-              <span className="text-slate-500">UPI Address:</span>
-              <span className="font-bold text-[#fc8019] select-all">6300334374@ibl</span>
+            {/* Payment Method Tabs */}
+            <div className="flex bg-slate-100 p-1 rounded-2xl">
+              <button 
+                onClick={() => setPaymentMethod('UPI')}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${paymentMethod === 'UPI' ? 'bg-[#131A2A] text-[#fc8019] shadow' : 'text-slate-400'}`}
+              >
+                UPI / QR
+              </button>
+              <button 
+                onClick={() => setPaymentMethod('CARD')}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${paymentMethod === 'CARD' ? 'bg-[#131A2A] text-[#fc8019] shadow' : 'text-slate-400'}`}
+              >
+                <CreditCard className="w-4 h-4" /> Credit/Debit Card
+              </button>
             </div>
 
-            {/* Dynamic UPI Details */}
-            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 flex flex-col items-center justify-center space-y-4">
-              <div className="text-center">
-                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block">Merchant Payee</span>
-                <span className="text-lg font-black text-slate-800">SWIGGY EXPRESS</span>
+            {paymentMethod === 'UPI' ? (
+              <div className="space-y-4 animate-fade-in">
+                <div className="p-4 bg-[#1A2235] rounded-2xl flex justify-between items-center text-sm font-medium">
+                  <span className="text-slate-400">UPI Address:</span>
+                  <span className="font-bold text-[#fc8019] select-all">6300334374@ibl</span>
+                </div>
+                {/* Dynamic UPI Details */}
+                <div className="p-6 bg-[#1A2235] rounded-3xl border border-[#1E293B] flex flex-col items-center justify-center space-y-4">
+                  <div className="text-center">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block">Amount to Pay</span>
+                    <span className="text-3xl font-black text-[#fc8019]">₹{getCartTotal().toFixed(2)}</span>
+                  </div>
+                  <div className="bg-[#131A2A] p-4 rounded-2xl shadow-black/50 shadow-black/70 shadow-2xl border border-[#334155]/60 flex flex-col items-center">
+                    <img 
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(
+                        `upi://pay?pa=6300334374@ibl&pn=SWIGGY%20EXPRESS&am=${getCartTotal()}&cu=INR`
+                      )}`} 
+                      alt="Dynamic UPI QR Code" 
+                      className="w-56 h-56 rounded-lg"
+                    />
+                    <span className="text-[10px] text-slate-400 font-bold tracking-wider uppercase mt-3">Scan to Auto-fill</span>
+                  </div>
+                </div>
               </div>
-              
-              <div className="text-center">
-                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block">Amount to Pay</span>
-                <span className="text-3xl font-black text-[#fc8019]">₹{getCartTotal().toFixed(2)}</span>
+            ) : (
+              <div className="space-y-4 animate-fade-in p-6 bg-[#1A2235] rounded-3xl border border-[#1E293B]">
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Card Number</label>
+                    <div className="relative">
+                      <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input 
+                        type="text" 
+                        maxLength="19"
+                        placeholder="0000 0000 0000 0000"
+                        value={cardNumber}
+                        onChange={(e) => setCardNumber(e.target.value)}
+                        className="w-full pl-12 pr-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-mono focus:ring-2 focus:ring-[#fc8019] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Expiry (MM/YY)</label>
+                      <input 
+                        type="text" 
+                        maxLength="5"
+                        placeholder="MM/YY"
+                        value={cardExpiry}
+                        onChange={(e) => setCardExpiry(e.target.value)}
+                        className="w-full px-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-mono focus:ring-2 focus:ring-[#fc8019] focus:outline-none text-center"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">CVV</label>
+                      <input 
+                        type="password" 
+                        maxLength="4"
+                        placeholder="***"
+                        value={cardCvv}
+                        onChange={(e) => setCardCvv(e.target.value)}
+                        className="w-full px-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-mono focus:ring-2 focus:ring-[#fc8019] focus:outline-none text-center"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Cardholder Name</label>
+                    <input 
+                      type="text" 
+                      placeholder="Name on card"
+                      value={cardName}
+                      onChange={(e) => setCardName(e.target.value)}
+                      className="w-full px-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-medium focus:ring-2 focus:ring-[#fc8019] focus:outline-none"
+                    />
+                  </div>
+                </div>
               </div>
+            )}
 
-              {/* Dynamic QR Code */}
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200/60 flex flex-col items-center">
-                <img 
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(
-                    `upi://pay?pa=6300334374@ibl&pn=SWIGGY%20EXPRESS&am=${getCartTotal()}&cu=INR`
-                  )}`} 
-                  alt="Dynamic UPI QR Code" 
-                  className="w-56 h-56 rounded-lg"
-                />
-                <span className="text-[10px] text-slate-400 font-bold tracking-wider uppercase mt-3">Auto-fills Amount & Payee Name</span>
-              </div>
-            </div>
-
-            {/* Name Confirmation Input */}
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-slate-700 block">Confirm Customer Name</label>
-              <input
-                type="text"
-                required
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="Enter customer name for tracking"
-                className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#fc8019] transition-all"
-              />
-            </div>
-
-            <div className="pt-4 flex gap-4">
+            <div className="pt-2 flex gap-4">
               <button
                 onClick={() => setViewMode('dashboard')}
-                className="flex-1 py-4 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-2xl transition-all"
+                className="flex-1 py-4 border border-[#334155] hover:bg-[#1A2235] text-slate-300 font-bold rounded-2xl transition-all"
               >
                 Cancel
               </button>
               <button
-                onClick={handlePlaceOrder}
+                onClick={handlePaymentSuccess}
+                className="flex-1 py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all"
+              >
+                I Have Paid
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Delivery Details Screen */}
+        {viewMode === 'delivery_details' && (
+          <div className="max-w-2xl mx-auto bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/70 shadow-2xl p-8 space-y-6 animate-fade-in">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8" />
+              </div>
+              <h2 className="text-2xl font-black text-white">Delivery Details</h2>
+              <p className="text-sm text-slate-400 mt-1">Please provide your live location or address.</p>
+            </div>
+
+            {error && (
+              <div className="p-3 bg-red-50 text-red-600 text-sm font-bold rounded-xl border border-red-100 flex items-center gap-2">
+                <AlertCircle className="w-4 h-4" /> {error}
+              </div>
+            )}
+
+            <form onSubmit={handlePlaceOrder} className="space-y-5">
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-200 block">Customer Name</label>
+                <input
+                  type="text"
+                  required
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder="Enter your name"
+                  className="w-full px-5 py-4 bg-[#1A2235] border border-[#334155] rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-[#fc8019] transition-all font-medium"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-200 block flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#fc8019]" /> Complete Address / Live Location
+                </label>
+                <textarea
+                  required
+                  rows="3"
+                  value={deliveryAddress}
+                  onChange={(e) => setDeliveryAddress(e.target.value)}
+                  placeholder="e.g. 12-4-5, Near Clock Tower, Hitec City, Hyderabad"
+                  className="w-full px-5 py-4 bg-[#1A2235] border border-[#334155] rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-[#fc8019] transition-all font-medium resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
                 disabled={loading}
-                className="flex-1 py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all disabled:opacity-50"
+                className="w-full py-4 mt-4 bg-[#fc8019] hover:bg-orange-600 text-white font-black text-lg rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all disabled:opacity-50"
               >
                 {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-6 h-6 animate-spin" />
                 ) : (
                   <>
-                    I Have Paid
-                    <Check className="w-5 h-5" />
+                    Confirm Delivery Location
+                    <Check className="w-6 h-6" />
                   </>
                 )}
               </button>
-            </div>
+            </form>
           </div>
         )}
 
@@ -630,7 +767,7 @@ function App() {
           return (
             <div className="max-w-lg mx-auto animate-fade-in">
               {/* Main Card */}
-              <div className="bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden">
+              <div className="bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/80 shadow-2xl overflow-hidden">
                 {/* Top gradient banner */}
                 <div className="bg-gradient-to-br from-[#fc8019] to-orange-500 p-8 text-center text-white">
                   <div className="flex items-center justify-center gap-2 mb-1">
@@ -647,7 +784,7 @@ function App() {
                   <div className="relative flex items-center justify-center">
                     <div className="absolute w-28 h-28 rounded-full bg-orange-100 animate-ping opacity-40" />
                     <div className="absolute w-20 h-20 rounded-full bg-orange-200 animate-ping opacity-30" style={{ animationDelay: '0.3s' }} />
-                    <div className="relative w-20 h-20 bg-gradient-to-br from-[#fc8019] to-orange-500 rounded-full flex items-center justify-center shadow-lg shadow-orange-400/40 text-white text-3xl">
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-[#fc8019] to-orange-500 rounded-full flex items-center justify-center shadow-black/70 shadow-2xl shadow-orange-400/40 text-white text-3xl">
                       🚴
                     </div>
                   </div>
@@ -657,18 +794,18 @@ function App() {
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Delivery Partner Assigned</span>
                     <div className="flex items-center justify-center gap-3 mt-3">
                       {/* Avatar circle with initials */}
-                      <div className="w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center font-extrabold text-lg shadow-md">
+                      <div className="w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center font-extrabold text-lg shadow-black/60 shadow-black/80 shadow-2xl">
                         {driverInitials}
                       </div>
                       <div className="text-left">
-                        <div className="font-extrabold text-lg text-slate-800">{driverName}</div>
-                        <div className="text-sm text-slate-500 font-medium">{driverMobile}</div>
+                        <div className="font-extrabold text-lg text-white">{driverName}</div>
+                        <div className="text-sm text-slate-400 font-medium">{driverMobile}</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Steps timeline */}
-                  <div className="w-full bg-slate-50 rounded-2xl p-5 space-y-3">
+                  <div className="w-full bg-[#1A2235] rounded-2xl p-5 space-y-3">
                     {[
                       { icon: '✅', label: 'Payment Verified', done: true },
                       { icon: '🤝', label: 'Delivery Partner Assigned', done: true },
@@ -677,7 +814,7 @@ function App() {
                     ].map((step, i) => (
                       <div key={i} className="flex items-center gap-3">
                         <span className="text-lg">{step.icon}</span>
-                        <span className={`text-sm font-semibold ${step.done ? 'text-slate-800' : 'text-slate-400'}`}>
+                        <span className={`text-sm font-semibold ${step.done ? 'text-white' : 'text-slate-400'}`}>
                           {step.label}
                         </span>
                         {step.done && <Check className="w-4 h-4 text-green-500 ml-auto" />}
@@ -694,7 +831,7 @@ function App() {
                   {/* Manual go to tracking button */}
                   <button
                     onClick={() => setViewMode('tracking')}
-                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all"
+                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all"
                   >
                     <Truck className="w-5 h-5" />
                     Track My Order Now
@@ -709,12 +846,12 @@ function App() {
         {viewMode === 'tracking' && (
           <div className="max-w-4xl mx-auto space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                 Order Tracking Dashboard
               </h2>
               <button 
                 onClick={fetchOrders}
-                className="p-2.5 text-slate-400 hover:text-slate-600 bg-white border border-slate-100 rounded-full shadow-sm hover:shadow transition-all"
+                className="p-2.5 text-slate-400 hover:text-slate-300 bg-[#131A2A] border border-[#1E293B] rounded-full shadow-black/50 shadow-black/70 shadow-2xl hover:shadow transition-all"
                 title="Refresh Status"
               >
                 <RotateCcw className="w-4 h-4 animate-spin-slow" />
@@ -722,12 +859,12 @@ function App() {
             </div>
 
             {orders.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-16 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mx-auto text-slate-300">
+              <div className="bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/50 shadow-black/70 shadow-2xl p-16 text-center space-y-4">
+                <div className="w-16 h-16 rounded-full bg-[#1A2235] flex items-center justify-center mx-auto text-slate-300">
                   <Utensils className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-700">No Orders Placed Yet</h3>
+                  <h3 className="font-bold text-slate-200">No Orders Placed Yet</h3>
                   <p className="text-sm text-slate-400 mt-1">Select items, complete the checkout and pay to view tracking pipelines here.</p>
                 </div>
               </div>
@@ -740,7 +877,7 @@ function App() {
                   return (
                     <div 
                       key={order.id}
-                      className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md"
+                      className="bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/50 shadow-black/70 shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-black/60 shadow-black/80 shadow-2xl"
                     >
                       <div 
                         onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}
@@ -753,7 +890,7 @@ function App() {
                               {order.status}
                             </span>
                           </div>
-                          <h4 className="font-bold text-base text-slate-800 truncate">
+                          <h4 className="font-bold text-base text-white truncate">
                             {order.item}
                           </h4>
                           <div className="flex items-center gap-4 text-xs text-slate-400">
@@ -762,7 +899,7 @@ function App() {
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <div className="text-lg font-extrabold text-slate-800">₹{order.amount}</div>
+                          <div className="text-lg font-extrabold text-white">₹{order.amount}</div>
                           <div className="text-[10px] text-slate-400 font-semibold mt-0.5">
                             {isExpanded ? 'Click to hide' : 'Click to track'}
                           </div>
@@ -771,16 +908,16 @@ function App() {
 
                       {/* Stepper Timeline Area */}
                       {isExpanded && (
-                        <div className="border-t border-slate-50 bg-slate-50/50 p-6 sm:p-8 space-y-6">
+                        <div className="border-t border-slate-50 bg-[#1A2235]/50 p-6 sm:p-8 space-y-6">
                           
                           {/* Live Delivered Overlay Animation inside the card */}
                           {order.status === 'DELIVERED' && (
                             <div className="p-6 text-center bg-green-50 border border-green-200 rounded-3xl space-y-4 animate-zoom-in">
-                              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-2xl shadow-lg">
+                              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-2xl shadow-black/70 shadow-2xl">
                                 🎉
                               </div>
                               <div>
-                                <h4 className="font-black text-xl text-slate-800 tracking-tight animate-bounce">
+                                <h4 className="font-black text-xl text-white tracking-tight animate-bounce">
                                   Items Delivered!
                                 </h4>
                                 <p className="text-sm font-semibold text-green-700 mt-1">
@@ -803,6 +940,19 @@ function App() {
                             </div>
                           )}
 
+                          {/* Customer Delivery Location Details block */}
+                          {order.address && (
+                            <div className="p-4 bg-orange-50 border border-orange-100 rounded-2xl flex items-start gap-3 animate-slide-up">
+                              <MapPin className="w-5 h-5 text-[#fc8019] flex-shrink-0 mt-0.5" />
+                              <div>
+                                <h5 className="font-extrabold text-sm text-white">Delivery Address</h5>
+                                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                                  {order.address}
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
                           {step !== -1 && order.status !== 'DELIVERED' && (
                             <div className="relative">
                               {/* Horizontal Line connector */}
@@ -818,12 +968,12 @@ function App() {
                                 {/* Step 1: PLACED */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 1 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-500'
+                                    step >= 1 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-400'
                                   }`}>
                                     {step > 1 ? <Check className="w-4 h-4" /> : '1'}
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-700">Order Placed</div>
+                                    <div className="text-xs font-bold text-slate-200">Order Placed</div>
                                     <div className="text-[10px] text-slate-400 mt-0.5">Payment Verified</div>
                                   </div>
                                 </div>
@@ -831,12 +981,12 @@ function App() {
                                 {/* Step 2: KITCHEN PREPARATION */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 2 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-500'
+                                    step >= 2 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-400'
                                   }`}>
                                     {step > 2 ? <Check className="w-4 h-4" /> : '2'}
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-700">Kitchen Prep</div>
+                                    <div className="text-xs font-bold text-slate-200">Kitchen Prep</div>
                                     <div className="text-[10px] text-slate-400 mt-0.5">Preparing items</div>
                                   </div>
                                 </div>
@@ -844,12 +994,12 @@ function App() {
                                 {/* Step 3: OUT_FOR_DELIVERY */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 3 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-500'
+                                    step >= 3 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-400'
                                   }`}>
                                     {step > 3 ? <Check className="w-4 h-4" /> : '3'}
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-700">Out for Delivery</div>
+                                    <div className="text-xs font-bold text-slate-200">Out for Delivery</div>
                                     <div className="text-[10px] text-slate-400 mt-0.5">
                                       {order.driverName ? `Assigned: ${order.driverName}` : 'Driver assignment'}
                                     </div>
@@ -859,12 +1009,12 @@ function App() {
                                 {/* Step 4: DELIVERED */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 4 ? 'bg-green-500 text-white shadow' : 'bg-slate-200 text-slate-500'
+                                    step >= 4 ? 'bg-green-500 text-white shadow' : 'bg-slate-200 text-slate-400'
                                   }`}>
                                     4
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-700">Delivered</div>
+                                    <div className="text-xs font-bold text-slate-200">Delivered</div>
                                     <div className="text-[10px] text-slate-400 mt-0.5">Handed over</div>
                                   </div>
                                 </div>
@@ -882,14 +1032,14 @@ function App() {
 
                           {/* Delivery partner driver details block */}
                           {order.driverName && (
-                            <div className="p-4 bg-white border border-slate-100 rounded-2xl shadow-sm flex items-center justify-between gap-4 animate-slide-up">
+                            <div className="p-4 bg-[#131A2A] border border-[#1E293B] rounded-2xl shadow-black/50 shadow-black/70 shadow-2xl flex items-center justify-between gap-4 animate-slide-up">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-orange-50 flex items-center justify-center rounded-xl text-[#fc8019]">
                                   🚴
                                 </div>
                                 <div>
                                   <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Your Delivery Partner</div>
-                                  <div className="text-sm font-extrabold text-slate-800">{order.driverName}</div>
+                                  <div className="text-sm font-extrabold text-white">{order.driverName}</div>
                                 </div>
                               </div>
 
@@ -932,17 +1082,17 @@ function App() {
         <div className="fixed inset-0 z-50 overflow-hidden">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onClick={() => setShowCartDrawer(false)} />
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-            <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+            <div className="w-screen max-w-md bg-[#131A2A] shadow-2xl flex flex-col">
               
               {/* Drawer Header */}
-              <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-                <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+              <div className="p-6 border-b border-[#1E293B] flex justify-between items-center">
+                <h3 className="text-lg font-black text-white flex items-center gap-2">
                   <ShoppingCart className="w-5 h-5 text-[#fc8019]" />
                   Cart ({cart.reduce((qty, i) => qty + i.quantity, 0)} Items)
                 </h3>
                 <button 
                   onClick={() => setShowCartDrawer(false)}
-                  className="p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full"
+                  className="p-1 text-slate-400 hover:text-slate-300 hover:bg-[#1A2235] rounded-full"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -951,38 +1101,38 @@ function App() {
               {/* Cart List */}
               {cart.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-4">
-                  <div className="w-20 h-20 bg-slate-50 border rounded-3xl flex items-center justify-center text-slate-300">
+                  <div className="w-20 h-20 bg-[#1A2235] border rounded-3xl flex items-center justify-center text-slate-300">
                     <ShoppingCart className="w-10 h-10" />
                   </div>
                   <div className="text-center">
-                    <h4 className="font-extrabold text-slate-700">Your cart is empty</h4>
+                    <h4 className="font-extrabold text-slate-200">Your cart is empty</h4>
                     <p className="text-slate-400 text-xs mt-1">Add items from the menu to start your order.</p>
                   </div>
                 </div>
               ) : (
                 <div className="flex-grow overflow-y-auto p-6 space-y-4">
                   {cart.map((cartItem) => (
-                    <div key={cartItem.item.id} className="flex justify-between items-center p-3 rounded-2xl border border-slate-100 hover:border-slate-200 transition-colors">
+                    <div key={cartItem.item.id} className="flex justify-between items-center p-3 rounded-2xl border border-[#1E293B] hover:border-[#334155] transition-colors">
                       <div className="flex gap-3 items-center">
                         <span className="text-3xl">{cartItem.item.icon}</span>
                         <div>
-                          <h4 className="font-extrabold text-sm text-slate-800">{cartItem.item.name}</h4>
+                          <h4 className="font-extrabold text-sm text-white">{cartItem.item.name}</h4>
                           <span className="text-xs text-[#fc8019] font-bold">₹{cartItem.item.price} each</span>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <button 
                           onClick={() => updateQuantity(cartItem.item.id, -1)}
-                          className="p-1 bg-slate-50 border rounded-full hover:bg-slate-100"
+                          className="p-1 bg-[#1A2235] border rounded-full hover:bg-slate-100"
                         >
-                          <Minus className="w-3.5 h-3.5 text-slate-600" />
+                          <Minus className="w-3.5 h-3.5 text-slate-300" />
                         </button>
                         <span className="font-extrabold text-sm w-4 text-center">{cartItem.quantity}</span>
                         <button 
                           onClick={() => addToCart(cartItem.item)}
-                          className="p-1 bg-slate-50 border rounded-full hover:bg-slate-100"
+                          className="p-1 bg-[#1A2235] border rounded-full hover:bg-slate-100"
                         >
-                          <Plus className="w-3.5 h-3.5 text-slate-600" />
+                          <Plus className="w-3.5 h-3.5 text-slate-300" />
                         </button>
                       </div>
                     </div>
@@ -992,14 +1142,14 @@ function App() {
 
               {/* Summary & Proceed */}
               {cart.length > 0 && (
-                <div className="p-6 border-t border-slate-100 space-y-4 bg-slate-50/50">
+                <div className="p-6 border-t border-[#1E293B] space-y-4 bg-[#1A2235]/50">
                   <div className="flex justify-between items-baseline">
-                    <span className="text-sm font-semibold text-slate-500">To Pay:</span>
-                    <span className="text-2xl font-black text-slate-900">₹{getCartTotal()}</span>
+                    <span className="text-sm font-semibold text-slate-400">To Pay:</span>
+                    <span className="text-2xl font-black text-white">₹{getCartTotal()}</span>
                   </div>
                   <button
                     onClick={handleCheckout}
-                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-2xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center gap-1.5"
+                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-2xl shadow-black/70 shadow-2xl shadow-orange-500/20 transition-all flex items-center justify-center gap-1.5"
                   >
                     Proceed to Checkout
                     <ChevronRight className="w-5 h-5" />
@@ -1014,13 +1164,13 @@ function App() {
       {/* Cart bottom checkout banner bar */}
       {cart.length > 0 && !showCartDrawer && viewMode === 'dashboard' && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-lg px-4">
-          <div className="bg-[#fc8019] text-white rounded-2xl p-4 flex justify-between items-center shadow-xl">
+          <div className="bg-[#fc8019] text-white rounded-2xl p-4 flex justify-between items-center shadow-black/80 shadow-2xl">
             <div className="flex items-center gap-3">
               <span className="text-sm font-extrabold">{cart.reduce((qty, i) => qty + i.quantity, 0)} items | ₹{getCartTotal()}</span>
             </div>
             <button 
               onClick={() => setShowCartDrawer(true)}
-              className="text-sm font-bold flex items-center gap-1 uppercase tracking-wider bg-white/20 hover:bg-white/30 px-4 py-2 rounded-xl transition-all"
+              className="text-sm font-bold flex items-center gap-1 uppercase tracking-wider bg-[#131A2A]/20 hover:bg-[#131A2A]/30 px-4 py-2 rounded-xl transition-all"
             >
               View Cart
               <ChevronRight className="w-4 h-4" />
@@ -1035,7 +1185,7 @@ function App() {
           <div className="relative w-full max-w-md bg-transparent">
             <button 
               onClick={() => setShowAuth(false)}
-              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-all"
+              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-[#131A2A]/10 hover:bg-[#131A2A]/20 rounded-full backdrop-blur-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1064,7 +1214,7 @@ function App() {
           </div>
 
           {/* Large Success Box Card */}
-          <div className="bg-white rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-slate-100 text-center space-y-6 animate-zoom-in">
+          <div className="bg-[#131A2A] rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-[#1E293B] text-center space-y-6 animate-zoom-in">
             <div className="w-24 h-24 mx-auto bg-green-50 rounded-full flex items-center justify-center border-4 border-green-200">
               <svg className="w-14 h-14" viewBox="0 0 52 52">
                 <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
@@ -1072,8 +1222,8 @@ function App() {
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-black text-slate-800 tracking-tight">Order Placed Successful!</h2>
-              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              <h2 className="text-2xl font-black text-white tracking-tight">Order Placed Successful!</h2>
+              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
                 Your transaction has been confirmed. Redirecting to your live order tracking timeline...
               </p>
             </div>
@@ -1087,13 +1237,13 @@ function App() {
       {/* Cancel Order Modal with reason details */}
       {cancelModalOrderId && (
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 space-y-5 animate-zoom-in">
+          <div className="bg-[#131A2A] rounded-3xl p-6 max-w-md w-full shadow-2xl border border-[#1E293B] space-y-5 animate-zoom-in">
             <div className="flex items-center gap-3 text-red-600">
               <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-extrabold text-base text-slate-800">Cancel Order #{cancelModalOrderId}</h3>
+                <h3 className="font-extrabold text-base text-white">Cancel Order #{cancelModalOrderId}</h3>
                 <p className="text-[11px] text-slate-400">Please provide a reason for cancelling this order</p>
               </div>
             </div>
@@ -1110,20 +1260,20 @@ function App() {
                 value={cancelReason}
                 onChange={(e) => { setCancelReason(e.target.value); setShowCancelError(false); }}
                 placeholder="Reason for cancellation (e.g. Changed my mind, Selected wrong items, Address issues...)"
-                className="w-full h-28 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none transition-all"
+                className="w-full h-28 p-4 bg-[#1A2235] border border-[#334155] rounded-2xl text-xs font-semibold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none transition-all"
               />
 
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => { setCancelModalOrderId(null); setCancelReason(''); setShowCancelError(false); }}
-                  className="flex-1 py-3 border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 text-xs transition-all"
+                  className="flex-1 py-3 border border-[#334155] text-slate-300 font-bold rounded-2xl hover:bg-[#1A2235] text-xs transition-all"
                 >
                   Keep Order
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl text-xs transition-all shadow-md shadow-red-600/20"
+                  className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl text-xs transition-all shadow-black/60 shadow-black/80 shadow-2xl shadow-red-600/20"
                 >
                   Confirm Cancel
                 </button>
