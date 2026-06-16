@@ -36,35 +36,58 @@ import { getToken, removeToken, getUser, authFetch } from './api/auth';
 import Architecture from './pages/Architecture.jsx';
 import qrCodeImage from './assets/qr_code.png';
 
+// Import all food images explicitly so Vite processes them correctly
+import imgIdly from './assets/foodImages/idly.png';
+import imgPlainDosa from './assets/foodImages/PlainDosa.png';
+import imgMasalaDosa from './assets/foodImages/masala_dosa.png';
+import imgKaramDosa from './assets/foodImages/karam_dosa.jpg';
+import imgGheeDosa from './assets/foodImages/ghee_dosa.jpg';
+import imgVada from './assets/foodImages/Vada.jpg';
+import imgPoori from './assets/foodImages/Poori.jpg';
+import imgBonda from './assets/foodImages/Bonda.jpg';
+import imgVegMealsThali from './assets/foodImages/veg_meals_thali.jpg';
+import imgNonVegMealsThali from './assets/foodImages/non_veg_meals_thali.jpg';
+import imgHyderabadiChickenBiryani from './assets/foodImages/hyderabadi_chicken_biryani.jpg';
+import imgPaneerBiryani from './assets/foodImages/paneer_biryani.jpg';
+import imgEggBiryani from './assets/foodImages/egg_biryani.jpg';
+import imgSamosa from './assets/foodImages/samosa.jpg';
+import imgOnionPakoda from './assets/foodImages/onion_pakoda.jpg';
+import imgMirchiBajji from './assets/foodImages/mirchi_bajji.jpg';
+import imgPavBhaji from './assets/foodImages/pav_bhaji.jpg';
+import imgButterNaanPaneerGravy from './assets/foodImages/butter_naan_paneer_gravy.jpg';
+import imgChapatiWithKurma from './assets/foodImages/chapati_with_kurma.jpg';
+import imgVegFriedRice from './assets/foodImages/veg_fried_rice.jpg';
+import imgSchezwanNoodles from './assets/foodImages/schezwan_noodles.jpg';
+
 const FOOD_ITEMS = {
   "What's on your mind?": [
-    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/idly.png', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true },
-{ id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: '/foodImages/PlainDosa.png', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true },
-{ id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: '/foodImages/masala_dosa.png', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true },
-{ id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: '/foodImages/karam_dosa.jpg', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true },
-    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: '/foodImages/ghee_dosa.jpg', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true },
-    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: '/foodImages/Vada.jpg', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true },
-    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: '/foodImages/Poori.jpg', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true },
-    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: '/foodImages/Bonda.jpg', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true }
+    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: imgIdly, desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true },
+{ id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: imgPlainDosa, desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true },
+{ id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: imgMasalaDosa, desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true },
+{ id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: imgKaramDosa, desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true },
+    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: imgGheeDosa, desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true },
+    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: imgVada, desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true },
+    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: imgPoori, desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true },
+    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: imgBonda, desc: 'Fried savory potato balls coated in gram flour batter.', veg: true }
   ],
   "Main Course Meals": [
-    { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', image: '/foodImages/veg_meals_thali.jpg', desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true },
-    { id: 'm2', name: 'Non Veg Meals Thali', price: 180.00, rating: 4.7, time: '25-30 mins', image: '/foodImages/non_veg_meals_thali.jpg', desc: 'Thali containing rice, aromatic chicken curry, fish gravy, and sides.', veg: false },
-    { id: 'm3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: '/foodImages/hyderabadi_chicken_biryani.jpg', desc: 'Long grain basmati rice cooked with succulent chicken and spices.', veg: false },
-    { id: 'm4', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: '/foodImages/paneer_biryani.jpg', desc: 'Spiced basmati rice layered with soft paneer cubes.', veg: true },
-    { id: 'm5', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: '/foodImages/egg_biryani.jpg', desc: 'Fragrant biryani rice served with spiced boiled eggs.', veg: false }
+    { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', image: imgVegMealsThali, desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true },
+    { id: 'm2', name: 'Non Veg Meals Thali', price: 180.00, rating: 4.7, time: '25-30 mins', image: imgNonVegMealsThali, desc: 'Thali containing rice, aromatic chicken curry, fish gravy, and sides.', veg: false },
+    { id: 'm3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: imgHyderabadiChickenBiryani, desc: 'Long grain basmati rice cooked with succulent chicken and spices.', veg: false },
+    { id: 'm4', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: imgPaneerBiryani, desc: 'Spiced basmati rice layered with soft paneer cubes.', veg: true },
+    { id: 'm5', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: imgEggBiryani, desc: 'Fragrant biryani rice served with spiced boiled eggs.', veg: false }
   ],
   "Quick Bites & Snacks": [
-    { id: 's1', name: 'Samosa (2 Pcs)', price: 25.00, rating: 4.2, time: '10-15 mins', image: '/foodImages/samosa.jpg', desc: 'Crispy pastry shells stuffed with spiced potatoes and peas.', veg: true },
-    { id: 's2', name: 'Onion Pakoda', price: 40.00, rating: 4.1, time: '10-15 mins', image: '/foodImages/onion_pakoda.jpg', desc: 'Deep-fried crispy onion fritters seasoned with spices.', veg: true },
-    { id: 's3', name: 'Mirchi Bajji', price: 45.00, rating: 4.3, time: '15-20 mins', image: '/foodImages/mirchi_bajji.jpg', desc: 'Spicy chili peppers batter-fried and stuffed with onions.', veg: true },
-    { id: 's4', name: 'Pav Bhaji', price: 80.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/pav_bhaji.jpg', desc: 'Thick vegetable curry served with soft buttered bread rolls.', veg: true }
+    { id: 's1', name: 'Samosa (2 Pcs)', price: 25.00, rating: 4.2, time: '10-15 mins', image: imgSamosa, desc: 'Crispy pastry shells stuffed with spiced potatoes and peas.', veg: true },
+    { id: 's2', name: 'Onion Pakoda', price: 40.00, rating: 4.1, time: '10-15 mins', image: imgOnionPakoda, desc: 'Deep-fried crispy onion fritters seasoned with spices.', veg: true },
+    { id: 's3', name: 'Mirchi Bajji', price: 45.00, rating: 4.3, time: '15-20 mins', image: imgMirchiBajji, desc: 'Spicy chili peppers batter-fried and stuffed with onions.', veg: true },
+    { id: 's4', name: 'Pav Bhaji', price: 80.00, rating: 4.5, time: '15-20 mins', image: imgPavBhaji, desc: 'Thick vegetable curry served with soft buttered bread rolls.', veg: true }
   ],
   "Dinner Specialities": [
-    { id: 'd1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', image: '/foodImages/butter_naan_paneer_gravy.jpg', desc: 'Soft butter naan served with rich and creamy paneer butter masala.', veg: true },
-    { id: 'd2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', image: '/foodImages/chapati_with_kurma.jpg', desc: 'Soft whole wheat flatbread served with mixed vegetable kurma.', veg: true },
-    { id: 'd3', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', image: '/foodImages/veg_fried_rice.jpg', desc: 'Stir-fried rice loaded with veggies, soy sauce, and aromatics.', veg: true },
-    { id: 'd4', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', image: '/foodImages/schezwan_noodles.jpg', desc: 'Spicy noodles tossed with colorful vegetables and Schezwan sauce.', veg: true }
+    { id: 'd1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', image: imgButterNaanPaneerGravy, desc: 'Soft butter naan served with rich and creamy paneer butter masala.', veg: true },
+    { id: 'd2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', image: imgChapatiWithKurma, desc: 'Soft whole wheat flatbread served with mixed vegetable kurma.', veg: true },
+    { id: 'd3', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', image: imgVegFriedRice, desc: 'Stir-fried rice loaded with veggies, soy sauce, and aromatics.', veg: true },
+    { id: 'd4', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', image: imgSchezwanNoodles, desc: 'Spicy noodles tossed with colorful vegetables and Schezwan sauce.', veg: true }
   ]
 };
 
