@@ -36,7 +36,8 @@ docker-compose up --build -d
 ```
 
 ### Accessing the Application
-- **Frontend App:** `http://localhost:3000`
+- **Live Deployed App:** [https://swiggyexpress.netlify.app/](https://swiggyexpress.netlify.app/)
+- **Frontend App (Local):** `http://localhost:3000`
 - **Camunda Cockpit (Order Service):** `http://localhost:8080/camunda`
 - **ActiveMQ Web Console:** `http://localhost:8161` (Credentials: `admin` / `admin`)
 - **MySQL Database:** `localhost:3306`
