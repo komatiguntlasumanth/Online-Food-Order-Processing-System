@@ -370,7 +370,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] pb-24 relative font-sans text-white">
+    <div className="min-h-screen pb-24 relative font-sans text-white overflow-x-hidden">
+      {/* ── GLASSMORPHISM BACKGROUND ── */}
+      <div className="glass-bg-root" aria-hidden="true" />
+      <div className="glass-orb glass-orb-1" aria-hidden="true" />
+      <div className="glass-orb glass-orb-2" aria-hidden="true" />
+      <div className="glass-orb glass-orb-3" aria-hidden="true" />
+      <div className="glass-orb glass-orb-4" aria-hidden="true" />
       
       {/* SUCCESS ANIMATION POPUP OVERLAY */}
       {showOrderSuccessPopup && (
@@ -385,8 +391,8 @@ function App() {
         </div>
       )}
 
-      {/* Swiggy Premium Header */}
-      <header className="sticky top-0 z-40 bg-[#131A2A] border-b border-[#1E293B] shadow-black/50 shadow-black/70 shadow-2xl px-6">
+      {/* ── PREMIUM GLASS HEADER ── */}
+      <header className="sticky top-0 z-40 glass-header px-6">
         <div className="max-w-7xl mx-auto h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setViewMode('dashboard')}>
@@ -478,7 +484,7 @@ function App() {
                 placeholder="Search for dishes, snacks or meals..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-5 py-3.5 pl-12 bg-slate-100/60 border border-transparent rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#fc8019] focus:bg-[#131A2A] transition-all text-sm font-medium shadow-inner"
+                className="glass-input w-full px-5 py-3.5 pl-12 rounded-2xl text-sm font-medium"
               />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             </div>
@@ -495,9 +501,7 @@ function App() {
                     key={category}
                     onClick={() => { setActiveCategory(category); setSearchQuery(''); }}
                     className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-                      activeCategory === category
-                        ? 'bg-[#fc8019] text-white shadow-black/60 shadow-black/80 shadow-2xl shadow-orange-500/20'
-                        : 'bg-[#131A2A] border border-[#334155] text-slate-300 hover:border-slate-300'
+                      activeCategory === category ? 'pill-active' : 'pill-inactive'
                     }`}
                   >
                     {category}
@@ -511,9 +515,9 @@ function App() {
                   const cartItem = cart.find(i => i.item.id === item.id);
                   
                   return (
-                    <div 
+                    <div
                       key={item.id}
-                      className="bg-[#131A2A] rounded-3xl border border-[#1E293B] p-5 flex flex-col justify-between shadow-black/50 shadow-black/70 shadow-2xl hover:shadow-black/60 shadow-black/80 shadow-2xl transition-shadow relative overflow-hidden group"
+                      className="glass-card glass-shimmer rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden group"
                     >
                       <div className="h-44 bg-slate-800 rounded-2xl flex items-center justify-center text-5xl mb-4 relative overflow-hidden group-hover:shadow-black/70 shadow-2xl transition-all">
                         <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
@@ -550,19 +554,19 @@ function App() {
                       {/* Add button styled like Swiggy */}
                       <div className="relative">
                         {cartItem ? (
-                          <div className="w-full flex items-center justify-between border border-[#fc8019] text-[#fc8019] rounded-2xl font-bold bg-orange-500/20 py-2.5 px-4">
-                            <button onClick={() => updateQuantity(item.id, -1)} className="hover:scale-115 active:scale-95 transition-transform">
+                          <div className="w-full flex items-center justify-between border border-[#fc8019]/60 text-[#fc8019] rounded-2xl font-bold bg-orange-500/10 backdrop-blur-sm py-2.5 px-4">
+                            <button onClick={() => updateQuantity(item.id, -1)} className="hover:scale-110 active:scale-95 transition-transform">
                               <Minus className="w-4 h-4" />
                             </button>
                             <span className="text-sm font-extrabold">{cartItem.quantity}</span>
-                            <button onClick={() => addToCart(item)} className="hover:scale-115 active:scale-95 transition-transform">
+                            <button onClick={() => addToCart(item)} className="hover:scale-110 active:scale-95 transition-transform">
                               <Plus className="w-4 h-4" />
                             </button>
                           </div>
                         ) : (
                           <button
                             onClick={() => addToCart(item)}
-                            className="w-full py-2.5 bg-[#131A2A] border border-[#334155] hover:border-[#fc8019] hover:bg-orange-50/20 text-[#fc8019] font-bold rounded-2xl flex items-center justify-center gap-1.5 transition-all text-sm shadow-black/50 shadow-black/70 shadow-2xl"
+                            className="w-full py-2.5 glass-card border-none hover:border-[#fc8019]/40 text-[#fc8019] font-bold rounded-2xl flex items-center justify-center gap-1.5 transition-all text-sm"
                           >
                             ADD
                           </button>
@@ -578,23 +582,23 @@ function App() {
 
         {/* Payment Screen */}
         {viewMode === 'payment' && (
-          <div className="max-w-2xl mx-auto bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/70 shadow-2xl p-8 space-y-6">
+          <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 space-y-6 animate-slide-up">
             <div className="text-center">
               <h2 className="text-2xl font-black text-white">Select Payment Method</h2>
               <p className="text-sm text-slate-400 mt-1">Complete your transaction to proceed to delivery details.</p>
             </div>
 
             {/* Payment Method Tabs */}
-            <div className="flex bg-slate-100 p-1 rounded-2xl">
+            <div className="flex bg-white/5 backdrop-blur-md border border-white/10 p-1 rounded-2xl">
               <button 
                 onClick={() => setPaymentMethod('UPI')}
-                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${paymentMethod === 'UPI' ? 'bg-[#131A2A] text-[#fc8019] shadow' : 'text-slate-400'}`}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${paymentMethod === 'UPI' ? 'bg-white/10 text-[#fc8019] shadow-glass' : 'text-slate-400'}`}
               >
                 UPI / QR
               </button>
               <button 
                 onClick={() => setPaymentMethod('CARD')}
-                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${paymentMethod === 'CARD' ? 'bg-[#131A2A] text-[#fc8019] shadow' : 'text-slate-400'}`}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${paymentMethod === 'CARD' ? 'bg-white/10 text-[#fc8019] shadow-glass' : 'text-slate-400'}`}
               >
                 <CreditCard className="w-4 h-4" /> Credit/Debit Card
               </button>
@@ -602,17 +606,17 @@ function App() {
 
             {paymentMethod === 'UPI' ? (
               <div className="space-y-4 animate-fade-in">
-                <div className="p-4 bg-[#1A2235] rounded-2xl flex justify-between items-center text-sm font-medium">
+                <div className="glass-card p-4 rounded-2xl flex justify-between items-center text-sm font-medium">
                   <span className="text-slate-400">UPI Address:</span>
                   <span className="font-bold text-[#fc8019] select-all">6300334374@ibl</span>
                 </div>
                 {/* Dynamic UPI Details */}
-                <div className="p-6 bg-[#1A2235] rounded-3xl border border-[#1E293B] flex flex-col items-center justify-center space-y-4">
+                <div className="glass-card p-6 rounded-3xl flex flex-col items-center justify-center space-y-4">
                   <div className="text-center">
                     <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block">Amount to Pay</span>
                     <span className="text-3xl font-black text-[#fc8019]">₹{getCartTotal().toFixed(2)}</span>
                   </div>
-                  <div className="bg-[#131A2A] p-4 rounded-2xl shadow-black/50 shadow-black/70 shadow-2xl border border-[#334155]/60 flex flex-col items-center">
+                  <div className="glass-card p-4 rounded-2xl flex flex-col items-center">
                     <img 
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(
                         `upi://pay?pa=6300334374@ibl&pn=SWIGGY%20EXPRESS&am=${getCartTotal()}&cu=INR`
@@ -625,7 +629,7 @@ function App() {
                 </div>
               </div>
             ) : (
-              <div className="space-y-4 animate-fade-in p-6 bg-[#1A2235] rounded-3xl border border-[#1E293B]">
+              <div className="space-y-4 animate-fade-in p-6 glass-card rounded-3xl">
                 <div className="space-y-4">
                   <div>
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Card Number</label>
@@ -637,7 +641,7 @@ function App() {
                         placeholder="0000 0000 0000 0000"
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-mono focus:ring-2 focus:ring-[#fc8019] focus:outline-none"
+                        className="glass-input w-full pl-12 pr-4 py-3.5 rounded-2xl font-mono"
                       />
                     </div>
                   </div>
@@ -650,7 +654,7 @@ function App() {
                         placeholder="MM/YY"
                         value={cardExpiry}
                         onChange={(e) => setCardExpiry(e.target.value)}
-                        className="w-full px-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-mono focus:ring-2 focus:ring-[#fc8019] focus:outline-none text-center"
+                        className="glass-input w-full px-4 py-3.5 rounded-2xl font-mono text-center"
                       />
                     </div>
                     <div className="flex-1">
@@ -661,7 +665,7 @@ function App() {
                         placeholder="***"
                         value={cardCvv}
                         onChange={(e) => setCardCvv(e.target.value)}
-                        className="w-full px-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-mono focus:ring-2 focus:ring-[#fc8019] focus:outline-none text-center"
+                        className="glass-input w-full px-4 py-3.5 rounded-2xl font-mono text-center"
                       />
                     </div>
                   </div>
@@ -672,7 +676,7 @@ function App() {
                       placeholder="Name on card"
                       value={cardName}
                       onChange={(e) => setCardName(e.target.value)}
-                      className="w-full px-4 py-3.5 bg-[#131A2A] border border-[#334155] rounded-2xl text-white font-medium focus:ring-2 focus:ring-[#fc8019] focus:outline-none"
+                      className="glass-input w-full px-4 py-3.5 rounded-2xl font-medium"
                     />
                   </div>
                 </div>
@@ -682,13 +686,13 @@ function App() {
             <div className="pt-2 flex gap-4">
               <button
                 onClick={() => setViewMode('dashboard')}
-                className="flex-1 py-4 border border-[#334155] hover:bg-[#1A2235] text-slate-300 font-bold rounded-2xl transition-all"
+                className="flex-1 py-4 glass-card rounded-2xl text-slate-300 font-bold transition-all hover:border-white/20"
               >
                 Cancel
               </button>
               <button
                 onClick={handlePaymentSuccess}
-                className="flex-1 py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all"
+                className="flex-1 py-4 btn-brand text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition-all"
               >
                 I Have Paid
                 <ArrowRight className="w-5 h-5" />
@@ -699,7 +703,7 @@ function App() {
 
         {/* Delivery Details Screen */}
         {viewMode === 'delivery_details' && (
-          <div className="max-w-2xl mx-auto bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/70 shadow-2xl p-8 space-y-6 animate-fade-in">
+          <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 space-y-6 animate-slide-up">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-900/30 text-blue-400 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-8 h-8" />
@@ -723,7 +727,7 @@ function App() {
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="Enter your name"
-                  className="w-full px-5 py-4 bg-[#1A2235] border border-[#334155] rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-[#fc8019] transition-all font-medium"
+                  className="glass-input w-full px-5 py-4 rounded-2xl font-medium"
                 />
               </div>
 
@@ -737,14 +741,14 @@ function App() {
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
                   placeholder="e.g. 12-4-5, Near Clock Tower, Hitec City, Hyderabad"
-                  className="w-full px-5 py-4 bg-[#1A2235] border border-[#334155] rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-[#fc8019] transition-all font-medium resize-none"
+                  className="glass-input w-full px-5 py-4 rounded-2xl font-medium resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 mt-4 bg-[#fc8019] hover:bg-orange-600 text-white font-black text-lg rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all disabled:opacity-50"
+                className="w-full py-4 mt-4 btn-brand text-white font-black text-lg rounded-2xl flex items-center justify-center gap-2 transition-all disabled:opacity-50"
               >
                 {loading ? (
                   <Loader2 className="w-6 h-6 animate-spin" />
@@ -769,9 +773,9 @@ function App() {
           const driverInitials = driverName.split(' ').map(n => n[0]).join('');
 
           return (
-            <div className="max-w-lg mx-auto animate-fade-in">
+            <div className="max-w-lg mx-auto animate-slide-up">
               {/* Main Card */}
-              <div className="bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/80 shadow-2xl overflow-hidden">
+              <div className="glass-card rounded-3xl overflow-hidden">
                 {/* Top gradient banner */}
                 <div className="bg-gradient-to-br from-[#fc8019] to-orange-500 p-8 text-center text-white">
                   <div className="flex items-center justify-center gap-2 mb-1">
@@ -809,7 +813,7 @@ function App() {
                   </div>
 
                   {/* Steps timeline */}
-                  <div className="w-full bg-[#1A2235] rounded-2xl p-5 space-y-3">
+                  <div className="w-full glass-card rounded-2xl p-5 space-y-3">
                     {[
                       { icon: '✅', label: 'Payment Verified', done: true },
                       { icon: '🤝', label: 'Delivery Partner Assigned', done: true },
@@ -835,7 +839,7 @@ function App() {
                   {/* Manual go to tracking button */}
                   <button
                     onClick={() => setViewMode('tracking')}
-                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-black/70 shadow-2xl shadow-orange-500/25 transition-all"
+                    className="w-full py-4 btn-brand text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition-all"
                   >
                     <Truck className="w-5 h-5" />
                     Track My Order Now
@@ -853,7 +857,7 @@ function App() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setViewMode('dashboard')}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-[#fc8019] hover:bg-orange-600 text-white text-sm font-bold rounded-xl shadow-orange-500/20 shadow-lg transition-all"
+                  className="flex items-center gap-2 px-4 py-2.5 btn-brand text-white text-sm font-bold rounded-xl transition-all"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   Dashboard
@@ -864,7 +868,7 @@ function App() {
               </div>
               <button 
                 onClick={fetchOrders}
-                className="p-2.5 text-slate-400 hover:text-slate-300 bg-[#131A2A] border border-[#1E293B] rounded-full shadow-black/50 shadow-black/70 shadow-2xl hover:shadow transition-all"
+                className="p-2.5 text-slate-400 hover:text-[#fc8019] glass-card rounded-full transition-all"
                 title="Refresh Status"
               >
                 <RotateCcw className="w-4 h-4 animate-spin-slow" />
@@ -872,7 +876,7 @@ function App() {
             </div>
 
             {orders.length === 0 ? (
-              <div className="bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/50 shadow-black/70 shadow-2xl p-16 text-center space-y-4">
+              <div className="glass-card rounded-3xl p-16 text-center space-y-4 animate-fade-in">
                 <div className="w-16 h-16 rounded-full bg-[#1A2235] flex items-center justify-center mx-auto text-slate-300">
                   <Utensils className="w-8 h-8" />
                 </div>
@@ -890,7 +894,7 @@ function App() {
                   return (
                     <div 
                       key={order.id}
-                      className="bg-[#131A2A] rounded-3xl border border-[#1E293B] shadow-black/50 shadow-black/70 shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-black/60 shadow-black/80 shadow-2xl"
+                      className="glass-card rounded-3xl overflow-hidden transition-all duration-300 animate-slide-up"
                     >
                       <div 
                         onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}

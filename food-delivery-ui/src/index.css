@@ -1,172 +1,328 @@
+/* ============================================================
+   GOOGLE FONTS — Outfit + Inter  (must precede @tailwind)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   CSS CUSTOM PROPERTIES — Design Tokens
+   ============================================================ */
+:root {
+  /* Brand colours */
+  --brand:        #fc8019;
+  --brand-glow:   rgba(252, 128, 25, 0.35);
+  --brand-soft:   rgba(252, 128, 25, 0.12);
+
+  /* Glass surface */
+  --glass-bg:     rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-hover:  rgba(255, 255, 255, 0.06);
+  --glass-shine:  rgba(255, 255, 255, 0.04);
+
+  /* Background palette */
+  --bg-deep:      #030712;
+  --bg-mid:       #0a0f1e;
+
+  /* Text */
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #475569;
+}
+
+/* ============================================================
+   GLOBAL RESET & BASE STYLES
+   ============================================================ */
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
   body {
-    @apply bg-slate-50 text-slate-900;
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Outfit', 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 }
 
-/* Custom scrollbar for premium look */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+/* ============================================================
+   ANIMATED GRADIENT MESH BACKGROUND
+   ============================================================ */
+.glass-bg-root {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 10%,  rgba(99,  102, 241, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 5%,   rgba(236, 72,  153, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 55% at 50% 100%,  rgba(252, 128, 25,  0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 45% at 85% 75%,  rgba(6,   182, 212, 0.10) 0%, transparent 50%),
+    linear-gradient(165deg, #030712 0%, #0a0f1e 45%, #060d1f 100%);
+  pointer-events: none;
 }
 
+/* Floating orb blobs */
+.glass-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: -1;
+  animation: orb-drift 18s ease-in-out infinite alternate;
+}
+.glass-orb-1 {
+  width: 700px; height: 700px;
+  top: -200px; left: -200px;
+  background: radial-gradient(circle, rgba(99,102,241,0.22) 0%, transparent 70%);
+  animation-duration: 20s;
+}
+.glass-orb-2 {
+  width: 600px; height: 600px;
+  top: 40%; right: -150px;
+  background: radial-gradient(circle, rgba(252,128,25,0.18) 0%, transparent 70%);
+  animation-duration: 16s;
+  animation-delay: -4s;
+}
+.glass-orb-3 {
+  width: 500px; height: 500px;
+  bottom: -100px; left: 30%;
+  background: radial-gradient(circle, rgba(6,182,212,0.14) 0%, transparent 70%);
+  animation-duration: 22s;
+  animation-delay: -8s;
+}
+.glass-orb-4 {
+  width: 400px; height: 400px;
+  top: 20%; left: 50%;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  animation-duration: 25s;
+  animation-delay: -12s;
+}
+
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0) scale(1);   }
+  33%  { transform: translate(40px, -30px) scale(1.05); }
+  66%  { transform: translate(-20px, 40px) scale(0.97); }
+  100% { transform: translate(30px, 20px) scale(1.03); }
+}
+
+/* ============================================================
+   GLASS CARD UTILITY CLASSES
+   ============================================================ */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 4px 6px  rgba(0,0,0,0.3),
+    0 24px 48px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+}
+.glass-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  box-shadow:
+    0 8px 12px  rgba(0,0,0,0.35),
+    0 32px 64px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  transform: translateY(-2px);
+}
+
+.glass-card-brand {
+  background: var(--glass-bg);
+  border: 1px solid rgba(252,128,25,0.25);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 4px 6px   rgba(0,0,0,0.3),
+    0 24px 48px rgba(0,0,0,0.4),
+    0 0 0 1px   rgba(252,128,25,0.08),
+    inset 0 1px 0 rgba(252,128,25,0.10);
+}
+
+.glass-header {
+  background: rgba(3, 7, 18, 0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.45);
+}
+
+.glass-input {
+  background: rgba(15, 23, 42, 0.50);
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.glass-input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-glow), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.glass-input::placeholder { color: var(--text-muted); }
+
+/* ============================================================
+   SHIMMER / SHINE ANIMATION ON CARDS
+   ============================================================ */
+@keyframes shimmer-slide {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.glass-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.055) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-slide 3s linear infinite;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(252,128,25,0.30);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(252,128,25,0.55); }
+
+/* ============================================================
+   BRAND GLOW BUTTON
+   ============================================================ */
+.btn-brand {
+  background: linear-gradient(135deg, #ff9540 0%, #fc8019 50%, #e86a00 100%);
+  box-shadow: 0 4px 24px rgba(252,128,25,0.40), 0 1px 4px rgba(0,0,0,0.35);
+  transition: box-shadow 0.25s, transform 0.2s, filter 0.2s;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.btn-brand:hover {
+  box-shadow: 0 8px 40px rgba(252,128,25,0.55), 0 2px 8px rgba(0,0,0,0.40);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+.btn-brand:active { transform: scale(0.98); }
+
+/* ============================================================
+   FOOD CATEGORY PILL
+   ============================================================ */
+.pill-active {
+  background: linear-gradient(135deg, #ff9540, #fc8019);
+  box-shadow: 0 4px 20px rgba(252,128,25,0.40);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+}
+.pill-inactive {
+  background: rgba(15,23,42,0.60);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #94a3b8;
+  backdrop-filter: blur(8px);
+}
+.pill-inactive:hover {
+  border-color: rgba(252,128,25,0.45);
+  color: #cbd5e1;
+}
+
+/* ============================================================
+   STANDARD ANIMATIONS
+   ============================================================ */
 @keyframes pulse-slow {
   0%, 100% { opacity: 1; }
-  50% { opacity: .5; }
+  50%       { opacity: .5; }
 }
+.animate-pulse-slow { animation: pulse-slow 2s cubic-bezier(0.4,0,0.6,1) infinite; }
 
-.animate-pulse-slow {
-  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Premium Animations */
 @keyframes slide-up {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
-.animate-slide-up {
-  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+.animate-slide-up { animation: slide-up 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
 
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
-}
+.animate-fade-in { animation: fade-in 0.35s ease-out forwards; }
 
 @keyframes zoom-in {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.93); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
 }
-.animate-zoom-in {
-  animation: zoom-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
+.animate-zoom-in { animation: zoom-in 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
 
-/* Pulsing map locator ring */
 @keyframes pulse-ring {
-  0% {
-    transform: scale(0.33);
-    opacity: 1;
-  }
-  80%, 100% {
-    transform: scale(2.2);
-    opacity: 0;
-  }
+  0%       { transform: scale(0.33); opacity: 1; }
+  80%, 100%{ transform: scale(2.2);  opacity: 0; }
 }
-.animate-pulse-ring {
-  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
-}
+.animate-pulse-ring { animation: pulse-ring 1.8s cubic-bezier(0.215,0.61,0.355,1) infinite; }
 
-/* Confetti animation */
 @keyframes confetti-fall {
-  0% {
-    transform: translateY(-10vh) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(-10vh) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 .confetti-piece {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 10px; height: 10px;
   background: #fc8019;
-  top: -10px;
-  opacity: 0;
+  top: -10px; opacity: 0;
   animation: confetti-fall 2.5s linear infinite;
 }
 
-/* Checkmark drawing animation */
 @keyframes stroke-draw {
-  100% {
-    stroke-dashoffset: 0;
-  }
+  100% { stroke-dashoffset: 0; }
 }
 @keyframes scale-pop {
-  0%, 100% {
-    transform: none;
-  }
-  50% {
-    transform: scale3d(1.1, 1.1, 1);
-  }
+  0%, 100% { transform: none; }
+  50%       { transform: scale3d(1.1,1.1,1); }
 }
 .checkmark-circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  stroke-width: 2;
-  stroke-miterlimit: 10;
-  stroke: #4ade80;
-  fill: none;
-  animation: stroke-draw 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  stroke-dasharray: 166; stroke-dashoffset: 166;
+  stroke-width: 2; stroke-miterlimit: 10;
+  stroke: #4ade80; fill: none;
+  animation: stroke-draw 0.6s cubic-bezier(0.65,0,0.45,1) forwards;
 }
 .checkmark-check {
   transform-origin: 50% 50%;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: stroke-draw 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  stroke-dasharray: 48; stroke-dashoffset: 48;
+  animation: stroke-draw 0.3s cubic-bezier(0.65,0,0.45,1) 0.8s forwards;
 }
 
-/* Swipe button transition */
-.swipe-button-container {
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-}
+.swipe-button-container { position: relative; overflow: hidden; user-select: none; -webkit-user-select: none; }
 
-/* Slow spin for radar effect */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
-.animate-spin-slow {
-  animation: spin-slow 3s linear infinite;
-}
+.animate-spin-slow { animation: spin-slow 3s linear infinite; }
 
-/* Slide down for notifications */
 @keyframes slide-down {
   from { transform: translateY(-20px) translateX(-50%); opacity: 0; }
-  to { transform: translateY(0) translateX(-50%); opacity: 1; }
+  to   { transform: translateY(0)     translateX(-50%); opacity: 1; }
 }
-.animate-slide-down {
-  animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+.animate-slide-down { animation: slide-down 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
 
-/* Order flash border glow */
 @keyframes order-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(252, 128, 25, 0); }
-  50% { box-shadow: 0 0 30px 8px rgba(252, 128, 25, 0.35); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(252,128,25,0); }
+  50%       { box-shadow: 0 0 30px 8px rgba(252,128,25,0.35); }
 }
-.animate-order-glow {
-  animation: order-glow 1.2s ease-in-out 3;
+.animate-order-glow { animation: order-glow 1.2s ease-in-out 3; }
+
+/* Food card lift on hover */
+@keyframes card-lift {
+  to { transform: translateY(-4px); }
 }
