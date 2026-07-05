@@ -156,8 +156,11 @@ function App() {
     removeToken();
     setUser(null);
     setCart([]);
+    setOrders([]);
     setAppMode('customer');
     setViewMode('dashboard');
+    localStorage.removeItem('swiggy_orders');
+    localStorage.removeItem('swiggy_app_mode');
   };
 
   const handleCancelOrderSubmit = (e) => {
@@ -410,7 +413,7 @@ function App() {
               How It Works
             </button>
 
-            {orders.length > 0 && (
+            {user && orders.length > 0 && (
               <button 
                 onClick={() => setViewMode('tracking')} 
                 className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
