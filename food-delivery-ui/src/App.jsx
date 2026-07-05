@@ -846,10 +846,19 @@ function App() {
         {/* Tracking Dashboard */}
         {viewMode === 'tracking' && (
           <div className="max-w-4xl mx-auto space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                Order Tracking Dashboard
-              </h2>
+          <div className="flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setViewMode('dashboard')}
+                  className="flex items-center gap-2 px-4 py-2.5 bg-[#fc8019] hover:bg-orange-600 text-white text-sm font-bold rounded-xl shadow-orange-500/20 shadow-lg transition-all"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  Dashboard
+                </button>
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  Order Tracking Dashboard
+                </h2>
+              </div>
               <button 
                 onClick={fetchOrders}
                 className="p-2.5 text-slate-400 hover:text-slate-300 bg-[#131A2A] border border-[#1E293B] rounded-full shadow-black/50 shadow-black/70 shadow-2xl hover:shadow transition-all"
