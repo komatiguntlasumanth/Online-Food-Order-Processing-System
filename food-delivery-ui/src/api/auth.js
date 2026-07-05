@@ -1,6 +1,10 @@
 // Authentication utility — manages JWT tokens and authenticated API calls
 
-const API_BASE = '/api';
+// In production (Netlify), VITE_API_BASE_URL is the public ngrok URL, e.g. https://abc123.ngrok-free.app
+// In local dev, it falls back to '/api' which Vite proxies to localhost:8080
+const API_BASE = import.meta.env.VITE_API_BASE_URL
+  ? `${import.meta.env.VITE_API_BASE_URL}/api`
+  : '/api';
 
 // Temporary memory store for OTP simulation
 const otpStore = {};

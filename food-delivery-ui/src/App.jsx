@@ -34,6 +34,9 @@ import DeliveryPartnerDashboard from './pages/DeliveryPartnerDashboard.jsx';
 import DeliveryMap from './pages/DeliveryMap.jsx';
 import { getToken, removeToken, getUser, authFetch } from './api/auth';
 import Architecture from './pages/Architecture.jsx';
+
+// In production (Netlify) this is the public ngrok URL; locally falls back to '' so Vite proxy handles /api/*
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 // Food images served from public/foodImages/ directory
 const FOOD_ITEMS = {
   "What's on your mind?": [
@@ -101,7 +104,7 @@ function App() {
   // Poll orders from backend and sync with local storage
   const fetchOrders = async () => {
     try {
-      const response = await authFetch('/api/orders');
+      const response = await authFetch(`${API_BASE}/api/orders`);
       let backendOrders = [];
       if (response.ok) {
         backendOrders = await response.json();
@@ -181,7 +184,7 @@ function App() {
     localStorage.setItem('swiggy_orders', JSON.stringify(updated));
 
     // Try backend cancel if active
-    authFetch(`/api/orders/${cancelModalOrderId}/cancel`, {
+    authFetch(`${API_BASE}/api/orders/${cancelModalOrderId}/cancel`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ reason: cancelReason })
@@ -254,7 +257,7 @@ function App() {
     const totalAmount = getCartTotal();
 
     try {
-      const response = await fetch('/api/orders', {
+      const response = await fetch(`${API_BASE}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
