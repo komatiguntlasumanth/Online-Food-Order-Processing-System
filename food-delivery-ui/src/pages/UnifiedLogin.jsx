@@ -115,12 +115,12 @@ export default function UnifiedLogin({ onLogin }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-3 shadow-2xl"
             style={{ background: 'linear-gradient(135deg, #fc8019, #ff6b35)' }}>
-            <ShoppingBag className="w-8 h-8 text-white" />
+            <ShoppingBag className="w-8 h-8 text-slate-900" />
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight">
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
             SWIGGY<span className="text-[#fc8019]">EXPRESS</span>
           </h1>
-          <p className="text-slate-400 text-xs mt-0.5">Premium Login Portal</p>
+          <p className="text-slate-600 text-xs mt-0.5">Premium Login Portal</p>
         </div>
 
         {/* glassmorphic card container */}
@@ -139,8 +139,8 @@ export default function UnifiedLogin({ onLogin }) {
           {step === 1 && (
             <div className="space-y-6">
               <div className="text-center mb-2">
-                <h2 className="text-lg font-bold text-white">Choose Your Portal</h2>
-                <p className="text-slate-400 text-xs mt-1">Select how you would like to access Swiggy Express</p>
+                <h2 className="text-lg font-bold text-slate-900">Choose Your Portal</h2>
+                <p className="text-slate-600 text-xs mt-1">Select how you would like to access Swiggy Express</p>
               </div>
 
               <div className="space-y-4">
@@ -163,8 +163,8 @@ export default function UnifiedLogin({ onLogin }) {
                       <ShoppingBag className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-sm text-white">Swiggy Express Customer</h3>
-                      <p className="text-slate-400 text-[11px] mt-0.5">Order delicious meals from nearby stores</p>
+                      <h3 className="font-extrabold text-sm text-slate-900">Swiggy Express Customer</h3>
+                      <p className="text-slate-600 text-[11px] mt-0.5">Order delicious meals from nearby stores</p>
                     </div>
                   </div>
                   <ArrowRight className="w-5 h-5 text-slate-500 group-hover:text-[#fc8019] transition-colors" />
@@ -185,12 +185,12 @@ export default function UnifiedLogin({ onLogin }) {
                   }}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-600 group-hover:scale-110 transition-transform">
                       <Truck className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-sm text-white">Delivery Partner</h3>
-                      <p className="text-slate-400 text-[11px] mt-0.5">Deliver food packages & earn steady payout</p>
+                      <h3 className="font-extrabold text-sm text-slate-900">Delivery Partner</h3>
+                      <p className="text-slate-600 text-[11px] mt-0.5">Deliver food packages & earn steady payout</p>
                     </div>
                   </div>
                   <ArrowRight className="w-5 h-5 text-slate-500 group-hover:text-green-400 transition-colors" />
@@ -206,7 +206,7 @@ export default function UnifiedLogin({ onLogin }) {
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="p-1 rounded-full text-slate-400 hover:text-white transition-colors"
+                  className="p-1 rounded-full text-slate-600 hover:text-slate-900 transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </button>
@@ -216,20 +216,20 @@ export default function UnifiedLogin({ onLogin }) {
               </div>
 
               <div className="space-y-1">
-                <h2 className="text-lg font-bold text-white">Enter Mobile Number</h2>
-                <p className="text-slate-400 text-xs">We will send an OTP verification code via SMS</p>
+                <h2 className="text-lg font-bold text-slate-900">Enter Mobile Number</h2>
+                <p className="text-slate-600 text-xs">We will send an OTP verification code via SMS</p>
               </div>
 
               <div className="space-y-4">
                 {/* optional full name for registering new accounts */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-400">Full Name (Optional)</label>
+                  <label className="text-xs font-bold text-slate-600">Full Name (Optional)</label>
                   <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your name to register"
-                    className="w-full px-4 py-3 rounded-xl text-white placeholder-slate-500 focus:outline-none transition-all text-sm"
+                    className="w-full px-4 py-3 rounded-xl text-slate-900 placeholder-slate-500 focus:outline-none transition-all text-sm"
                     style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
                     onFocus={(e) => e.target.style.borderColor = '#fc8019'}
                     onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
@@ -237,9 +237,9 @@ export default function UnifiedLogin({ onLogin }) {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-400">Mobile Phone Number</label>
+                  <label className="text-xs font-bold text-slate-600">Mobile Phone Number</label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">+91</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 text-sm font-semibold">+91</span>
                     <input
                       type="tel"
                       required
@@ -248,7 +248,7 @@ export default function UnifiedLogin({ onLogin }) {
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value.replace(/[^0-9]/g, ''))}
                       placeholder="Enter 10-digit number"
-                      className="w-full pl-14 pr-4 py-3 rounded-xl text-white placeholder-slate-500 focus:outline-none transition-all text-sm font-semibold tracking-wider"
+                      className="w-full pl-14 pr-4 py-3 rounded-xl text-slate-900 placeholder-slate-500 focus:outline-none transition-all text-sm font-semibold tracking-wider"
                       style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
                       onFocus={(e) => e.target.style.borderColor = '#fc8019'}
                       onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
@@ -260,7 +260,7 @@ export default function UnifiedLogin({ onLogin }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 mt-2 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
+                className="w-full py-3.5 mt-2 text-slate-900 font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
                 style={{ background: 'linear-gradient(135deg, #fc8019, #ff6b35)' }}
               >
                 {loading ? (
@@ -280,11 +280,11 @@ export default function UnifiedLogin({ onLogin }) {
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="p-1 rounded-full text-slate-400 hover:text-white transition-colors"
+                    className="p-1 rounded-full text-slate-600 hover:text-slate-900 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" />
                   </button>
-                  <span className="text-xs font-bold text-slate-400">+91 {mobile}</span>
+                  <span className="text-xs font-bold text-slate-600">+91 {mobile}</span>
                 </div>
                 <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-orange-500/10 text-[#fc8019] border border-orange-500/20">
                   Verifying OTP
@@ -292,14 +292,14 @@ export default function UnifiedLogin({ onLogin }) {
               </div>
 
               <div className="space-y-1">
-                <h2 className="text-lg font-bold text-white">Enter OTP Code</h2>
-                <p className="text-slate-400 text-xs">Verify the 4-digit code sent by Swiggy AI</p>
+                <h2 className="text-lg font-bold text-slate-900">Enter OTP Code</h2>
+                <p className="text-slate-600 text-xs">Verify the 4-digit code sent by Swiggy AI</p>
               </div>
 
               {/* simulated notification alert */}
               {otpSentMessage && (
                 <div className="p-3 bg-yellow-500/15 border border-yellow-500/30 text-yellow-300 rounded-xl text-[11px] font-medium animate-zoom-in leading-relaxed">
-                  <span className="font-extrabold uppercase block text-orange-400 mb-0.5">🔔 Swiggy AI OTP Delivery</span>
+                  <span className="font-extrabold uppercase block text-orange-600 mb-0.5">🔔 Swiggy AI OTP Delivery</span>
                   {otpSentMessage}
                 </div>
               )}
@@ -314,14 +314,14 @@ export default function UnifiedLogin({ onLogin }) {
                   value={otpInput}
                   onChange={(e) => setOtpInput(e.target.value.replace(/[^0-9]/g, ''))}
                   placeholder="Enter 4-Digit OTP"
-                  className="w-full text-center py-4 rounded-xl text-white placeholder-slate-600 focus:outline-none transition-all text-xl font-bold tracking-[0.6em]"
+                  className="w-full text-center py-4 rounded-xl text-slate-900 placeholder-slate-600 focus:outline-none transition-all text-xl font-bold tracking-[0.6em]"
                   style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
                   onFocus={(e) => e.target.style.borderColor = '#fc8019'}
                   onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                 />
 
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-400">
+                  <span className="text-slate-600">
                     {timer > 0 ? `Resend OTP in ${timer}s` : 'Did not receive?'}
                   </span>
                   <button
@@ -338,7 +338,7 @@ export default function UnifiedLogin({ onLogin }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
+                className="w-full py-3.5 text-slate-900 font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
                 style={{ background: 'linear-gradient(135deg, #fc8019, #ff6b35)' }}
               >
                 {loading ? (

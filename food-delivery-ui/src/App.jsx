@@ -370,7 +370,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen pb-24 relative font-sans text-white overflow-x-hidden">
+    <div className="min-h-screen pb-24 relative font-sans text-slate-900 overflow-x-hidden">
       {/* ── GLASSMORPHISM BACKGROUND ── */}
       <div className="glass-bg-root" aria-hidden="true" />
       <div className="glass-orb glass-orb-1" aria-hidden="true" />
@@ -380,13 +380,13 @@ function App() {
       
       {/* SUCCESS ANIMATION POPUP OVERLAY */}
       {showOrderSuccessPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in">
-          <div className="bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0B0F19] border border-[#1E293B] rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden backdrop-blur-md bg-opacity-80">
-            <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-black/70 shadow-2xl shadow-green-500/30 text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-500/20 backdrop-blur-sm animate-fade-in">
+          <div className="bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0B0F19] border border-slate-200 rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden backdrop-blur-md bg-opacity-80">
+            <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-black/5 shadow-2xl shadow-green-500/30 text-slate-900">
               <Check className="w-12 h-12" />
             </div>
-            <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Order Placed<br/>Successfully!</h2>
-            <p className="text-slate-400 text-sm font-medium">Redirecting to delivery details...</p>
+            <h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Order Placed<br/>Successfully!</h2>
+            <p className="text-slate-600 text-sm font-medium">Redirecting to delivery details...</p>
           </div>
         </div>
       )}
@@ -396,18 +396,18 @@ function App() {
         <div className="max-w-7xl mx-auto h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setViewMode('dashboard')}>
-              <div className="w-10 h-14 bg-[#fc8019] rounded-b-xl flex items-center justify-center text-white shadow-black/60 shadow-black/80 shadow-2xl">
-                <ShoppingBag className="w-5 h-5 text-white" />
+              <div className="w-10 h-14 bg-[#fc8019] rounded-b-xl flex items-center justify-center text-slate-900 shadow-black/5 shadow-black/5 shadow-2xl">
+                <ShoppingBag className="w-5 h-5 text-slate-900" />
               </div>
               <div>
                 <span className="text-2xl font-black tracking-tighter text-[#fc8019]">
                   swiggy
                 </span>
-                <span className="text-xs uppercase font-extrabold tracking-widest text-slate-400 block -mt-1">EXPRESS</span>
+                <span className="text-xs uppercase font-extrabold tracking-widest text-slate-600 block -mt-1">EXPRESS</span>
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-[#fc8019] cursor-pointer">
+            <div className="hidden md:flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-[#fc8019] cursor-pointer">
               <MapPin className="w-4 h-4 text-[#fc8019]" />
               <span>Madhapur, Hyderabad</span>
               <ChevronDown className="w-3.5 h-3.5 text-[#fc8019]" />
@@ -417,7 +417,7 @@ function App() {
           <div className="flex items-center gap-8">
             <button 
               onClick={() => setViewMode('overview')} 
-              className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors"
+              className="text-sm font-bold text-slate-700 hover:text-[#fc8019] transition-colors"
             >
               How It Works
             </button>
@@ -425,7 +425,7 @@ function App() {
             {user && orders.length > 0 && (
               <button 
                 onClick={() => setViewMode('tracking')} 
-                className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
+                className="text-sm font-bold text-slate-700 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
               >
                 <Clock className="w-4 h-4 text-[#fc8019]" />
                 Track Orders
@@ -435,7 +435,7 @@ function App() {
             {user ? (
               <div className="flex items-center gap-3">
                 <User className="w-4 h-4 text-[#fc8019]" />
-                <span className="text-sm font-bold text-slate-200">{user.fullName || user.username}</span>
+                <span className="text-sm font-bold text-slate-800">{user.fullName || user.username}</span>
                 <button 
                   onClick={handleLogout}
                   className="p-1.5 hover:text-red-500 rounded-full transition-colors"
@@ -447,9 +447,9 @@ function App() {
             ) : (
               <button 
                 onClick={() => setShowAuth(true)}
-                className="text-sm font-bold text-slate-300 hover:text-[#fc8019] transition-colors flex items-center gap-2"
+                className="text-sm font-bold text-slate-700 hover:text-[#fc8019] transition-colors flex items-center gap-2"
               >
-                <LogIn className="w-4 h-4 text-slate-400" />
+                <LogIn className="w-4 h-4 text-slate-600" />
                 Sign In / Register
               </button>
             )}
@@ -457,11 +457,11 @@ function App() {
             {/* Cart Icon */}
             <button 
               onClick={() => setShowCartDrawer(true)}
-              className="relative p-2 text-slate-200 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
+              className="relative p-2 text-slate-800 hover:text-[#fc8019] transition-colors flex items-center gap-1.5"
             >
               <ShoppingCart className="w-5 h-5" />
               {cart.length > 0 && (
-                <span className="absolute -top-1 -right-1.5 bg-[#fc8019] text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border border-white">
+                <span className="absolute -top-1 -right-1.5 bg-[#fc8019] text-slate-900 text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border border-white">
                   {cart.reduce((qty, i) => qty + i.quantity, 0)}
                 </span>
               )}
@@ -486,12 +486,12 @@ function App() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="glass-input w-full px-5 py-3.5 pl-12 rounded-2xl text-sm font-medium"
               />
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
             </div>
 
             {/* Category Navigation */}
             <div className="space-y-6">
-              <h2 className="text-xl font-extrabold tracking-tight text-white">
+              <h2 className="text-xl font-extrabold tracking-tight text-slate-900">
                 {activeCategory}
               </h2>
               
@@ -519,36 +519,36 @@ function App() {
                       key={item.id}
                       className="glass-card glass-shimmer rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden group"
                     >
-                      <div className="h-44 bg-slate-800 rounded-2xl flex items-center justify-center text-5xl mb-4 relative overflow-hidden group-hover:shadow-black/70 shadow-2xl transition-all">
+                      <div className="h-44 bg-white/60 rounded-2xl flex items-center justify-center text-5xl mb-4 relative overflow-hidden group-hover:shadow-black/5 shadow-2xl transition-all">
                         <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                        <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1 shadow-black/80 shadow-2xl">
+                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-bold border border-black/5 flex items-center gap-1 shadow-black/5 shadow-2xl">
                           <span className={item.veg ? 'text-green-500' : 'text-red-500'}>●</span>
-                          <span className="text-white uppercase tracking-widest">{item.veg ? 'Veg' : 'Non-Veg'}</span>
+                          <span className="text-slate-900 uppercase tracking-widest">{item.veg ? 'Veg' : 'Non-Veg'}</span>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between items-baseline mb-1">
-                          <h3 className="font-extrabold text-base text-white group-hover:text-[#fc8019] transition-colors">{item.name}</h3>
-                          <span className="font-bold text-sm text-white">₹{item.price}</span>
+                          <h3 className="font-extrabold text-base text-slate-900 group-hover:text-[#fc8019] transition-colors">{item.name}</h3>
+                          <span className="font-bold text-sm text-slate-900">₹{item.price}</span>
                         </div>
                         
                         {item.restaurantName && (
-                          <div className="text-xs text-slate-300 font-medium mb-2 flex items-center gap-1.5">
+                          <div className="text-xs text-slate-700 font-medium mb-2 flex items-center gap-1.5">
                             <Utensils className="w-3 h-3 text-[#fc8019]" />
                             {item.restaurantName}
                           </div>
                         )}
 
-                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-400 mb-3">
-                          <span className="flex items-center gap-0.5 text-green-400 bg-green-500/20 border border-green-500/30 px-1.5 py-0.5 rounded">
-                            <Star className="w-3 h-3 fill-green-400 text-green-400" /> {item.rating}
+                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-600 mb-3">
+                          <span className="flex items-center gap-0.5 text-green-600 bg-green-500/20 border border-green-500/30 px-1.5 py-0.5 rounded">
+                            <Star className="w-3 h-3 fill-green-400 text-green-600" /> {item.rating}
                           </span>
                           <span>•</span>
                           <span>{item.time}</span>
                         </div>
 
-                        <p className="text-slate-400 text-xs leading-relaxed mb-6 line-clamp-2">{item.desc}</p>
+                        <p className="text-slate-600 text-xs leading-relaxed mb-6 line-clamp-2">{item.desc}</p>
                       </div>
 
                       {/* Add button styled like Swiggy */}
@@ -584,21 +584,21 @@ function App() {
         {viewMode === 'payment' && (
           <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 space-y-6 animate-slide-up">
             <div className="text-center">
-              <h2 className="text-2xl font-black text-white">Select Payment Method</h2>
-              <p className="text-sm text-slate-400 mt-1">Complete your transaction to proceed to delivery details.</p>
+              <h2 className="text-2xl font-black text-slate-900">Select Payment Method</h2>
+              <p className="text-sm text-slate-600 mt-1">Complete your transaction to proceed to delivery details.</p>
             </div>
 
             {/* Payment Method Tabs */}
-            <div className="flex bg-white/5 backdrop-blur-md border border-white/10 p-1 rounded-2xl">
+            <div className="flex bg-white/5 backdrop-blur-md border border-black/5 p-1 rounded-2xl">
               <button 
                 onClick={() => setPaymentMethod('UPI')}
-                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${paymentMethod === 'UPI' ? 'bg-white/10 text-[#fc8019] shadow-glass' : 'text-slate-400'}`}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${paymentMethod === 'UPI' ? 'bg-white/10 text-[#fc8019] shadow-glass' : 'text-slate-600'}`}
               >
                 UPI / QR
               </button>
               <button 
                 onClick={() => setPaymentMethod('CARD')}
-                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${paymentMethod === 'CARD' ? 'bg-white/10 text-[#fc8019] shadow-glass' : 'text-slate-400'}`}
+                className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${paymentMethod === 'CARD' ? 'bg-white/10 text-[#fc8019] shadow-glass' : 'text-slate-600'}`}
               >
                 <CreditCard className="w-4 h-4" /> Credit/Debit Card
               </button>
@@ -607,13 +607,13 @@ function App() {
             {paymentMethod === 'UPI' ? (
               <div className="space-y-4 animate-fade-in">
                 <div className="glass-card p-4 rounded-2xl flex justify-between items-center text-sm font-medium">
-                  <span className="text-slate-400">UPI Address:</span>
+                  <span className="text-slate-600">UPI Address:</span>
                   <span className="font-bold text-[#fc8019] select-all">6300334374@ibl</span>
                 </div>
                 {/* Dynamic UPI Details */}
                 <div className="glass-card p-6 rounded-3xl flex flex-col items-center justify-center space-y-4">
                   <div className="text-center">
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block">Amount to Pay</span>
+                    <span className="text-[10px] text-slate-600 font-bold uppercase tracking-widest block">Amount to Pay</span>
                     <span className="text-3xl font-black text-[#fc8019]">₹{getCartTotal().toFixed(2)}</span>
                   </div>
                   <div className="glass-card p-4 rounded-2xl flex flex-col items-center">
@@ -624,7 +624,7 @@ function App() {
                       alt="Dynamic UPI QR Code" 
                       className="w-56 h-56 rounded-lg"
                     />
-                    <span className="text-[10px] text-slate-400 font-bold tracking-wider uppercase mt-3">Scan to Auto-fill</span>
+                    <span className="text-[10px] text-slate-600 font-bold tracking-wider uppercase mt-3">Scan to Auto-fill</span>
                   </div>
                 </div>
               </div>
@@ -632,9 +632,9 @@ function App() {
               <div className="space-y-4 animate-fade-in p-6 glass-card rounded-3xl">
                 <div className="space-y-4">
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Card Number</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 block">Card Number</label>
                     <div className="relative">
-                      <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                       <input 
                         type="text" 
                         maxLength="19"
@@ -647,7 +647,7 @@ function App() {
                   </div>
                   <div className="flex gap-4">
                     <div className="flex-1">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Expiry (MM/YY)</label>
+                      <label className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 block">Expiry (MM/YY)</label>
                       <input 
                         type="text" 
                         maxLength="5"
@@ -658,7 +658,7 @@ function App() {
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">CVV</label>
+                      <label className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 block">CVV</label>
                       <input 
                         type="password" 
                         maxLength="4"
@@ -670,7 +670,7 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 block">Cardholder Name</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5 block">Cardholder Name</label>
                     <input 
                       type="text" 
                       placeholder="Name on card"
@@ -686,13 +686,13 @@ function App() {
             <div className="pt-2 flex gap-4">
               <button
                 onClick={() => setViewMode('dashboard')}
-                className="flex-1 py-4 glass-card rounded-2xl text-slate-300 font-bold transition-all hover:border-white/20"
+                className="flex-1 py-4 glass-card rounded-2xl text-slate-700 font-bold transition-all hover:border-white/20"
               >
                 Cancel
               </button>
               <button
                 onClick={handlePaymentSuccess}
-                className="flex-1 py-4 btn-brand text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition-all"
+                className="flex-1 py-4 btn-brand text-slate-900 font-bold rounded-2xl flex items-center justify-center gap-2 transition-all"
               >
                 I Have Paid
                 <ArrowRight className="w-5 h-5" />
@@ -705,22 +705,22 @@ function App() {
         {viewMode === 'delivery_details' && (
           <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 space-y-6 animate-slide-up">
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-900/30 text-blue-400 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-900/30 text-blue-600 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-8 h-8" />
               </div>
-              <h2 className="text-2xl font-black text-white">Delivery Details</h2>
-              <p className="text-sm text-slate-400 mt-1">Please provide your live location or address.</p>
+              <h2 className="text-2xl font-black text-slate-900">Delivery Details</h2>
+              <p className="text-sm text-slate-600 mt-1">Please provide your live location or address.</p>
             </div>
 
             {error && (
-              <div className="p-3 bg-red-900/30 text-red-400 text-sm font-bold rounded-xl border border-red-500/30 flex items-center gap-2">
+              <div className="p-3 bg-red-900/30 text-red-600 text-sm font-bold rounded-xl border border-red-500/30 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" /> {error}
               </div>
             )}
 
             <form onSubmit={handlePlaceOrder} className="space-y-5">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-200 block">Customer Name</label>
+                <label className="text-sm font-bold text-slate-800 block">Customer Name</label>
                 <input
                   type="text"
                   required
@@ -732,7 +732,7 @@ function App() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-200 block flex items-center gap-2">
+                <label className="text-sm font-bold text-slate-800 block flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-[#fc8019]" /> Complete Address / Live Location
                 </label>
                 <textarea
@@ -748,7 +748,7 @@ function App() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 mt-4 btn-brand text-white font-black text-lg rounded-2xl flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                className="w-full py-4 mt-4 btn-brand text-slate-900 font-black text-lg rounded-2xl flex items-center justify-center gap-2 transition-all disabled:opacity-50"
               >
                 {loading ? (
                   <Loader2 className="w-6 h-6 animate-spin" />
@@ -777,7 +777,7 @@ function App() {
               {/* Main Card */}
               <div className="glass-card rounded-3xl overflow-hidden">
                 {/* Top gradient banner */}
-                <div className="bg-gradient-to-br from-[#fc8019] to-orange-500 p-8 text-center text-white">
+                <div className="bg-gradient-to-br from-[#fc8019] to-orange-500 p-8 text-center text-slate-900">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <Check className="w-5 h-5" />
                     <span className="text-sm font-bold uppercase tracking-widest opacity-90">Payment Confirmed</span>
@@ -792,22 +792,22 @@ function App() {
                   <div className="relative flex items-center justify-center">
                     <div className="absolute w-28 h-28 rounded-full bg-orange-100 animate-ping opacity-40" />
                     <div className="absolute w-20 h-20 rounded-full bg-orange-200 animate-ping opacity-30" style={{ animationDelay: '0.3s' }} />
-                    <div className="relative w-20 h-20 bg-gradient-to-br from-[#fc8019] to-orange-500 rounded-full flex items-center justify-center shadow-black/70 shadow-2xl shadow-orange-400/40 text-white text-3xl">
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-[#fc8019] to-orange-500 rounded-full flex items-center justify-center shadow-black/5 shadow-2xl shadow-orange-400/40 text-slate-900 text-3xl">
                       🚴
                     </div>
                   </div>
 
                   {/* Partner Assigned Badge */}
                   <div className="text-center space-y-1">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Delivery Partner Assigned</span>
+                    <span className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em]">Delivery Partner Assigned</span>
                     <div className="flex items-center justify-center gap-3 mt-3">
                       {/* Avatar circle with initials */}
-                      <div className="w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center font-extrabold text-lg shadow-black/60 shadow-black/80 shadow-2xl">
+                      <div className="w-12 h-12 rounded-full bg-white/60 text-slate-900 flex items-center justify-center font-extrabold text-lg shadow-black/5 shadow-black/5 shadow-2xl">
                         {driverInitials}
                       </div>
                       <div className="text-left">
-                        <div className="font-extrabold text-lg text-white">{driverName}</div>
-                        <div className="text-sm text-slate-400 font-medium">{driverMobile}</div>
+                        <div className="font-extrabold text-lg text-slate-900">{driverName}</div>
+                        <div className="text-sm text-slate-600 font-medium">{driverMobile}</div>
                       </div>
                     </div>
                   </div>
@@ -822,7 +822,7 @@ function App() {
                     ].map((step, i) => (
                       <div key={i} className="flex items-center gap-3">
                         <span className="text-lg">{step.icon}</span>
-                        <span className={`text-sm font-semibold ${step.done ? 'text-white' : 'text-slate-400'}`}>
+                        <span className={`text-sm font-semibold ${step.done ? 'text-slate-900' : 'text-slate-600'}`}>
                           {step.label}
                         </span>
                         {step.done && <Check className="w-4 h-4 text-green-500 ml-auto" />}
@@ -831,7 +831,7 @@ function App() {
                   </div>
 
                   {/* Spinner + redirect notice */}
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
+                  <div className="flex items-center gap-2 text-slate-600 text-sm">
                     <Loader2 className="w-4 h-4 animate-spin text-[#fc8019]" />
                     <span>Redirecting to live tracking in a moment...</span>
                   </div>
@@ -839,7 +839,7 @@ function App() {
                   {/* Manual go to tracking button */}
                   <button
                     onClick={() => setViewMode('tracking')}
-                    className="w-full py-4 btn-brand text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition-all"
+                    className="w-full py-4 btn-brand text-slate-900 font-bold rounded-2xl flex items-center justify-center gap-2 transition-all"
                   >
                     <Truck className="w-5 h-5" />
                     Track My Order Now
@@ -857,18 +857,18 @@ function App() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setViewMode('dashboard')}
-                  className="flex items-center gap-2 px-4 py-2.5 btn-brand text-white text-sm font-bold rounded-xl transition-all"
+                  className="flex items-center gap-2 px-4 py-2.5 btn-brand text-slate-900 text-sm font-bold rounded-xl transition-all"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   Dashboard
                 </button>
-                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
                   Order Tracking Dashboard
                 </h2>
               </div>
               <button 
                 onClick={fetchOrders}
-                className="p-2.5 text-slate-400 hover:text-[#fc8019] glass-card rounded-full transition-all"
+                className="p-2.5 text-slate-600 hover:text-[#fc8019] glass-card rounded-full transition-all"
                 title="Refresh Status"
               >
                 <RotateCcw className="w-4 h-4 animate-spin-slow" />
@@ -877,12 +877,12 @@ function App() {
 
             {orders.length === 0 ? (
               <div className="glass-card rounded-3xl p-16 text-center space-y-4 animate-fade-in">
-                <div className="w-16 h-16 rounded-full bg-[#1A2235] flex items-center justify-center mx-auto text-slate-300">
+                <div className="w-16 h-16 rounded-full bg-[#1A2235] flex items-center justify-center mx-auto text-slate-700">
                   <Utensils className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-200">No Orders Placed Yet</h3>
-                  <p className="text-sm text-slate-400 mt-1">Select items, complete the checkout and pay to view tracking pipelines here.</p>
+                  <h3 className="font-bold text-slate-800">No Orders Placed Yet</h3>
+                  <p className="text-sm text-slate-600 mt-1">Select items, complete the checkout and pay to view tracking pipelines here.</p>
                 </div>
               </div>
             ) : (
@@ -902,22 +902,22 @@ function App() {
                       >
                         <div className="space-y-1 min-w-0 pr-4">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-slate-400 uppercase">Order #{order.id}</span>
+                            <span className="text-xs font-bold text-slate-600 uppercase">Order #{order.id}</span>
                             <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border ${getStatusColor(order.status)}`}>
                               {order.status}
                             </span>
                           </div>
-                          <h4 className="font-bold text-base text-white truncate">
+                          <h4 className="font-bold text-base text-slate-900 truncate">
                             {order.item}
                           </h4>
-                          <div className="flex items-center gap-4 text-xs text-slate-400">
+                          <div className="flex items-center gap-4 text-xs text-slate-600">
                             <span className="flex items-center gap-1"><User className="w-3.5 h-3.5" /> {order.customerName}</span>
                             <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {new Date(order.createdAt).toLocaleTimeString()}</span>
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <div className="text-lg font-extrabold text-white">₹{order.amount}</div>
-                          <div className="text-[10px] text-slate-400 font-semibold mt-0.5">
+                          <div className="text-lg font-extrabold text-slate-900">₹{order.amount}</div>
+                          <div className="text-[10px] text-slate-600 font-semibold mt-0.5">
                             {isExpanded ? 'Click to hide' : 'Click to track'}
                           </div>
                         </div>
@@ -930,14 +930,14 @@ function App() {
                           {/* Live Delivered Overlay Animation inside the card */}
                           {order.status === 'DELIVERED' && (
                             <div className="p-6 text-center bg-green-900/20 border border-green-500/30 rounded-3xl space-y-4 animate-zoom-in">
-                              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mx-auto text-2xl shadow-black/70 shadow-2xl">
+                              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-slate-900 mx-auto text-2xl shadow-black/5 shadow-2xl">
                                 🎉
                               </div>
                               <div>
-                                <h4 className="font-black text-xl text-white tracking-tight animate-bounce">
+                                <h4 className="font-black text-xl text-slate-900 tracking-tight animate-bounce">
                                   Items Delivered!
                                 </h4>
-                                <p className="text-sm font-semibold text-green-400 mt-1">
+                                <p className="text-sm font-semibold text-green-600 mt-1">
                                   Thank you for purchasing — Swiggy Express
                                 </p>
                               </div>
@@ -946,11 +946,11 @@ function App() {
 
                           {/* Order Cancelled details */}
                           {step === -1 && (
-                            <div className="flex gap-4 items-start p-4 bg-red-900/20 border border-red-500/30 rounded-2xl text-red-400 animate-zoom-in">
+                            <div className="flex gap-4 items-start p-4 bg-red-900/20 border border-red-500/30 rounded-2xl text-red-600 animate-zoom-in">
                               <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
                               <div>
-                                <h5 className="font-bold text-sm text-white">Order Cancelled</h5>
-                                <p className="text-xs text-red-400 mt-1">
+                                <h5 className="font-bold text-sm text-slate-900">Order Cancelled</h5>
+                                <p className="text-xs text-red-600 mt-1">
                                   Reason: {order.cancelReason || 'No reason provided.'}
                                 </p>
                               </div>
@@ -962,8 +962,8 @@ function App() {
                             <div className="p-4 bg-orange-900/20 border border-orange-500/30 rounded-2xl flex items-start gap-3 animate-slide-up">
                               <MapPin className="w-5 h-5 text-[#fc8019] flex-shrink-0 mt-0.5" />
                               <div>
-                                <h5 className="font-extrabold text-sm text-white">Delivery Address</h5>
-                                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                                <h5 className="font-extrabold text-sm text-slate-900">Delivery Address</h5>
+                                <p className="text-xs text-slate-700 mt-1 leading-relaxed">
                                   {order.address}
                                 </p>
                               </div>
@@ -985,39 +985,39 @@ function App() {
                                 {/* Step 1: PLACED */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 1 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-400'
+                                    step >= 1 ? 'bg-[#fc8019] text-slate-900 shadow' : 'bg-slate-200 text-slate-600'
                                   }`}>
                                     {step > 1 ? <Check className="w-4 h-4" /> : '1'}
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-200">Order Placed</div>
-                                    <div className="text-[10px] text-slate-400 mt-0.5">Payment Verified</div>
+                                    <div className="text-xs font-bold text-slate-800">Order Placed</div>
+                                    <div className="text-[10px] text-slate-600 mt-0.5">Payment Verified</div>
                                   </div>
                                 </div>
 
                                 {/* Step 2: KITCHEN PREPARATION */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 2 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-400'
+                                    step >= 2 ? 'bg-[#fc8019] text-slate-900 shadow' : 'bg-slate-200 text-slate-600'
                                   }`}>
                                     {step > 2 ? <Check className="w-4 h-4" /> : '2'}
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-200">Kitchen Prep</div>
-                                    <div className="text-[10px] text-slate-400 mt-0.5">Preparing items</div>
+                                    <div className="text-xs font-bold text-slate-800">Kitchen Prep</div>
+                                    <div className="text-[10px] text-slate-600 mt-0.5">Preparing items</div>
                                   </div>
                                 </div>
 
                                 {/* Step 3: OUT_FOR_DELIVERY */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 3 ? 'bg-[#fc8019] text-white shadow' : 'bg-slate-200 text-slate-400'
+                                    step >= 3 ? 'bg-[#fc8019] text-slate-900 shadow' : 'bg-slate-200 text-slate-600'
                                   }`}>
                                     {step > 3 ? <Check className="w-4 h-4" /> : '3'}
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-200">Out for Delivery</div>
-                                    <div className="text-[10px] text-slate-400 mt-0.5">
+                                    <div className="text-xs font-bold text-slate-800">Out for Delivery</div>
+                                    <div className="text-[10px] text-slate-600 mt-0.5">
                                       {order.driverName ? `Assigned: ${order.driverName}` : 'Driver assignment'}
                                     </div>
                                   </div>
@@ -1026,13 +1026,13 @@ function App() {
                                 {/* Step 4: DELIVERED */}
                                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-2">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                                    step >= 4 ? 'bg-green-500 text-white shadow' : 'bg-slate-200 text-slate-400'
+                                    step >= 4 ? 'bg-green-500 text-slate-900 shadow' : 'bg-slate-200 text-slate-600'
                                   }`}>
                                     4
                                   </div>
                                   <div>
-                                    <div className="text-xs font-bold text-slate-200">Delivered</div>
-                                    <div className="text-[10px] text-slate-400 mt-0.5">Handed over</div>
+                                    <div className="text-xs font-bold text-slate-800">Delivered</div>
+                                    <div className="text-[10px] text-slate-600 mt-0.5">Handed over</div>
                                   </div>
                                 </div>
                               </div>
@@ -1042,28 +1042,28 @@ function App() {
                           {/* Live tracking map if out for delivery */}
                           {order.status === 'OUT_FOR_DELIVERY' && (
                             <div className="space-y-4 animate-fade-in">
-                              <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest">Live Delivery Location Tracker</h5>
+                              <h5 className="text-xs font-black text-slate-600 uppercase tracking-widest">Live Delivery Location Tracker</h5>
                               <DeliveryMap orderStatus="OUT_FOR_DELIVERY" />
                             </div>
                           )}
 
                           {/* Delivery partner driver details block */}
                           {order.driverName && (
-                            <div className="p-4 bg-[#131A2A] border border-[#1E293B] rounded-2xl shadow-black/50 shadow-black/70 shadow-2xl flex items-center justify-between gap-4 animate-slide-up">
+                            <div className="p-4 bg-[#131A2A] border border-slate-200 rounded-2xl shadow-black/5 shadow-black/5 shadow-2xl flex items-center justify-between gap-4 animate-slide-up">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-orange-900/30 border border-orange-500/30 flex items-center justify-center rounded-xl text-[#fc8019]">
                                   🚴
                                 </div>
                                 <div>
-                                  <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Your Delivery Partner</div>
-                                  <div className="text-sm font-extrabold text-white">{order.driverName}</div>
+                                  <div className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Your Delivery Partner</div>
+                                  <div className="text-sm font-extrabold text-slate-900">{order.driverName}</div>
                                 </div>
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <a 
                                   href={`tel:${order.driverMobile || '9876543210'}`}
-                                  className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all"
+                                  className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-100/80 hover:bg-slate-800 text-slate-900 rounded-xl text-xs font-bold transition-all"
                                 >
                                   <PhoneCall className="w-3.5 h-3.5" />
                                   <span>{order.driverMobile || '9876543210'}</span>
@@ -1077,7 +1077,7 @@ function App() {
                             <div className="pt-2 flex justify-end">
                               <button
                                 onClick={() => setCancelModalOrderId(order.id)}
-                                className="text-xs text-red-400 hover:text-red-300 font-extrabold transition-colors flex items-center gap-1 border border-red-500/30 hover:border-red-500/50 px-3.5 py-1.5 rounded-xl bg-red-900/20"
+                                className="text-xs text-red-600 hover:text-red-300 font-extrabold transition-colors flex items-center gap-1 border border-red-500/30 hover:border-red-500/50 px-3.5 py-1.5 rounded-xl bg-red-900/20"
                               >
                                 <XCircle className="w-3.5 h-3.5" /> Cancel Order
                               </button>
@@ -1097,19 +1097,19 @@ function App() {
       {/* Slide-over Right Sidebar Drawer for Swiggy Cart */}
       {showCartDrawer && (
         <div className="fixed inset-0 z-50 overflow-hidden">
-          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onClick={() => setShowCartDrawer(false)} />
+          <div className="absolute inset-0 bg-slate-100/80/60 backdrop-blur-sm transition-opacity" onClick={() => setShowCartDrawer(false)} />
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
             <div className="w-screen max-w-md bg-[#131A2A] shadow-2xl flex flex-col">
               
               {/* Drawer Header */}
-              <div className="p-6 border-b border-[#1E293B] flex justify-between items-center">
-                <h3 className="text-lg font-black text-white flex items-center gap-2">
+              <div className="p-6 border-b border-slate-200 flex justify-between items-center">
+                <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
                   <ShoppingCart className="w-5 h-5 text-[#fc8019]" />
                   Cart ({cart.reduce((qty, i) => qty + i.quantity, 0)} Items)
                 </h3>
                 <button 
                   onClick={() => setShowCartDrawer(false)}
-                  className="p-1 text-slate-400 hover:text-slate-300 hover:bg-[#1A2235] rounded-full"
+                  className="p-1 text-slate-600 hover:text-slate-300 hover:bg-[#1A2235] rounded-full"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -1118,22 +1118,22 @@ function App() {
               {/* Cart List */}
               {cart.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-4">
-                  <div className="w-20 h-20 bg-[#1A2235] border rounded-3xl flex items-center justify-center text-slate-300">
+                  <div className="w-20 h-20 bg-[#1A2235] border rounded-3xl flex items-center justify-center text-slate-700">
                     <ShoppingCart className="w-10 h-10" />
                   </div>
                   <div className="text-center">
-                    <h4 className="font-extrabold text-slate-200">Your cart is empty</h4>
-                    <p className="text-slate-400 text-xs mt-1">Add items from the menu to start your order.</p>
+                    <h4 className="font-extrabold text-slate-800">Your cart is empty</h4>
+                    <p className="text-slate-600 text-xs mt-1">Add items from the menu to start your order.</p>
                   </div>
                 </div>
               ) : (
                 <div className="flex-grow overflow-y-auto p-6 space-y-4">
                   {cart.map((cartItem) => (
-                    <div key={cartItem.item.id} className="flex justify-between items-center p-3 rounded-2xl border border-[#1E293B] hover:border-[#334155] transition-colors">
+                    <div key={cartItem.item.id} className="flex justify-between items-center p-3 rounded-2xl border border-slate-200 hover:border-[#334155] transition-colors">
                       <div className="flex gap-3 items-center">
                         <span className="text-3xl">{cartItem.item.icon}</span>
                         <div>
-                          <h4 className="font-extrabold text-sm text-white">{cartItem.item.name}</h4>
+                          <h4 className="font-extrabold text-sm text-slate-900">{cartItem.item.name}</h4>
                           <span className="text-xs text-[#fc8019] font-bold">₹{cartItem.item.price} each</span>
                         </div>
                       </div>
@@ -1142,14 +1142,14 @@ function App() {
                           onClick={() => updateQuantity(cartItem.item.id, -1)}
                           className="p-1 bg-[#1A2235] border rounded-full hover:bg-slate-100"
                         >
-                          <Minus className="w-3.5 h-3.5 text-slate-300" />
+                          <Minus className="w-3.5 h-3.5 text-slate-700" />
                         </button>
                         <span className="font-extrabold text-sm w-4 text-center">{cartItem.quantity}</span>
                         <button 
                           onClick={() => addToCart(cartItem.item)}
                           className="p-1 bg-[#1A2235] border rounded-full hover:bg-slate-100"
                         >
-                          <Plus className="w-3.5 h-3.5 text-slate-300" />
+                          <Plus className="w-3.5 h-3.5 text-slate-700" />
                         </button>
                       </div>
                     </div>
@@ -1159,14 +1159,14 @@ function App() {
 
               {/* Summary & Proceed */}
               {cart.length > 0 && (
-                <div className="p-6 border-t border-[#1E293B] space-y-4 bg-[#1A2235]/50">
+                <div className="p-6 border-t border-slate-200 space-y-4 bg-[#1A2235]/50">
                   <div className="flex justify-between items-baseline">
-                    <span className="text-sm font-semibold text-slate-400">To Pay:</span>
-                    <span className="text-2xl font-black text-white">₹{getCartTotal()}</span>
+                    <span className="text-sm font-semibold text-slate-600">To Pay:</span>
+                    <span className="text-2xl font-black text-slate-900">₹{getCartTotal()}</span>
                   </div>
                   <button
                     onClick={handleCheckout}
-                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-white font-extrabold rounded-2xl shadow-black/70 shadow-2xl shadow-orange-500/20 transition-all flex items-center justify-center gap-1.5"
+                    className="w-full py-4 bg-[#fc8019] hover:bg-orange-600 text-slate-900 font-extrabold rounded-2xl shadow-black/5 shadow-2xl shadow-orange-500/20 transition-all flex items-center justify-center gap-1.5"
                   >
                     Proceed to Checkout
                     <ChevronRight className="w-5 h-5" />
@@ -1181,7 +1181,7 @@ function App() {
       {/* Cart bottom checkout banner bar */}
       {cart.length > 0 && !showCartDrawer && viewMode === 'dashboard' && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-lg px-4">
-          <div className="bg-[#fc8019] text-white rounded-2xl p-4 flex justify-between items-center shadow-black/80 shadow-2xl">
+          <div className="bg-[#fc8019] text-slate-900 rounded-2xl p-4 flex justify-between items-center shadow-black/5 shadow-2xl">
             <div className="flex items-center gap-3">
               <span className="text-sm font-extrabold">{cart.reduce((qty, i) => qty + i.quantity, 0)} items | ₹{getCartTotal()}</span>
             </div>
@@ -1202,7 +1202,7 @@ function App() {
           <div className="relative w-full max-w-md bg-transparent">
             <button 
               onClick={() => setShowAuth(false)}
-              className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white bg-[#131A2A]/10 hover:bg-[#131A2A]/20 rounded-full backdrop-blur-sm transition-all"
+              className="absolute -top-12 right-0 p-2 text-slate-900/80 hover:text-slate-900 bg-[#131A2A]/10 hover:bg-[#131A2A]/20 rounded-full backdrop-blur-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1231,7 +1231,7 @@ function App() {
           </div>
 
           {/* Large Success Box Card */}
-          <div className="bg-[#131A2A] rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-[#1E293B] text-center space-y-6 animate-zoom-in">
+          <div className="bg-[#131A2A] rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-6 animate-zoom-in">
             <div className="w-24 h-24 mx-auto bg-green-900/30 rounded-full flex items-center justify-center border-4 border-green-500/30">
               <svg className="w-14 h-14" viewBox="0 0 52 52">
                 <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
@@ -1239,8 +1239,8 @@ function App() {
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-black text-white tracking-tight">Order Placed Successful!</h2>
-              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Order Placed Successful!</h2>
+              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
                 Your transaction has been confirmed. Redirecting to your live order tracking timeline...
               </p>
             </div>
@@ -1254,19 +1254,19 @@ function App() {
       {/* Cancel Order Modal with reason details */}
       {cancelModalOrderId && (
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#131A2A] rounded-3xl p-6 max-w-md w-full shadow-2xl border border-[#1E293B] space-y-5 animate-zoom-in">
+          <div className="bg-[#131A2A] rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-200 space-y-5 animate-zoom-in">
             <div className="flex items-center gap-3 text-red-600">
               <div className="w-10 h-10 bg-red-900/30 border border-red-500/30 rounded-xl flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-extrabold text-base text-white">Cancel Order #{cancelModalOrderId}</h3>
-                <p className="text-[11px] text-slate-400">Please provide a reason for cancelling this order</p>
+                <h3 className="font-extrabold text-base text-slate-900">Cancel Order #{cancelModalOrderId}</h3>
+                <p className="text-[11px] text-slate-600">Please provide a reason for cancelling this order</p>
               </div>
             </div>
 
             {showCancelError && (
-              <div className="p-3 bg-red-900/30 border border-red-500/30 text-red-400 rounded-xl text-xs font-bold animate-zoom-in">
+              <div className="p-3 bg-red-900/30 border border-red-500/30 text-red-600 rounded-xl text-xs font-bold animate-zoom-in">
                 Please enter a cancellation reason to confirm!
               </div>
             )}
@@ -1284,13 +1284,13 @@ function App() {
                 <button
                   type="button"
                   onClick={() => { setCancelModalOrderId(null); setCancelReason(''); setShowCancelError(false); }}
-                  className="flex-1 py-3 border border-[#334155] text-slate-300 font-bold rounded-2xl hover:bg-[#1A2235] text-xs transition-all"
+                  className="flex-1 py-3 border border-[#334155] text-slate-700 font-bold rounded-2xl hover:bg-[#1A2235] text-xs transition-all"
                 >
                   Keep Order
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl text-xs transition-all shadow-black/60 shadow-black/80 shadow-2xl shadow-red-600/20"
+                  className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-slate-900 font-bold rounded-2xl text-xs transition-all shadow-black/5 shadow-black/5 shadow-2xl shadow-red-600/20"
                 >
                   Confirm Cancel
                 </button>

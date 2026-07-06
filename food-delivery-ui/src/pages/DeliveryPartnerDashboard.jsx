@@ -253,15 +253,15 @@ export default function DeliveryPartnerDashboard() {
   }[orderStep] || orderStep;
 
   const stepColor = {
-    WAITING: 'bg-slate-700 text-slate-300',
-    ASSIGNED: 'bg-orange-500/20 text-orange-400 border border-orange-500/30',
-    PICKED_UP: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
-    ARRIVED: 'bg-green-500/20 text-green-400 border border-green-500/30',
+    WAITING: 'bg-slate-700 text-slate-700',
+    ASSIGNED: 'bg-orange-500/20 text-orange-600 border border-orange-500/30',
+    PICKED_UP: 'bg-blue-500/20 text-blue-600 border border-blue-500/30',
+    ARRIVED: 'bg-green-500/20 text-green-600 border border-green-500/30',
     DELIVERED: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
   }[orderStep] || '';
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] pb-16 font-sans text-white">
+    <div className="min-h-screen bg-white pb-16 font-sans text-slate-900">
 
       {/* ── Delivered Success Popup ─────────────────────────────────────── */}
       {showDeliveredPopup && (
@@ -270,13 +270,13 @@ export default function DeliveryPartnerDashboard() {
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             {confettiPieces.map((s, i) => <ConfettiPiece key={i} style={s} />)}
           </div>
-          <div className="relative bg-[#131A2A] border border-[#1E293B] rounded-3xl p-10 max-w-sm mx-4 text-center space-y-4 animate-zoom-in shadow-2xl shadow-black/80">
+          <div className="relative bg-[#131A2A] border border-slate-200 rounded-3xl p-10 max-w-sm mx-4 text-center space-y-4 animate-zoom-in shadow-2xl shadow-black/5">
             <div className="flex justify-center">
               <AnimatedCheck />
             </div>
-            <h2 className="text-2xl font-black text-white leading-tight">Items delivered successfully,<br/>return to the store.</h2>
-            <p className="text-sm text-slate-400">₹20.00 has been credited to your wallet!</p>
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-bold">
+            <h2 className="text-2xl font-black text-slate-900 leading-tight">Items delivered successfully,<br/>return to the store.</h2>
+            <p className="text-sm text-slate-600">₹20.00 has been credited to your wallet!</p>
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-600 px-4 py-2 rounded-full text-sm font-bold">
               <Zap className="w-4 h-4" /> Wallet Balance: ₹{walletBalance.toFixed(2)}
             </div>
           </div>
@@ -286,7 +286,7 @@ export default function DeliveryPartnerDashboard() {
       {/* ── New Order Flash Notification ────────────────────────────────── */}
       {newOrderFlash && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 animate-slide-up">
-          <div className="bg-[#fc8019] text-white font-black px-6 py-3 rounded-2xl shadow-2xl shadow-orange-500/40 flex items-center gap-3">
+          <div className="bg-[#fc8019] text-slate-900 font-black px-6 py-3 rounded-2xl shadow-2xl shadow-orange-500/40 flex items-center gap-3">
             <Bell className="w-5 h-5 animate-bounce" />
             New Order Assigned to You!
           </div>
@@ -294,11 +294,11 @@ export default function DeliveryPartnerDashboard() {
       )}
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 bg-[#131A2A]/95 backdrop-blur-xl border-b border-[#1E293B] px-6 py-4 shadow-2xl shadow-black/50">
+      <header className="sticky top-0 z-40 bg-[#131A2A]/95 backdrop-blur-xl border-b border-slate-200 px-6 py-4 shadow-2xl shadow-black/5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#fc8019] rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/25">
-              <Truck className="w-5 h-5 text-white" />
+              <Truck className="w-5 h-5 text-slate-900" />
             </div>
             <div>
               <span className="text-lg font-black tracking-tighter text-[#fc8019]">swiggy</span>
@@ -308,7 +308,7 @@ export default function DeliveryPartnerDashboard() {
 
           <div className="flex items-center gap-5">
             {online && (
-              <div className="hidden md:flex items-center gap-1.5 text-xs font-bold text-slate-400">
+              <div className="hidden md:flex items-center gap-1.5 text-xs font-bold text-slate-600">
                 <MapPin className="w-3.5 h-3.5 text-[#fc8019]" />
                 {selectedStore}
               </div>
@@ -319,8 +319,8 @@ export default function DeliveryPartnerDashboard() {
               onClick={online ? handleGoOffline : handleGoOnline}
               className={`flex items-center gap-2 px-5 py-2 rounded-2xl text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 online
-                  ? 'bg-green-500 text-white shadow-lg shadow-green-500/30'
-                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                  ? 'bg-green-500 text-slate-900 shadow-lg shadow-green-500/30'
+                  : 'bg-slate-700 text-slate-700 hover:bg-slate-600'
               }`}
             >
               {online ? (
@@ -334,7 +334,7 @@ export default function DeliveryPartnerDashboard() {
               <div className="w-7 h-7 bg-[#fc8019]/20 rounded-full flex items-center justify-center">
                 <span className="text-[#fc8019] text-xs font-black">{(user?.fullName || user?.username || 'P')[0].toUpperCase()}</span>
               </div>
-              <span className="text-xs font-bold text-slate-300 hidden sm:inline">{user?.fullName || user?.username || 'Partner'}</span>
+              <span className="text-xs font-bold text-slate-700 hidden sm:inline">{user?.fullName || user?.username || 'Partner'}</span>
               <button
                 onClick={() => { removeToken(); window.location.reload(); }}
                 className="p-1.5 text-slate-500 hover:text-red-400 rounded-lg transition-colors"
@@ -355,12 +355,12 @@ export default function DeliveryPartnerDashboard() {
 
           {/* ── OFFLINE STATE ─────────────────────────────────────────── */}
           {!online && (
-            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
-              <div className="w-20 h-20 bg-[#0B0F19] border border-[#1E293B] rounded-full flex items-center justify-center mx-auto">
+            <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
+              <div className="w-20 h-20 bg-white border border-slate-200 rounded-full flex items-center justify-center mx-auto">
                 <Truck className="w-10 h-10 text-slate-600" />
               </div>
               <div>
-                <h3 className="font-extrabold text-xl text-white">You are Offline</h3>
+                <h3 className="font-extrabold text-xl text-slate-900">You are Offline</h3>
                 <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">Select your nearest Swiggy hub and tap Online to start receiving orders.</p>
               </div>
               <div className="max-w-xs mx-auto">
@@ -368,14 +368,14 @@ export default function DeliveryPartnerDashboard() {
                 <select
                   value={selectedStore}
                   onChange={(e) => setSelectedStore(e.target.value)}
-                  className="w-full bg-[#0B0F19] border border-[#334155] text-sm font-bold text-slate-200 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full bg-white border border-[#334155] text-sm font-bold text-slate-800 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 >
                   {STORES.map((s, i) => <option key={i} value={s}>{s}</option>)}
                 </select>
               </div>
               <button
                 onClick={handleGoOnline}
-                className="mx-auto flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-black px-8 py-3 rounded-2xl shadow-lg shadow-green-500/30 transition-all text-sm uppercase tracking-wider"
+                className="mx-auto flex items-center gap-2 bg-green-500 hover:bg-green-400 text-slate-900 font-black px-8 py-3 rounded-2xl shadow-lg shadow-green-500/30 transition-all text-sm uppercase tracking-wider"
               >
                 <Zap className="w-4 h-4" /> Go Online
               </button>
@@ -384,23 +384,23 @@ export default function DeliveryPartnerDashboard() {
 
           {/* ── ONLINE → WAITING FOR ORDER ───────────────────────────── */}
           {online && orderStep === 'WAITING' && (
-            <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
+            <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
               {/* Animated radar rings */}
               <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full border-2 border-green-500/30 animate-ping" style={{ animationDuration: '1.5s' }} />
                 <div className="absolute inset-0 rounded-full border-2 border-green-500/20 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.5s' }} />
                 <div className="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center">
-                  <RefreshCw className="w-8 h-8 text-green-400 animate-spin" style={{ animationDuration: '3s' }} />
+                  <RefreshCw className="w-8 h-8 text-green-600 animate-spin" style={{ animationDuration: '3s' }} />
                 </div>
               </div>
               <div>
-                <h3 className="font-extrabold text-xl text-white">Searching for Orders...</h3>
+                <h3 className="font-extrabold text-xl text-slate-900">Searching for Orders...</h3>
                 <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">You're active. Orders placed by customers near <span className="text-[#fc8019] font-bold">{selectedStore}</span> will be assigned to you.</p>
               </div>
               {/* Waiting status box */}
-              <div className="inline-flex items-center gap-3 bg-[#0B0F19] border border-[#1E293B] rounded-2xl px-6 py-4">
+              <div className="inline-flex items-center gap-3 bg-white border border-slate-200 rounded-2xl px-6 py-4">
                 <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-sm font-bold text-slate-300">Waiting for your order...</span>
+                <span className="text-sm font-bold text-slate-700">Waiting for your order...</span>
               </div>
             </div>
           )}
@@ -413,34 +413,34 @@ export default function DeliveryPartnerDashboard() {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <Bell className="w-4 h-4 text-[#fc8019] animate-bounce" />
-                    <span className="text-[10px] font-black text-orange-400 uppercase tracking-widest">New Order Assigned!</span>
+                    <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest">New Order Assigned!</span>
                   </div>
-                  <h3 className="text-lg font-black text-white">Job #{currentOrder.id}</h3>
-                  <p className="text-sm text-slate-400">Deliver to: <span className="text-white font-bold">{currentOrder.customerName}</span></p>
+                  <h3 className="text-lg font-black text-slate-900">Job #{currentOrder.id}</h3>
+                  <p className="text-sm text-slate-600">Deliver to: <span className="text-slate-900 font-bold">{currentOrder.customerName}</span></p>
                 </div>
                 <span className={`text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider ${stepColor}`}>{stepLabel}</span>
               </div>
 
               {/* Order Items Card */}
-              <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 space-y-4">
+              <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-6 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Package className="w-4 h-4 text-[#fc8019]" />
-                  <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Items to Pick Up</h4>
+                  <h4 className="text-xs font-black text-slate-600 uppercase tracking-widest">Items to Pick Up</h4>
                 </div>
-                <div className="bg-[#0B0F19] border border-[#334155] rounded-2xl p-4">
-                  <p className="text-sm font-bold text-white leading-relaxed">{currentOrder.item}</p>
+                <div className="bg-white border border-[#334155] rounded-2xl p-4">
+                  <p className="text-sm font-bold text-slate-900 leading-relaxed">{currentOrder.item}</p>
                   <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#334155]/60">
                     <span className="text-xs text-slate-500">Order Total</span>
-                    <span className="font-black text-white">₹{currentOrder.amount}</span>
+                    <span className="font-black text-slate-900">₹{currentOrder.amount}</span>
                   </div>
                 </div>
 
                 {currentOrder.address && (
-                  <div className="bg-[#0B0F19] border border-[#334155] rounded-2xl p-4 flex items-start gap-3">
+                  <div className="bg-white border border-[#334155] rounded-2xl p-4 flex items-start gap-3">
                     <MapPin className="w-4 h-4 text-[#fc8019] mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Delivery Address</p>
-                      <p className="text-sm font-bold text-white">{currentOrder.address}</p>
+                      <p className="text-sm font-bold text-slate-900">{currentOrder.address}</p>
                     </div>
                   </div>
                 )}
@@ -451,7 +451,7 @@ export default function DeliveryPartnerDashboard() {
 
                 <button
                   onClick={handlePickUp}
-                  className="w-full py-4 bg-[#fc8019] hover:bg-orange-500 text-white font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-orange-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                  className="w-full py-4 bg-[#fc8019] hover:bg-orange-500 text-slate-900 font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-orange-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
                 >
                   <Package className="w-5 h-5" /> Picked Up Items
                 </button>
@@ -466,17 +466,17 @@ export default function DeliveryPartnerDashboard() {
               <div className="bg-gradient-to-r from-blue-500/20 to-transparent border border-blue-500/30 rounded-3xl p-6 flex flex-wrap justify-between items-center gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <Navigation className="w-4 h-4 text-blue-400 animate-pulse" />
-                    <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest">On The Way</span>
+                    <Navigation className="w-4 h-4 text-blue-600 animate-pulse" />
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">On The Way</span>
                   </div>
-                  <h3 className="text-lg font-black text-white">Navigating to Customer</h3>
-                  <p className="text-sm text-slate-400">Deliver to: <span className="text-white font-bold">{currentOrder.customerName}</span></p>
+                  <h3 className="text-lg font-black text-slate-900">Navigating to Customer</h3>
+                  <p className="text-sm text-slate-600">Deliver to: <span className="text-slate-900 font-bold">{currentOrder.customerName}</span></p>
                 </div>
                 <span className={`text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider ${stepColor}`}>{stepLabel}</span>
               </div>
 
               {/* Live Map */}
-              <div className="rounded-3xl overflow-hidden border border-[#1E293B] animate-fade-in">
+              <div className="rounded-3xl overflow-hidden border border-slate-200 animate-fade-in">
                 <DeliveryMap
                   orderStatus="OUT_FOR_DELIVERY"
                   isPartnerView={true}
@@ -486,11 +486,11 @@ export default function DeliveryPartnerDashboard() {
 
               {/* Customer location info */}
               {currentOrder.address && (
-                <div className="bg-[#131A2A] border border-[#1E293B] rounded-2xl p-4 flex items-start gap-3 animate-fade-in">
+                <div className="bg-[#131A2A] border border-slate-200 rounded-2xl p-4 flex items-start gap-3 animate-fade-in">
                   <MapPin className="w-4 h-4 text-[#fc8019] mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Customer Location</p>
-                    <p className="text-sm font-bold text-white">{currentOrder.address}</p>
+                    <p className="text-sm font-bold text-slate-900">{currentOrder.address}</p>
                   </div>
                 </div>
               )}
@@ -502,7 +502,7 @@ export default function DeliveryPartnerDashboard() {
                 </div>
                 <button
                   onClick={handleArrived}
-                  className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-blue-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-slate-900 font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-blue-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
                 >
                   <MapPin className="w-5 h-5" /> Mark as Arrived
                 </button>
@@ -517,11 +517,11 @@ export default function DeliveryPartnerDashboard() {
               <div className="bg-gradient-to-r from-green-500/20 to-transparent border border-green-500/30 rounded-3xl p-6 flex flex-wrap justify-between items-center gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <MapPin className="w-4 h-4 text-green-400" />
-                    <span className="text-[10px] font-black text-green-400 uppercase tracking-widest">Arrived at Location</span>
+                    <MapPin className="w-4 h-4 text-green-600" />
+                    <span className="text-[10px] font-black text-green-600 uppercase tracking-widest">Arrived at Location</span>
                   </div>
-                  <h3 className="text-lg font-black text-white">Ready for Handover</h3>
-                  <p className="text-sm text-slate-400">Hand over to: <span className="text-white font-bold">{currentOrder.customerName}</span></p>
+                  <h3 className="text-lg font-black text-slate-900">Ready for Handover</h3>
+                  <p className="text-sm text-slate-600">Hand over to: <span className="text-slate-900 font-bold">{currentOrder.customerName}</span></p>
                 </div>
                 <span className={`text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider ${stepColor}`}>{stepLabel}</span>
               </div>
@@ -542,7 +542,7 @@ export default function DeliveryPartnerDashboard() {
                 </div>
                 <button
                   onClick={handleDelivered}
-                  className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-green-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                  className="w-full py-4 bg-green-600 hover:bg-green-500 text-slate-900 font-black rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-green-500/25 transition-all duration-300 text-sm uppercase tracking-wider hover:scale-[1.02] active:scale-95"
                 >
                   <CheckCircle2 className="w-5 h-5" /> Delivered — Confirm Handover
                 </button>
@@ -552,7 +552,7 @@ export default function DeliveryPartnerDashboard() {
 
           {/* ── DELIVERED: Success + Ready for Next ──────────────────── */}
           {online && orderStep === 'DELIVERED' && (
-            <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden bg-gradient-to-r from-teal-500/20 to-indigo-500/10">
+            <div className="bg-white/10 backdrop-blur-lg border border-black/10 rounded-3xl p-8 space-y-7 text-center animate-zoom-in relative overflow-hidden bg-gradient-to-r from-teal-500/20 to-indigo-500/10">
               {/* Background glow */}
               <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent pointer-events-none" />
 
@@ -561,12 +561,12 @@ export default function DeliveryPartnerDashboard() {
                   <AnimatedCheck />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-white">Items delivered successfully,<br/>return to the store.</h3>
-                  <p className="text-sm text-slate-400 mt-2">₹20.00 credited to your wallet • Total: <span className="text-green-400 font-bold">₹{walletBalance.toFixed(2)}</span></p>
+                  <h3 className="text-2xl font-black text-slate-900">Items delivered successfully,<br/>return to the store.</h3>
+                  <p className="text-sm text-slate-600 mt-2">₹20.00 credited to your wallet • Total: <span className="text-green-600 font-bold">₹{walletBalance.toFixed(2)}</span></p>
                 </div>
 
                 {/* Earnings badge */}
-                <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 px-5 py-2.5 rounded-full text-sm font-black animate-pulse-slow">
+                <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-600 px-5 py-2.5 rounded-full text-sm font-black animate-pulse-slow">
                   <Star className="w-4 h-4" /> +₹20.00 Earned This Delivery
                 </div>
               </div>
@@ -576,7 +576,7 @@ export default function DeliveryPartnerDashboard() {
                 <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Swipe to accept next order</label>
                 <div
                   ref={swipeRef}
-                  className="swipe-button-container bg-[#0B0F19] border border-[#334155] rounded-2xl h-14 relative flex items-center justify-center cursor-ew-resize select-none overflow-hidden"
+                  className="swipe-button-container bg-white border border-[#334155] rounded-2xl h-14 relative flex items-center justify-center cursor-ew-resize select-none overflow-hidden"
                   onMouseDown={handleSwipeStart}
                   onMouseMove={handleSwipeMove}
                   onMouseUp={handleSwipeEnd}
@@ -592,12 +592,12 @@ export default function DeliveryPartnerDashboard() {
                   />
                   {/* Drag handle */}
                   <div
-                    className="absolute flex items-center justify-center w-11 h-10 bg-[#fc8019] rounded-xl shadow-lg shadow-orange-500/30 font-black text-white text-sm transition-none pointer-events-none"
+                    className="absolute flex items-center justify-center w-11 h-10 bg-[#fc8019] rounded-xl shadow-lg shadow-orange-500/30 font-black text-slate-900 text-sm transition-none pointer-events-none"
                     style={{ left: `calc(${Math.min(swipeProgress, 90)}% - 4px)` }}
                   >
                     {isSwiped ? '✓' : '>>'}
                   </div>
-                  <span className="relative z-10 text-xs font-black tracking-widest text-white uppercase mix-blend-difference pointer-events-none">
+                  <span className="relative z-10 text-xs font-black tracking-widest text-slate-900 uppercase mix-blend-difference pointer-events-none">
                     {isSwiped ? 'Finding next order...' : 'Ready for Next Order'}
                   </span>
                 </div>
@@ -610,7 +610,7 @@ export default function DeliveryPartnerDashboard() {
         <div className="space-y-6">
 
           {/* Wallet Card */}
-          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 space-y-4 relative overflow-hidden">
+          <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-6 space-y-4 relative overflow-hidden">
             {/* Decorative glow */}
             <div className="absolute -top-6 -right-6 w-28 h-28 bg-orange-500/10 rounded-full blur-xl pointer-events-none" />
 
@@ -620,11 +620,11 @@ export default function DeliveryPartnerDashboard() {
               </div>
               <div>
                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Express Payout Wallet</h4>
-                <span className="text-3xl font-black text-white font-mono tracking-tighter">₹{walletBalance.toFixed(2)}</span>
+                <span className="text-3xl font-black text-slate-900 font-mono tracking-tighter">₹{walletBalance.toFixed(2)}</span>
               </div>
             </div>
 
-            <div className="border-t border-[#1E293B] pt-3 flex items-center gap-2 text-[11px] text-slate-500 font-semibold">
+            <div className="border-t border-slate-200 pt-3 flex items-center gap-2 text-[11px] text-slate-500 font-semibold">
               <span className="text-green-500">●</span> Earnings: ₹20.00 per completed delivery
             </div>
 
@@ -634,10 +634,10 @@ export default function DeliveryPartnerDashboard() {
                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Delivery Log</span>
                 <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1">
                   {completedDeliveries.map((d, i) => (
-                    <div key={i} className="flex justify-between items-center text-xs p-2.5 bg-[#0B0F19] border border-[#1E293B] rounded-xl">
+                    <div key={i} className="flex justify-between items-center text-xs p-2.5 bg-white border border-slate-200 rounded-xl">
                       <div className="truncate max-w-[140px]">
                         <span className="text-[10px] font-black text-slate-600 uppercase mr-1">#{d.id}</span>
-                        <span className="font-bold text-slate-300">{d.item}</span>
+                        <span className="font-bold text-slate-700">{d.item}</span>
                       </div>
                       <span className="font-black text-green-500 font-mono flex-shrink-0">+₹20</span>
                     </div>
@@ -648,19 +648,19 @@ export default function DeliveryPartnerDashboard() {
           </div>
 
           {/* Bank Details */}
-          <div className="bg-[#131A2A] border border-[#1E293B] rounded-3xl p-6 space-y-4">
+          <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-6 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 bg-green-500/10 rounded-xl flex items-center justify-center">
                 <Landmark className="w-5 h-5 text-green-500" />
               </div>
               <div>
                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Direct Deposit Bank</h4>
-                <p className="text-sm font-bold text-white">Link payout routing account</p>
+                <p className="text-sm font-bold text-slate-900">Link payout routing account</p>
               </div>
             </div>
 
             {saveSuccess && (
-              <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl text-xs font-bold flex items-center gap-2 animate-zoom-in">
+              <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-600 rounded-xl text-xs font-bold flex items-center gap-2 animate-zoom-in">
                 <CheckCircle2 className="w-4 h-4" /> Bank details saved!
               </div>
             )}
@@ -674,7 +674,7 @@ export default function DeliveryPartnerDashboard() {
                   value={bankName}
                   onChange={(e) => setBankName(e.target.value)}
                   placeholder="e.g. State Bank of India"
-                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-sm text-white font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-white border border-[#334155] rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
               <div>
@@ -685,7 +685,7 @@ export default function DeliveryPartnerDashboard() {
                   value={accountNumber}
                   onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, ''))}
                   placeholder="Enter account number"
-                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-sm text-white font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-white border border-[#334155] rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
               <div>
@@ -698,7 +698,7 @@ export default function DeliveryPartnerDashboard() {
                   value={ifscCode}
                   onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
                   placeholder="e.g. SBIN0001234"
-                  className="w-full px-3 py-2.5 bg-[#0B0F19] border border-[#334155] rounded-xl text-sm text-white font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-white border border-[#334155] rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
 
@@ -711,7 +711,7 @@ export default function DeliveryPartnerDashboard() {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-[#fc8019] hover:bg-orange-500 text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-orange-500/20 transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-95"
+                className="w-full py-3 bg-[#fc8019] hover:bg-orange-500 text-slate-900 font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-orange-500/20 transition-all uppercase tracking-wider hover:scale-[1.02] active:scale-95"
               >
                 Save Bank Details <Save className="w-3.5 h-3.5" />
               </button>

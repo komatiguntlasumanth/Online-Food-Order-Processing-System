@@ -100,16 +100,16 @@ export default function DeliveryMap({ orderStatus, isPartnerView = false, onArri
   const etaMinutes = Math.ceil((1 - progress / 100) * 8);
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl relative">
+    <div className="bg-slate-100/80 border border-slate-200 rounded-3xl overflow-hidden shadow-2xl relative">
       
       {/* Telemetry HUD Panel */}
-      <div className="absolute top-4 left-4 right-4 z-10 bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex justify-between items-center text-white">
+      <div className="absolute top-4 left-4 right-4 z-10 bg-slate-950/80 backdrop-blur-md border border-black/5 rounded-2xl p-4 flex justify-between items-center text-slate-900">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-[#fc8019] animate-pulse">
             <Navigation className="w-5 h-5 rotate-45" />
           </div>
           <div>
-            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Live Telemetry</div>
+            <div className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Live Telemetry</div>
             <div className="text-sm font-black flex items-center gap-1.5 font-mono">
               {coords.lat}°N, {coords.lng}°E
             </div>
@@ -118,12 +118,12 @@ export default function DeliveryMap({ orderStatus, isPartnerView = false, onArri
 
         <div className="flex items-center gap-6">
           <div className="text-right">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Distance</span>
+            <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider block">Distance</span>
             <span className="text-sm font-extrabold font-mono">{distanceRemaining} km</span>
           </div>
 
           <div className="text-right">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">ETA</span>
+            <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider block">ETA</span>
             <span className="text-sm font-extrabold text-[#fc8019] font-mono">{progress >= 100 ? 'Arrived' : `${etaMinutes} mins`}</span>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default function DeliveryMap({ orderStatus, isPartnerView = false, onArri
             <circle r="12" fill="#fc8019" fillOpacity="0.2" />
             <circle r="6" fill="#fc8019" />
             <foreignObject x="-12" y="-30" width="24" height="24">
-              <div className="text-white bg-slate-950/80 border border-orange-500/50 p-1 rounded-lg flex items-center justify-center">
+              <div className="text-slate-900 bg-slate-950/80 border border-orange-500/50 p-1 rounded-lg flex items-center justify-center">
                 <Store className="w-3.5 h-3.5 text-[#fc8019]" />
               </div>
             </foreignObject>
@@ -199,7 +199,7 @@ export default function DeliveryMap({ orderStatus, isPartnerView = false, onArri
             <circle r="12" fill="#ef4444" fillOpacity="0.2" />
             <circle r="6" fill="#ef4444" />
             <foreignObject x="-12" y="-30" width="24" height="24">
-              <div className="text-white bg-slate-950/80 border border-red-500/50 p-1 rounded-lg flex items-center justify-center">
+              <div className="text-slate-900 bg-slate-950/80 border border-red-500/50 p-1 rounded-lg flex items-center justify-center">
                 <MapPin className="w-3.5 h-3.5 text-red-500" />
               </div>
             </foreignObject>
@@ -213,7 +213,7 @@ export default function DeliveryMap({ orderStatus, isPartnerView = false, onArri
               <circle r="12" fill="#3b82f6" fillOpacity="0.3" />
               <circle r="6" fill="#3b82f6" />
               <foreignObject x="-15" y="-35" width="30" height="30">
-                <div className="bg-blue-600 text-white rounded-full border-2 border-white shadow-xl w-7 h-7 flex items-center justify-center font-bold text-sm transform hover:scale-110 transition-transform">
+                <div className="bg-blue-600 text-slate-900 rounded-full border-2 border-white shadow-xl w-7 h-7 flex items-center justify-center font-bold text-sm transform hover:scale-110 transition-transform">
                   🚴
                 </div>
               </foreignObject>
@@ -222,9 +222,9 @@ export default function DeliveryMap({ orderStatus, isPartnerView = false, onArri
         </svg>
 
         {/* Labels overlay */}
-        <div className="absolute bottom-4 left-4 right-4 flex justify-between text-[9px] font-extrabold text-slate-400 uppercase tracking-widest bg-slate-950/30 px-3 py-1.5 rounded-lg backdrop-blur-sm">
+        <div className="absolute bottom-4 left-4 right-4 flex justify-between text-[9px] font-extrabold text-slate-600 uppercase tracking-widest bg-slate-950/30 px-3 py-1.5 rounded-lg backdrop-blur-sm">
           <span className="flex items-center gap-1 text-[#fc8019]"><Store className="w-3 h-3" /> Store (Madhapur)</span>
-          <span className="text-blue-400">🚴 Delivery Route (In-Progress)</span>
+          <span className="text-blue-600">🚴 Delivery Route (In-Progress)</span>
           <span className="flex items-center gap-1 text-red-500"><MapPin className="w-3 h-3" /> Customer Destination</span>
         </div>
       </div>
