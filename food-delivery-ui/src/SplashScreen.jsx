@@ -77,30 +77,20 @@ export default function SplashScreen({ onComplete }) {
             : 'transform 0.4s ease-in, opacity 0.4s ease-in',
         }}
       >
-        {/* Food cloche icon */}
+        {/* Swiggy Express Logo */}
         <div style={{
-          width: 88,
-          height: 88,
-          borderRadius: '50%',
-          background: 'linear-gradient(160deg, #ff9340 0%, #fc8019 55%, #e06510 100%)',
+          width: 110,
+          height: 110,
+          borderRadius: 24,
+          background: 'white',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 0 60px 18px rgba(252,128,25,0.25), 0 20px 60px rgba(0,0,0,0.1)',
+          boxShadow: '0 0 60px 18px rgba(252,128,25,0.20), 0 20px 60px rgba(0,0,0,0.08)',
+          padding: 12,
           position: 'relative',
         }}>
-          {/* Steam animations */}
-          <div className="steam" style={{ position: 'absolute', top: -10, left: '35%', width: 6, height: 20, background: 'rgba(252,128,25,0.4)', borderRadius: 10, filter: 'blur(4px)' }} />
-          <div className="steam" style={{ position: 'absolute', top: -15, left: '50%', width: 8, height: 24, background: 'rgba(252,128,25,0.5)', borderRadius: 10, filter: 'blur(4px)', animationDelay: '0.4s' }} />
-          <div className="steam" style={{ position: 'absolute', top: -8, left: '65%', width: 6, height: 16, background: 'rgba(252,128,25,0.35)', borderRadius: 10, filter: 'blur(4px)', animationDelay: '0.8s' }} />
-          
-          {/* Food Cloche SVG */}
-          <svg viewBox="0 0 24 24" fill="none" style={{ width: 44, height: 44, transform: 'translateY(2px)' }}>
-            <path d="M12 3V2" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M22 14a10 10 0 0 0-20 0" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M2 14h20" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M22 17H2" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <img src="/swiggy-express-icon.png" alt="Swiggy Express" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
 
         {/* Brand name */}
