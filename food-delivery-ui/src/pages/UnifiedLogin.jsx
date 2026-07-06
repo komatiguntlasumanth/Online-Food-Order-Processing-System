@@ -113,9 +113,8 @@ export default function UnifiedLogin({ onLogin }) {
       <div className="relative z-10 w-full max-w-md mx-4 animate-slide-up">
         {/* Header Branding */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-3 shadow-2xl"
-            style={{ background: 'linear-gradient(135deg, #fc8019, #ff6b35)' }}>
-            <ShoppingBag className="w-8 h-8 text-slate-900" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-3 shadow-2xl bg-white p-2 overflow-hidden border border-slate-100">
+            <img src="/swiggy-express-icon.png" alt="Swiggy Express" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
             SWIGGY<span className="text-[#fc8019]">EXPRESS</span>

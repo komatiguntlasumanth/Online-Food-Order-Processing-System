@@ -253,7 +253,7 @@ export default function DeliveryPartnerDashboard() {
   }[orderStep] || orderStep;
 
   const stepColor = {
-    WAITING: 'bg-slate-700 text-slate-700',
+    WAITING: 'bg-slate-200 text-slate-500',
     ASSIGNED: 'bg-orange-500/20 text-orange-600 border border-orange-500/30',
     PICKED_UP: 'bg-blue-500/20 text-blue-600 border border-blue-500/30',
     ARRIVED: 'bg-green-500/20 text-green-600 border border-green-500/30',
@@ -270,7 +270,7 @@ export default function DeliveryPartnerDashboard() {
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             {confettiPieces.map((s, i) => <ConfettiPiece key={i} style={s} />)}
           </div>
-          <div className="relative bg-[#131A2A] border border-slate-200 rounded-3xl p-10 max-w-sm mx-4 text-center space-y-4 animate-zoom-in shadow-2xl shadow-black/5">
+          <div className="relative bg-white/80 border border-slate-200 rounded-3xl p-10 max-w-sm mx-4 text-center space-y-4 animate-zoom-in shadow-2xl shadow-black/5">
             <div className="flex justify-center">
               <AnimatedCheck />
             </div>
@@ -294,11 +294,11 @@ export default function DeliveryPartnerDashboard() {
       )}
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 bg-[#131A2A]/95 backdrop-blur-xl border-b border-slate-200 px-6 py-4 shadow-2xl shadow-black/5">
+      <header className="sticky top-0 z-40 bg-white/80/95 backdrop-blur-xl border-b border-slate-200 px-6 py-4 shadow-2xl shadow-black/5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#fc8019] rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/25">
-              <Truck className="w-5 h-5 text-slate-900" />
+            <div className="w-10 h-10 bg-white overflow-hidden rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/25 p-1 border border-slate-100">
+              <img src="/swiggy-express-icon.png" alt="Swiggy Express" className="w-full h-full object-contain" />
             </div>
             <div>
               <span className="text-lg font-black tracking-tighter text-[#fc8019]">swiggy</span>
@@ -320,7 +320,7 @@ export default function DeliveryPartnerDashboard() {
               className={`flex items-center gap-2 px-5 py-2 rounded-2xl text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 online
                   ? 'bg-green-500 text-slate-900 shadow-lg shadow-green-500/30'
-                  : 'bg-slate-700 text-slate-700 hover:bg-slate-600'
+                  : 'bg-slate-200 text-slate-500 hover:bg-slate-200'
               }`}
             >
               {online ? (
@@ -355,7 +355,7 @@ export default function DeliveryPartnerDashboard() {
 
           {/* ── OFFLINE STATE ─────────────────────────────────────────── */}
           {!online && (
-            <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
+            <div className="bg-white/80 border border-slate-200 rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
               <div className="w-20 h-20 bg-white border border-slate-200 rounded-full flex items-center justify-center mx-auto">
                 <Truck className="w-10 h-10 text-slate-600" />
               </div>
@@ -368,7 +368,7 @@ export default function DeliveryPartnerDashboard() {
                 <select
                   value={selectedStore}
                   onChange={(e) => setSelectedStore(e.target.value)}
-                  className="w-full bg-white border border-[#334155] text-sm font-bold text-slate-800 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full bg-white border border-slate-200 text-sm font-bold text-slate-800 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 >
                   {STORES.map((s, i) => <option key={i} value={s}>{s}</option>)}
                 </select>
@@ -384,7 +384,7 @@ export default function DeliveryPartnerDashboard() {
 
           {/* ── ONLINE → WAITING FOR ORDER ───────────────────────────── */}
           {online && orderStep === 'WAITING' && (
-            <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
+            <div className="bg-white/80 border border-slate-200 rounded-3xl p-12 text-center space-y-6 animate-zoom-in">
               {/* Animated radar rings */}
               <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full border-2 border-green-500/30 animate-ping" style={{ animationDuration: '1.5s' }} />
@@ -422,21 +422,21 @@ export default function DeliveryPartnerDashboard() {
               </div>
 
               {/* Order Items Card */}
-              <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-6 space-y-4">
+              <div className="bg-white/80 border border-slate-200 rounded-3xl p-6 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Package className="w-4 h-4 text-[#fc8019]" />
                   <h4 className="text-xs font-black text-slate-600 uppercase tracking-widest">Items to Pick Up</h4>
                 </div>
-                <div className="bg-white border border-[#334155] rounded-2xl p-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-4">
                   <p className="text-sm font-bold text-slate-900 leading-relaxed">{currentOrder.item}</p>
-                  <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#334155]/60">
+                  <div className="flex justify-between items-center mt-3 pt-3 border-t border-slate-200/60">
                     <span className="text-xs text-slate-500">Order Total</span>
                     <span className="font-black text-slate-900">₹{currentOrder.amount}</span>
                   </div>
                 </div>
 
                 {currentOrder.address && (
-                  <div className="bg-white border border-[#334155] rounded-2xl p-4 flex items-start gap-3">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3">
                     <MapPin className="w-4 h-4 text-[#fc8019] mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Delivery Address</p>
@@ -486,7 +486,7 @@ export default function DeliveryPartnerDashboard() {
 
               {/* Customer location info */}
               {currentOrder.address && (
-                <div className="bg-[#131A2A] border border-slate-200 rounded-2xl p-4 flex items-start gap-3 animate-fade-in">
+                <div className="bg-white/80 border border-slate-200 rounded-2xl p-4 flex items-start gap-3 animate-fade-in">
                   <MapPin className="w-4 h-4 text-[#fc8019] mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Customer Location</p>
@@ -496,7 +496,7 @@ export default function DeliveryPartnerDashboard() {
               )}
 
               {/* Mark as Arrived */}
-              <div className="bg-[#131A2A] border border-blue-500/30 rounded-3xl p-5 space-y-3">
+              <div className="bg-white/80 border border-blue-500/30 rounded-3xl p-5 space-y-3">
                 <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-3 text-xs text-blue-300 font-semibold animate-pulse">
                   🚴 You're on your way! Click below once you reach the customer's location.
                 </div>
@@ -536,7 +536,7 @@ export default function DeliveryPartnerDashboard() {
               </div>
 
               {/* Delivered button */}
-              <div className="bg-[#131A2A] border border-green-500/30 rounded-3xl p-5 space-y-3">
+              <div className="bg-white/80 border border-green-500/30 rounded-3xl p-5 space-y-3">
                 <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-xs text-green-300 font-semibold">
                   🎉 You've arrived! Hand over the order to <strong>{currentOrder.customerName}</strong> and confirm delivery.
                 </div>
@@ -576,7 +576,7 @@ export default function DeliveryPartnerDashboard() {
                 <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Swipe to accept next order</label>
                 <div
                   ref={swipeRef}
-                  className="swipe-button-container bg-white border border-[#334155] rounded-2xl h-14 relative flex items-center justify-center cursor-ew-resize select-none overflow-hidden"
+                  className="swipe-button-container bg-white border border-slate-200 rounded-2xl h-14 relative flex items-center justify-center cursor-ew-resize select-none overflow-hidden"
                   onMouseDown={handleSwipeStart}
                   onMouseMove={handleSwipeMove}
                   onMouseUp={handleSwipeEnd}
@@ -610,7 +610,7 @@ export default function DeliveryPartnerDashboard() {
         <div className="space-y-6">
 
           {/* Wallet Card */}
-          <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-6 space-y-4 relative overflow-hidden">
+          <div className="bg-white/80 border border-slate-200 rounded-3xl p-6 space-y-4 relative overflow-hidden">
             {/* Decorative glow */}
             <div className="absolute -top-6 -right-6 w-28 h-28 bg-orange-500/10 rounded-full blur-xl pointer-events-none" />
 
@@ -648,7 +648,7 @@ export default function DeliveryPartnerDashboard() {
           </div>
 
           {/* Bank Details */}
-          <div className="bg-[#131A2A] border border-slate-200 rounded-3xl p-6 space-y-4">
+          <div className="bg-white/80 border border-slate-200 rounded-3xl p-6 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 bg-green-500/10 rounded-xl flex items-center justify-center">
                 <Landmark className="w-5 h-5 text-green-500" />
@@ -674,7 +674,7 @@ export default function DeliveryPartnerDashboard() {
                   value={bankName}
                   onChange={(e) => setBankName(e.target.value)}
                   placeholder="e.g. State Bank of India"
-                  className="w-full px-3 py-2.5 bg-white border border-[#334155] rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
               <div>
@@ -685,7 +685,7 @@ export default function DeliveryPartnerDashboard() {
                   value={accountNumber}
                   onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, ''))}
                   placeholder="Enter account number"
-                  className="w-full px-3 py-2.5 bg-white border border-[#334155] rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
               <div>
@@ -698,7 +698,7 @@ export default function DeliveryPartnerDashboard() {
                   value={ifscCode}
                   onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
                   placeholder="e.g. SBIN0001234"
-                  className="w-full px-3 py-2.5 bg-white border border-[#334155] rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
+                  className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-semibold placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#fc8019]"
                 />
               </div>
 

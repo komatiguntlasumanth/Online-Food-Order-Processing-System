@@ -396,8 +396,8 @@ function App() {
         <div className="max-w-7xl mx-auto h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setViewMode('dashboard')}>
-              <div className="w-10 h-14 bg-[#fc8019] rounded-b-xl flex items-center justify-center text-slate-900 shadow-black/5 shadow-black/5 shadow-2xl">
-                <ShoppingBag className="w-5 h-5 text-slate-900" />
+              <div className="w-10 h-14 bg-white overflow-hidden rounded-b-xl flex items-center justify-center shadow-black/5 shadow-2xl p-1">
+                <img src="/swiggy-express-icon.png" alt="Swiggy Express" className="w-full h-full object-contain" />
               </div>
               <div>
                 <span className="text-2xl font-black tracking-tighter text-[#fc8019]">
@@ -877,7 +877,7 @@ function App() {
 
             {orders.length === 0 ? (
               <div className="glass-card rounded-3xl p-16 text-center space-y-4 animate-fade-in">
-                <div className="w-16 h-16 rounded-full bg-[#1A2235] flex items-center justify-center mx-auto text-slate-700">
+                <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mx-auto text-slate-700">
                   <Utensils className="w-8 h-8" />
                 </div>
                 <div>
@@ -925,7 +925,7 @@ function App() {
 
                       {/* Stepper Timeline Area */}
                       {isExpanded && (
-                        <div className="border-t border-slate-50 bg-[#1A2235]/50 p-6 sm:p-8 space-y-6">
+                        <div className="border-t border-slate-50 bg-slate-50/50 p-6 sm:p-8 space-y-6">
                           
                           {/* Live Delivered Overlay Animation inside the card */}
                           {order.status === 'DELIVERED' && (
@@ -1049,7 +1049,7 @@ function App() {
 
                           {/* Delivery partner driver details block */}
                           {order.driverName && (
-                            <div className="p-4 bg-[#131A2A] border border-slate-200 rounded-2xl shadow-black/5 shadow-black/5 shadow-2xl flex items-center justify-between gap-4 animate-slide-up">
+                            <div className="p-4 bg-white/80 border border-slate-200 rounded-2xl shadow-black/5 shadow-black/5 shadow-2xl flex items-center justify-between gap-4 animate-slide-up">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-orange-900/30 border border-orange-500/30 flex items-center justify-center rounded-xl text-[#fc8019]">
                                   🚴
@@ -1063,7 +1063,7 @@ function App() {
                               <div className="flex items-center gap-2">
                                 <a 
                                   href={`tel:${order.driverMobile || '9876543210'}`}
-                                  className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-100/80 hover:bg-slate-800 text-slate-900 rounded-xl text-xs font-bold transition-all"
+                                  className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-100/80 hover:bg-slate-200 text-slate-900 rounded-xl text-xs font-bold transition-all"
                                 >
                                   <PhoneCall className="w-3.5 h-3.5" />
                                   <span>{order.driverMobile || '9876543210'}</span>
@@ -1099,7 +1099,7 @@ function App() {
         <div className="fixed inset-0 z-50 overflow-hidden">
           <div className="absolute inset-0 bg-slate-100/80/60 backdrop-blur-sm transition-opacity" onClick={() => setShowCartDrawer(false)} />
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-            <div className="w-screen max-w-md bg-[#131A2A] shadow-2xl flex flex-col">
+            <div className="w-screen max-w-md bg-white/80 shadow-2xl flex flex-col">
               
               {/* Drawer Header */}
               <div className="p-6 border-b border-slate-200 flex justify-between items-center">
@@ -1109,7 +1109,7 @@ function App() {
                 </h3>
                 <button 
                   onClick={() => setShowCartDrawer(false)}
-                  className="p-1 text-slate-600 hover:text-slate-300 hover:bg-[#1A2235] rounded-full"
+                  className="p-1 text-slate-600 hover:text-slate-700 hover:bg-slate-50 rounded-full"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -1118,7 +1118,7 @@ function App() {
               {/* Cart List */}
               {cart.length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-4">
-                  <div className="w-20 h-20 bg-[#1A2235] border rounded-3xl flex items-center justify-center text-slate-700">
+                  <div className="w-20 h-20 bg-slate-50 border rounded-3xl flex items-center justify-center text-slate-700">
                     <ShoppingCart className="w-10 h-10" />
                   </div>
                   <div className="text-center">
@@ -1129,7 +1129,7 @@ function App() {
               ) : (
                 <div className="flex-grow overflow-y-auto p-6 space-y-4">
                   {cart.map((cartItem) => (
-                    <div key={cartItem.item.id} className="flex justify-between items-center p-3 rounded-2xl border border-slate-200 hover:border-[#334155] transition-colors">
+                    <div key={cartItem.item.id} className="flex justify-between items-center p-3 rounded-2xl border border-slate-200 hover:border-slate-200 transition-colors">
                       <div className="flex gap-3 items-center">
                         <span className="text-3xl">{cartItem.item.icon}</span>
                         <div>
@@ -1140,14 +1140,14 @@ function App() {
                       <div className="flex items-center gap-3">
                         <button 
                           onClick={() => updateQuantity(cartItem.item.id, -1)}
-                          className="p-1 bg-[#1A2235] border rounded-full hover:bg-slate-100"
+                          className="p-1 bg-slate-50 border rounded-full hover:bg-slate-100"
                         >
                           <Minus className="w-3.5 h-3.5 text-slate-700" />
                         </button>
                         <span className="font-extrabold text-sm w-4 text-center">{cartItem.quantity}</span>
                         <button 
                           onClick={() => addToCart(cartItem.item)}
-                          className="p-1 bg-[#1A2235] border rounded-full hover:bg-slate-100"
+                          className="p-1 bg-slate-50 border rounded-full hover:bg-slate-100"
                         >
                           <Plus className="w-3.5 h-3.5 text-slate-700" />
                         </button>
@@ -1159,7 +1159,7 @@ function App() {
 
               {/* Summary & Proceed */}
               {cart.length > 0 && (
-                <div className="p-6 border-t border-slate-200 space-y-4 bg-[#1A2235]/50">
+                <div className="p-6 border-t border-slate-200 space-y-4 bg-slate-50/50">
                   <div className="flex justify-between items-baseline">
                     <span className="text-sm font-semibold text-slate-600">To Pay:</span>
                     <span className="text-2xl font-black text-slate-900">₹{getCartTotal()}</span>
@@ -1187,7 +1187,7 @@ function App() {
             </div>
             <button 
               onClick={() => setShowCartDrawer(true)}
-              className="text-sm font-bold flex items-center gap-1 uppercase tracking-wider bg-[#131A2A]/20 hover:bg-[#131A2A]/30 px-4 py-2 rounded-xl transition-all"
+              className="text-sm font-bold flex items-center gap-1 uppercase tracking-wider bg-white/80/20 hover:bg-white/80/30 px-4 py-2 rounded-xl transition-all"
             >
               View Cart
               <ChevronRight className="w-4 h-4" />
@@ -1202,7 +1202,7 @@ function App() {
           <div className="relative w-full max-w-md bg-transparent">
             <button 
               onClick={() => setShowAuth(false)}
-              className="absolute -top-12 right-0 p-2 text-slate-900/80 hover:text-slate-900 bg-[#131A2A]/10 hover:bg-[#131A2A]/20 rounded-full backdrop-blur-sm transition-all"
+              className="absolute -top-12 right-0 p-2 text-slate-900/80 hover:text-slate-900 bg-white/80/10 hover:bg-white/80/20 rounded-full backdrop-blur-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1231,7 +1231,7 @@ function App() {
           </div>
 
           {/* Large Success Box Card */}
-          <div className="bg-[#131A2A] rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-6 animate-zoom-in">
+          <div className="bg-white/80 rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-6 animate-zoom-in">
             <div className="w-24 h-24 mx-auto bg-green-900/30 rounded-full flex items-center justify-center border-4 border-green-500/30">
               <svg className="w-14 h-14" viewBox="0 0 52 52">
                 <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
@@ -1254,7 +1254,7 @@ function App() {
       {/* Cancel Order Modal with reason details */}
       {cancelModalOrderId && (
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#131A2A] rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-200 space-y-5 animate-zoom-in">
+          <div className="bg-white/80 rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-200 space-y-5 animate-zoom-in">
             <div className="flex items-center gap-3 text-red-600">
               <div className="w-10 h-10 bg-red-900/30 border border-red-500/30 rounded-xl flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5" />
@@ -1277,14 +1277,14 @@ function App() {
                 value={cancelReason}
                 onChange={(e) => { setCancelReason(e.target.value); setShowCancelError(false); }}
                 placeholder="Reason for cancellation (e.g. Changed my mind, Selected wrong items, Address issues...)"
-                className="w-full h-28 p-4 bg-[#1A2235] border border-[#334155] rounded-2xl text-xs font-semibold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none transition-all"
+                className="w-full h-28 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-semibold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none transition-all"
               />
 
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => { setCancelModalOrderId(null); setCancelReason(''); setShowCancelError(false); }}
-                  className="flex-1 py-3 border border-[#334155] text-slate-700 font-bold rounded-2xl hover:bg-[#1A2235] text-xs transition-all"
+                  className="flex-1 py-3 border border-slate-200 text-slate-700 font-bold rounded-2xl hover:bg-slate-50 text-xs transition-all"
                 >
                   Keep Order
                 </button>
