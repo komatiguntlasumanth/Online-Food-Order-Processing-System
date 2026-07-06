@@ -29,7 +29,7 @@ export default function SplashScreen({ onComplete }) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #0B0F19 0%, #131A2A 50%, #0d1420 100%)',
+        background: 'linear-gradient(135deg, #fdfbf7 0%, #fff7ed 30%, #ffedd5 60%, #fef3e2 100%)',
         overflow: 'hidden',
         opacity: phase === 'exit' ? 0 : 1,
         transition: phase === 'exit' ? 'opacity 0.4s ease-in' : 'none',
@@ -42,7 +42,7 @@ export default function SplashScreen({ onComplete }) {
         width: 520,
         height: 520,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(252,128,25,0.18) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(252,128,25,0.15) 0%, transparent 70%)',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -53,7 +53,7 @@ export default function SplashScreen({ onComplete }) {
         width: 260,
         height: 260,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(252,128,25,0.10) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(252,128,25,0.08) 0%, transparent 70%)',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -86,13 +86,13 @@ export default function SplashScreen({ onComplete }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 0 60px 18px rgba(252,128,25,0.40), 0 20px 60px rgba(0,0,0,0.6)',
+          boxShadow: '0 0 60px 18px rgba(252,128,25,0.25), 0 20px 60px rgba(0,0,0,0.1)',
           position: 'relative',
         }}>
           {/* Steam animations */}
-          <div className="steam" style={{ position: 'absolute', top: -10, left: '35%', width: 6, height: 20, background: 'rgba(255,255,255,0.6)', borderRadius: 10, filter: 'blur(4px)' }} />
-          <div className="steam" style={{ position: 'absolute', top: -15, left: '50%', width: 8, height: 24, background: 'rgba(255,255,255,0.7)', borderRadius: 10, filter: 'blur(4px)', animationDelay: '0.4s' }} />
-          <div className="steam" style={{ position: 'absolute', top: -8, left: '65%', width: 6, height: 16, background: 'rgba(255,255,255,0.5)', borderRadius: 10, filter: 'blur(4px)', animationDelay: '0.8s' }} />
+          <div className="steam" style={{ position: 'absolute', top: -10, left: '35%', width: 6, height: 20, background: 'rgba(252,128,25,0.4)', borderRadius: 10, filter: 'blur(4px)' }} />
+          <div className="steam" style={{ position: 'absolute', top: -15, left: '50%', width: 8, height: 24, background: 'rgba(252,128,25,0.5)', borderRadius: 10, filter: 'blur(4px)', animationDelay: '0.4s' }} />
+          <div className="steam" style={{ position: 'absolute', top: -8, left: '65%', width: 6, height: 16, background: 'rgba(252,128,25,0.35)', borderRadius: 10, filter: 'blur(4px)', animationDelay: '0.8s' }} />
           
           {/* Food Cloche SVG */}
           <svg viewBox="0 0 24 24" fill="none" style={{ width: 44, height: 44, transform: 'translateY(2px)' }}>
@@ -111,7 +111,7 @@ export default function SplashScreen({ onComplete }) {
             letterSpacing: '-2px',
             color: '#fc8019',
             fontFamily: "'Inter', 'Outfit', system-ui, sans-serif",
-            textShadow: '0 0 40px rgba(252,128,25,0.55)',
+            textShadow: '0 0 40px rgba(252,128,25,0.30)',
           }}>
             swiggy
           </div>
@@ -120,7 +120,7 @@ export default function SplashScreen({ onComplete }) {
             fontSize: 13,
             fontWeight: 800,
             letterSpacing: '0.45em',
-            color: '#94a3b8',
+            color: '#78716c',
             textTransform: 'uppercase',
             marginTop: 2,
             opacity: phase === 'hold' ? 1 : 0,
@@ -135,7 +135,7 @@ export default function SplashScreen({ onComplete }) {
         <p style={{
           fontSize: 13,
           fontWeight: 500,
-          color: '#64748b',
+          color: '#a8a29e',
           letterSpacing: '0.04em',
           marginTop: 2,
           opacity: phase === 'hold' ? 1 : 0,
@@ -153,7 +153,7 @@ export default function SplashScreen({ onComplete }) {
         width: 160,
         height: 3,
         borderRadius: 99,
-        background: 'rgba(255,255,255,0.07)',
+        background: 'rgba(252,128,25,0.12)',
         overflow: 'hidden',
         opacity: phase === 'hold' ? 1 : 0,
         transition: 'opacity 0.3s 0.15s ease-out',
@@ -163,7 +163,7 @@ export default function SplashScreen({ onComplete }) {
           background: 'linear-gradient(90deg, #fc8019, #ff9340)',
           borderRadius: 99,
           animation: 'splash-bar 1.8s cubic-bezier(0.4,0,0.2,1) forwards',
-          boxShadow: '0 0 10px 2px rgba(252,128,25,0.55)',
+          boxShadow: '0 0 10px 2px rgba(252,128,25,0.35)',
         }} />
       </div>
 
@@ -188,3 +188,4 @@ export default function SplashScreen({ onComplete }) {
     </div>
   );
 }
+

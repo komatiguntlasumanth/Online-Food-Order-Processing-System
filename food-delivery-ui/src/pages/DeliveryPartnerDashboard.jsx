@@ -445,7 +445,7 @@ export default function DeliveryPartnerDashboard() {
                   </div>
                 )}
 
-                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-4 text-xs text-yellow-300 font-semibold">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-xs text-yellow-700 font-semibold">
                   ⚠️ Proceed to <strong>{selectedStore}</strong>, verify & pack the items, then click <strong>"Picked Up Items"</strong>.
                 </div>
 
@@ -497,7 +497,7 @@ export default function DeliveryPartnerDashboard() {
 
               {/* Mark as Arrived */}
               <div className="bg-white/80 border border-blue-500/30 rounded-3xl p-5 space-y-3">
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-3 text-xs text-blue-300 font-semibold animate-pulse">
+                <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3 text-xs text-blue-700 font-semibold animate-pulse">
                   🚴 You're on your way! Click below once you reach the customer's location.
                 </div>
                 <button
@@ -537,7 +537,7 @@ export default function DeliveryPartnerDashboard() {
 
               {/* Delivered button */}
               <div className="bg-white/80 border border-green-500/30 rounded-3xl p-5 space-y-3">
-                <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-xs text-green-300 font-semibold">
+                <div className="bg-green-50 border border-green-200 rounded-2xl p-3 text-xs text-green-700 font-semibold">
                   🎉 You've arrived! Hand over the order to <strong>{currentOrder.customerName}</strong> and confirm delivery.
                 </div>
                 <button
