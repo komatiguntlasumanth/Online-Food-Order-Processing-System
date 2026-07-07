@@ -41,6 +41,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
+                // Public restaurant & menu browsing (no login needed)
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/restaurants/**").permitAll()
                 // Camunda webapp endpoints
                 .requestMatchers("/camunda/**", "/engine-rest/**").permitAll()
                 // H2 console (for dev)

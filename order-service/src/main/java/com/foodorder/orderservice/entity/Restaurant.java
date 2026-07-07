@@ -1,6 +1,9 @@
 package com.foodorder.orderservice.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "restaurants")
@@ -14,97 +17,91 @@ public class Restaurant {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(name = "cuisine_type", length = 50)
-    private String cuisineType;
+    @Column(name = "cuisine", length = 100)
+    private String cuisine;
 
-    @Column(name = "delivery_time")
-    private Integer deliveryTime; // in minutes
+    @Column(name = "time", length = 50)
+    private String time; // e.g., "30-40 mins"
 
     @Column(columnDefinition = "TEXT")
     private String address;
 
     private Double rating;
 
+    private Integer reviews;
+
+    @Column(name = "cost_for_two", length = 50)
+    private String costForTwo;
+
+    @Column(columnDefinition = "TEXT")
+    private String desc;
+
+    @Column(columnDefinition = "TEXT")
+    private String highlight;
+
+    @Column(name = "closes_in", length = 50)
+    private String closesIn;
+
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    @Column(name = "image_path", length = 255)
-    private String imagePath;
+    @Column(name = "image", length = 500)
+    private String image;
+
+    private Double latitude;
+    private Double longitude;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Menu> menu = new ArrayList<>();
 
     public Restaurant() {}
 
-    public Restaurant(Long restaurantId, String name, String cuisineType, Integer deliveryTime, String address, Double rating, Boolean isActive, String imagePath) {
-        this.restaurantId = restaurantId;
-        this.name = name;
-        this.cuisineType = cuisineType;
-        this.deliveryTime = deliveryTime;
-        this.address = address;
-        this.rating = rating;
-        this.isActive = isActive;
-        this.imagePath = imagePath;
-    }
+    // Getters and Setters
+    public Long getRestaurantId() { return restaurantId; }
+    public void setRestaurantId(Long restaurantId) { this.restaurantId = restaurantId; }
 
-    public Long getRestaurantId() {
-        return restaurantId;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
+    public String getCuisine() { return cuisine; }
+    public void setCuisine(String cuisine) { this.cuisine = cuisine; }
 
-    public String getName() {
-        return name;
-    }
+    public String getTime() { return time; }
+    public void setTime(String time) { this.time = time; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public String getCuisineType() {
-        return cuisineType;
-    }
+    public Double getRating() { return rating; }
+    public void setRating(Double rating) { this.rating = rating; }
 
-    public void setCuisineType(String cuisineType) {
-        this.cuisineType = cuisineType;
-    }
+    public Integer getReviews() { return reviews; }
+    public void setReviews(Integer reviews) { this.reviews = reviews; }
 
-    public Integer getDeliveryTime() {
-        return deliveryTime;
-    }
+    public String getCostForTwo() { return costForTwo; }
+    public void setCostForTwo(String costForTwo) { this.costForTwo = costForTwo; }
 
-    public void setDeliveryTime(Integer deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
+    public String getDesc() { return desc; }
+    public void setDesc(String desc) { this.desc = desc; }
 
-    public String getAddress() {
-        return address;
-    }
+    public String getHighlight() { return highlight; }
+    public void setHighlight(String highlight) { this.highlight = highlight; }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public String getClosesIn() { return closesIn; }
+    public void setClosesIn(String closesIn) { this.closesIn = closesIn; }
 
-    public Double getRating() {
-        return rating;
-    }
+    public Boolean getIsActive() { return isActive; }
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
+    public List<Menu> getMenu() { return menu; }
+    public void setMenu(List<Menu> menu) { this.menu = menu; }
 }

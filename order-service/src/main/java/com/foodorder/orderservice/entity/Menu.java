@@ -1,6 +1,8 @@
 package com.foodorder.orderservice.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "menus")
@@ -13,13 +15,16 @@ public class Menu {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 
-    @Column(name = "item_name", nullable = false, length = 100)
-    private String itemName;
+    @Column(name = "name", nullable = false, length = 100)
+    @JsonProperty("name")
+    private String name;
 
     @Column(columnDefinition = "TEXT")
-    private String description;
+    @JsonProperty("desc")
+    private String desc;
 
     @Column(nullable = false)
     private Double price;
@@ -27,19 +32,28 @@ public class Menu {
     @Column(name = "is_available")
     private Boolean isAvailable = true;
 
-    @Column(name = "image_path", length = 255)
-    private String imagePath;
+    @Column(name = "image", length = 255)
+    @JsonProperty("image")
+    private String image;
+    private Double rating;
+    private String time;
+    private Boolean veg;
 
     public Menu() {}
 
-    public Menu(Long menuId, Restaurant restaurant, String itemName, String description, Double price, Boolean isAvailable, String imagePath) {
+    public Menu(Long menuId, Restaurant restaurant, String name, String desc,
+                Double price, Boolean isAvailable, String image,
+                Double rating, String time, Boolean veg) {
         this.menuId = menuId;
         this.restaurant = restaurant;
-        this.itemName = itemName;
-        this.description = description;
+        this.name = name;
+        this.desc = desc;
         this.price = price;
         this.isAvailable = isAvailable;
-        this.imagePath = imagePath;
+        this.image = image;
+        this.rating = rating;
+        this.time = time;
+        this.veg = veg;
     }
 
     public Long getMenuId() {
@@ -58,20 +72,20 @@ public class Menu {
         this.restaurant = restaurant;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Double getPrice() {
@@ -90,11 +104,35 @@ public class Menu {
         this.isAvailable = isAvailable;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Boolean getVeg() {
+        return veg;
+    }
+
+    public void setVeg(Boolean veg) {
+        this.veg = veg;
     }
 }

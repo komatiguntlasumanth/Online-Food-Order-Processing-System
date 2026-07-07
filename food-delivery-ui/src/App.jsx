@@ -37,185 +37,45 @@ import Architecture from './pages/Architecture.jsx';
 
 // In production (Netlify) this is the public ngrok URL; locally falls back to '' so Vite proxy handles /api/*
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
-// Food images served from public/foodImages/ directory
+// Food images served from public/images/ directory
 const FOOD_ITEMS = {
   "What's on your mind?": [
-    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/idly.png', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true, restaurantName: 'Udupi Upahar' },
-    { id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: '/foodImages/PlainDosa.png', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true, restaurantName: 'A2B - Adyar Ananda Bhavan' },
-    { id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: '/foodImages/masala_dosa.png', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true, restaurantName: 'Chutneys' },
-    { id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: '/foodImages/karam_dosa.jpg', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true, restaurantName: 'Ram ki Bandi' },
-    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: '/foodImages/ghee_dosa.jpg', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true, restaurantName: 'Minerva Coffee Shop' },
-    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: '/foodImages/Vada.jpg', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true, restaurantName: 'Cafe Niloufer' },
-    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: '/foodImages/Poori.jpg', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true, restaurantName: 'Udupi Upahar' },
-    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: '/foodImages/Bonda.jpg', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true, restaurantName: 'Utsav' }
+    { id: 'b1', name: 'Idly', price: 40.00, rating: 4.5, time: '15-20 mins', image: '/images/idly.png', desc: 'Soft & fluffy steamed rice cakes served with coconut chutney & hot sambar.', veg: true, restaurantName: 'Udupi Upahar' },
+    { id: 'b2', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: '/images/PlainDosa.png', desc: 'Crispy golden rice crepe served with flavorful chutneys.', veg: true, restaurantName: 'A2B - Adyar Ananda Bhavan' },
+    { id: 'b3', name: 'Masala Dosa', price: 70.00, rating: 4.6, time: '20-25 mins', image: '/images/masala_dosa.png', desc: 'Crispy rice crepe stuffed with spiced potato mash.', veg: true, restaurantName: 'Chutneys' },
+    { id: 'b5', name: 'Karam Dosa', price: 80.00, rating: 4.5, time: '20-25 mins', image: '/images/karam_dosa.jpg', desc: 'Spicy red chili-garlic paste spread over crispy dosa.', veg: true, restaurantName: 'Ram ki Bandi' },
+    { id: 'b6', name: 'Ghee Dosa', price: 90.00, rating: 4.7, time: '15-20 mins', image: '/images/ghee_dosa.jpg', desc: 'Fragrant and crispy dosa cooked with pure ghee.', veg: true, restaurantName: 'Minerva Coffee Shop' },
+    { id: 'b7', name: 'Vada', price: 45.00, rating: 4.2, time: '10-15 mins', image: '/images/Vada.jpg', desc: 'Deep-fried savory lentil donuts, crispy outside, soft inside.', veg: true, restaurantName: 'Cafe Niloufer' },
+    { id: 'b8', name: 'Poori', price: 60.00, rating: 4.4, time: '20-25 mins', image: '/images/Poori.jpg', desc: 'Puffy deep-fried wheat flatbread served with potato curry.', veg: true, restaurantName: 'Udupi Upahar' },
+    { id: 'b9', name: 'Bonda', price: 50.00, rating: 4.1, time: '10-15 mins', image: '/images/Bonda.jpg', desc: 'Fried savory potato balls coated in gram flour batter.', veg: true, restaurantName: 'Utsav' }
   ],
   "Main Course Meals": [
-    { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', image: '/foodImages/veg_meals_thali.jpg', desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true, restaurantName: 'Kamat Hotel' },
-    { id: 'm2', name: 'Non Veg Meals Thali', price: 180.00, rating: 4.7, time: '25-30 mins', image: '/foodImages/non_veg_meals_thali.jpg', desc: 'Thali containing rice, aromatic chicken curry, fish gravy, and sides.', veg: false, restaurantName: 'Ohri\'s' },
-    { id: 'm3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: '/foodImages/hyderabadi_chicken_biryani.jpg', desc: 'Long grain basmati rice cooked with succulent chicken and spices.', veg: false, restaurantName: 'Paradise Biryani' },
-    { id: 'm4', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: '/foodImages/paneer_biryani.jpg', desc: 'Spiced basmati rice layered with soft paneer cubes.', veg: true, restaurantName: 'Shah Ghouse' },
-    { id: 'm5', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: '/foodImages/egg_biryani.jpg', desc: 'Fragrant biryani rice served with spiced boiled eggs.', veg: false, restaurantName: 'Bawarchi' }
+    { id: 'm1', name: 'Veg Meals Thali', price: 120.00, rating: 4.6, time: '25-30 mins', image: '/images/veg_meals_thali.jpg', desc: 'Traditional thali with rice, sambar, rasam, curries, and curd.', veg: true, restaurantName: 'Kamat Hotel' },
+    { id: 'm2', name: 'Non Veg Meals Thali', price: 180.00, rating: 4.7, time: '25-30 mins', image: '/images/non_veg_meals_thali.jpg', desc: 'Thali containing rice, aromatic chicken curry, fish gravy, and sides.', veg: false, restaurantName: 'Ohri\'s' },
+    { id: 'm3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: '/images/hyderabadi_chicken_biryani.jpg', desc: 'Long grain basmati rice cooked with succulent chicken and spices.', veg: false, restaurantName: 'Paradise Biryani' },
+    { id: 'm4', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: '/images/paneer_biryani.jpg', desc: 'Spiced basmati rice layered with soft paneer cubes.', veg: true, restaurantName: 'Shah Ghouse' },
+    { id: 'm5', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: '/images/egg_biryani.jpg', desc: 'Fragrant biryani rice served with spiced boiled eggs.', veg: false, restaurantName: 'Bawarchi' }
   ],
   "Quick Bites & Snacks": [
-    { id: 's1', name: 'Samosa (2 Pcs)', price: 25.00, rating: 4.2, time: '10-15 mins', image: '/foodImages/samosa.jpg', desc: 'Crispy pastry shells stuffed with spiced potatoes and peas.', veg: true, restaurantName: 'Bikanerwala' },
-    { id: 's2', name: 'Onion Pakoda', price: 40.00, rating: 4.1, time: '10-15 mins', image: '/foodImages/onion_pakoda.jpg', desc: 'Deep-fried crispy onion fritters seasoned with spices.', veg: true, restaurantName: 'Haldiram\'s' },
-    { id: 's3', name: 'Mirchi Bajji', price: 45.00, rating: 4.3, time: '15-20 mins', image: '/foodImages/mirchi_bajji.jpg', desc: 'Spicy chili peppers batter-fried and stuffed with onions.', veg: true, restaurantName: 'Gokul Chat' },
-    { id: 's4', name: 'Pav Bhaji', price: 80.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/pav_bhaji.jpg', desc: 'Thick vegetable curry served with soft buttered bread rolls.', veg: true, restaurantName: 'Sardarji\'s Chaat' }
+    { id: 's1', name: 'Samosa (2 Pcs)', price: 25.00, rating: 4.2, time: '10-15 mins', image: '/images/samosa.jpg', desc: 'Crispy pastry shells stuffed with spiced potatoes and peas.', veg: true, restaurantName: 'Bikanerwala' },
+    { id: 's2', name: 'Onion Pakoda', price: 40.00, rating: 4.1, time: '10-15 mins', image: '/images/onion_pakoda.jpg', desc: 'Deep-fried crispy onion fritters seasoned with spices.', veg: true, restaurantName: 'Haldiram\'s' },
+    { id: 's3', name: 'Mirchi Bajji', price: 45.00, rating: 4.3, time: '15-20 mins', image: '/images/mirchi_bajji.jpg', desc: 'Spicy chili peppers batter-fried and stuffed with onions.', veg: true, restaurantName: 'Gokul Chat' },
+    { id: 's4', name: 'Pav Bhaji', price: 80.00, rating: 4.5, time: '15-20 mins', image: '/images/pav_bhaji.jpg', desc: 'Thick vegetable curry served with soft buttered bread rolls.', veg: true, restaurantName: 'Sardarji\'s Chaat' }
   ],
   "Dinner Specialities": [
-    { id: 'd1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', image: '/foodImages/butter_naan_paneer_gravy.jpg', desc: 'Soft butter naan served with rich and creamy paneer butter masala.', veg: true, restaurantName: 'Dhaba Estd 1986' },
-    { id: 'd2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', image: '/foodImages/chapati_with_kurma.jpg', desc: 'Soft whole wheat flatbread served with mixed vegetable kurma.', veg: true, restaurantName: 'Saravana Bhavan' },
-    { id: 'd3', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', image: '/foodImages/veg_fried_rice.jpg', desc: 'Stir-fried rice loaded with veggies, soy sauce, and aromatics.', veg: true, restaurantName: 'Chung Hua' },
-    { id: 'd4', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', image: '/foodImages/schezwan_noodles.jpg', desc: 'Spicy noodles tossed with colorful vegetables and Schezwan sauce.', veg: true, restaurantName: 'Nanking' }
+    { id: 'd1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', image: '/images/butter_naan_paneer_gravy.jpg', desc: 'Soft butter naan served with rich and creamy paneer butter masala.', veg: true, restaurantName: 'Dhaba Estd 1986' },
+    { id: 'd2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', image: '/images/chapati_with_kurma.jpg', desc: 'Soft whole wheat flatbread served with mixed vegetable kurma.', veg: true, restaurantName: 'Saravana Bhavan' },
+    { id: 'd3', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', image: '/images/veg_fried_rice.jpg', desc: 'Stir-fried rice loaded with veggies, soy sauce, and aromatics.', veg: true, restaurantName: 'Chung Hua' },
+    { id: 'd4', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', image: '/images/schezwan_noodles.jpg', desc: 'Spicy noodles tossed with colorful vegetables and Schezwan sauce.', veg: true, restaurantName: 'Nanking' }
   ]
 };
 
-const FAMOUS_RESTAURANTS = [
-  {
-    id: 'r1',
-    name: 'Karavalli @ Taj',
-    rating: 4.8,
-    reviews: 2661,
-    cuisine: 'Indian, Seafood, Mangalorean',
-    time: '30-40 mins',
-    costForTwo: '₹1,800 for two',
-    image: '/foodImages/karavalli.png',
-    desc: 'Lush greenery, traditional Mangalorean and coastal recipes served under a beautiful tree canopy.',
-    highlight: '"The Kozhi melagittathu chicken curry was delicious and will highly recommend."',
-    closesIn: 'Closes in 44 min',
-    latitude: 12.9734,
-    longitude: 77.6105,
-    menu: [
-      { id: 'kv1', name: 'Kozhi Melagittathu', price: 450.00, rating: 4.8, time: '25-30 mins', image: '/foodImages/non_veg_meals_thali.jpg', desc: 'Succulent chicken pieces cooked with freshly crushed pepper and aromatic traditional spices.', veg: false },
-      { id: 'kv2', name: 'Tiger Prawns Roast', price: 650.00, rating: 4.9, time: '20-25 mins', image: '/foodImages/non_veg_meals_thali.jpg', desc: 'Fresh tiger prawns marinated in local spices and roasted with curry leaves.', veg: false },
-      { id: 'kv3', name: 'Appam with Veg Stew', price: 220.00, rating: 4.7, time: '15-20 mins', image: '/foodImages/idly.png', desc: 'Lacy, soft-centered rice pancakes served with a rich, fragrant coconut milk vegetable stew.', veg: true },
-      { id: 'kv4', name: 'Karavalli South Indian Thali', price: 320.00, rating: 4.6, time: '30 mins', image: '/foodImages/veg_meals_thali.jpg', desc: 'A curated plate of traditional coastal curries, rice, sambar, and rasam.', veg: true }
-    ]
-  },
-  {
-    id: 'r2',
-    name: 'Shiro Bengaluru',
-    rating: 4.5,
-    reviews: 1032,
-    cuisine: 'Japanese, Sushi, Pan-Asian',
-    time: '35-45 mins',
-    costForTwo: '₹2,000 for two',
-    image: '/foodImages/shiro.png',
-    desc: 'Sophisticated Pan-Asian dining with high ceilings, dramatic stone Buddha statues, and premium sushi.',
-    highlight: '"Exquisite Sushi!, Atmosphere really gives off out of country Vibes..."',
-    closesIn: 'Closes in 44 min',
-    latitude: 12.9721,
-    longitude: 77.5998,
-    menu: [
-      { id: 'sh1', name: 'Schezwan Noodles', price: 120.00, rating: 4.4, time: '20-25 mins', image: '/foodImages/schezwan_noodles.jpg', desc: 'Spicy wok-tossed noodles with farm-fresh vegetables and Schezwan chili paste.', veg: true },
-      { id: 'sh2', name: 'Veg Fried Rice', price: 110.00, rating: 4.3, time: '20-25 mins', image: '/foodImages/veg_fried_rice.jpg', desc: 'Perfectly seasoned rice wok-tossed with mixed vegetables.', veg: true },
-      { id: 'sh3', name: 'Sushi Platter (Veg)', price: 420.00, rating: 4.6, time: '20-25 mins', image: '/foodImages/idly.png', desc: 'Chef-crafted cucumber, avocado, and carrot maki sushi served with wasabi.', veg: true },
-      { id: 'sh4', name: 'Dumpling Basket (Non-Veg)', price: 350.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/non_veg_meals_thali.jpg', desc: 'Steamed chicken and chive dumplings with house chili dip.', veg: false }
-    ]
-  },
-  {
-    id: 'r3',
-    name: 'Nook',
-    rating: 4.9,
-    reviews: 638,
-    cuisine: 'Indian, Asian, Buffet',
-    time: '25-35 mins',
-    costForTwo: '₹1,500 for two',
-    image: '/foodImages/nook.png',
-    desc: 'Vibrant and contemporary restaurant serving authentic Indian and Asian dishes in tapas style.',
-    highlight: '"Fantastic authentic Indian cuisine served in tapas style in a vibrant venue..."',
-    closesIn: 'Closed now',
-    latitude: 12.9698,
-    longitude: 77.5890,
-    menu: [
-      { id: 'nk1', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: '/foodImages/paneer_biryani.jpg', desc: 'Rich, layered basmati rice with marinated cottage cheese, slow-cooked in a sealed handi.', veg: true },
-      { id: 'nk2', name: 'Samosa Tapas (4 Pcs)', price: 60.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/samosa.jpg', desc: 'Bite-sized crisp samosas served with sweet dates chutney and spicy mint dip.', veg: true },
-      { id: 'nk3', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: '/foodImages/egg_biryani.jpg', desc: 'Aromatic basmati rice cooked with hard-boiled eggs and special spice blend.', veg: false }
-    ]
-  },
-  {
-    id: 'r4',
-    name: 'Time Traveller',
-    rating: 4.9,
-    reviews: 2834,
-    cuisine: 'Indian, International, Continental',
-    time: '40-50 mins',
-    costForTwo: '₹1,400 for two',
-    image: '/foodImages/time_traveller.png',
-    desc: 'Futuristic hotel dining concept featuring an extensive global buffet and interactive food stations.',
-    highlight: '"Ideal dinner buffet place in Bangalore. Wide variety of global cuisines."',
-    closesIn: 'Closed now',
-    latitude: 12.9850,
-    longitude: 77.6200,
-    menu: [
-      { id: 'tt1', name: 'Butter Naan & Paneer Gravy', price: 160.00, rating: 4.6, time: '25-30 mins', image: '/foodImages/butter_naan_paneer_gravy.jpg', desc: 'Fresh tandoor naan brushed with butter, paired with sweet and creamy paneer gravy.', veg: true },
-      { id: 'tt2', name: 'Chapati with Kurma', price: 80.00, rating: 4.2, time: '20-25 mins', image: '/foodImages/chapati_with_kurma.jpg', desc: 'Soft whole wheat flatbread served with loaded mixed vegetable kurma.', veg: true },
-      { id: 'tt3', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: '/foodImages/hyderabadi_chicken_biryani.jpg', desc: 'Premium basmati rice layered with juicy bone-in chicken cooked in authentic Hyderabad style.', veg: false }
-    ]
-  },
-  {
-    id: 'r5',
-    name: 'Kebabs & Kurries',
-    rating: 4.9,
-    reviews: 1698,
-    cuisine: 'Indian, Mughlai, Kebab',
-    time: '30-40 mins',
-    costForTwo: '₹2,200 for two',
-    image: '/foodImages/kebabs_kurries.png',
-    desc: 'Elegant dining paying tribute to India\'s royal kitchens with mouthwatering charcoal kebabs and curries.',
-    highlight: '"Exceptional vegetarian spread and service! Great evening in Kebabs and Kurries."',
-    closesIn: 'Closes in 44 min',
-    latitude: 12.9620,
-    longitude: 77.5950,
-    menu: [
-      { id: 'kk1', name: 'Paneer Butter Masala', price: 180.00, rating: 4.7, time: '25-30 mins', image: '/foodImages/butter_naan_paneer_gravy.jpg', desc: 'Rich, creamy tomato gravy loaded with soft paneer cubes and butter.', veg: true },
-      { id: 'kk2', name: 'Seekh Kebab (Non-Veg)', price: 390.00, rating: 4.9, time: '20-25 mins', image: '/foodImages/non_veg_meals_thali.jpg', desc: 'Minced spiced chicken skewers roasted on glowing hot charcoal.', veg: false },
-      { id: 'kk3', name: 'Tandoori Roti with Dal Makhani', price: 150.00, rating: 4.8, time: '25-30 mins', image: '/foodImages/veg_meals_thali.jpg', desc: 'Clay oven flatbread paired with rich, slow-simmered black lentils.', veg: true }
-    ]
-  },
-  {
-    id: 'r6',
-    name: 'Paradise Biryani',
-    rating: 4.5,
-    reviews: 5410,
-    cuisine: 'Biryani, Mughlai, Kebabs',
-    time: '20-30 mins',
-    costForTwo: '₹600 for two',
-    image: '/foodImages/hyderabadi_chicken_biryani.jpg',
-    desc: 'The legendary house of Hyderabadi Biryani, serving aromatic basmati and slow-cooked meat since 1953.',
-    highlight: '"Unbeatable aroma, standard recipe that never disappoints for chicken biryani."',
-    closesIn: 'Closes in 44 min',
-    latitude: 17.4485,
-    longitude: 78.3745,
-    menu: [
-      { id: 'pb1', name: 'Hyderabadi Chicken Biryani', price: 240.00, rating: 4.8, time: '30-35 mins', image: '/foodImages/hyderabadi_chicken_biryani.jpg', desc: 'Flavourful basmati rice cooked on dum with marinated chicken pieces.', veg: false },
-      { id: 'pb2', name: 'Paneer Biryani', price: 200.00, rating: 4.4, time: '30-35 mins', image: '/foodImages/paneer_biryani.jpg', desc: 'Aromatic layered basmati rice served with soft marinated cottage cheese.', veg: true },
-      { id: 'pb3', name: 'Egg Biryani', price: 170.00, rating: 4.3, time: '25-30 mins', image: '/foodImages/egg_biryani.jpg', desc: 'Premium biryani rice served with two spiced boiled eggs.', veg: false }
-    ]
-  },
-  {
-    id: 'r7',
-    name: 'Udupi Upahar',
-    rating: 4.6,
-    reviews: 3200,
-    cuisine: 'South Indian, Vegetarian',
-    time: '15-25 mins',
-    costForTwo: '₹300 for two',
-    image: '/foodImages/idly.png',
-    desc: 'A pure vegetarian institution famous for its traditional, piping-hot breakfast dosas, idlis, and filter coffee.',
-    highlight: '"Fast service and amazing sambar taste, the idlies are soft like clouds."',
-    closesIn: 'Closes in 44 min',
-    latitude: 12.9782,
-    longitude: 77.6408,
-    menu: [
-      { id: 'uu1', name: 'Idly (2 Pcs)', price: 40.00, rating: 4.5, time: '15-20 mins', image: '/foodImages/idly.png', desc: 'Soft and fluffy steamed rice-lentil cakes served with sambar and coconut chutney.', veg: true },
-      { id: 'uu2', name: 'Poori with potato sagu', price: 60.00, rating: 4.4, time: '20-25 mins', image: '/foodImages/Poori.jpg', desc: 'Puffy deep-fried wheat flatbread served with dry potato bhaji and coconut chutney.', veg: true },
-      { id: 'uu3', name: 'Plain Dosa', price: 50.00, rating: 4.3, time: '15-20 mins', image: '/foodImages/PlainDosa.png', desc: 'Crispy rice batter crepe served with sambar and fresh chutney.', veg: true }
-    ]
-  }
-];
+// Restaurants are now loaded dynamically from the database via /api/restaurants
+// FAMOUS_RESTAURANTS is removed; see `restaurants` state below in App()
 
 function App() {
+  const [restaurants, setRestaurants] = useState([]);
+  const [restaurantsLoading, setRestaurantsLoading] = useState(true);
   const [user, setUser] = useState(getUser());
   const [appMode, setAppMode] = useState(localStorage.getItem('swiggy_app_mode') || 'customer');
   const [showAuth, setShowAuth] = useState(false);
@@ -313,6 +173,32 @@ function App() {
       setOrders(localOrders.sort((a, b) => b.id - a.id));
     }
   };
+
+  // Fetch restaurants from backend on mount
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/restaurants`);
+        if (res.ok) {
+          const data = await res.json();
+          // Normalize menuId to id for cart compatibility
+          const normalized = data.map((r) => ({
+            ...r,
+            id: r.restaurantId,
+            menu: (r.menu || []).map((m) => ({ ...m, id: m.menuId }))
+          }));
+          setRestaurants(normalized);
+        } else {
+          console.warn('Failed to fetch restaurants from backend.');
+        }
+      } catch (err) {
+        console.warn('Could not reach backend for restaurants:', err);
+      } finally {
+        setRestaurantsLoading(false);
+      }
+    };
+    fetchRestaurants();
+  }, []);
 
   useEffect(() => {
     fetchOrders();
@@ -919,66 +805,76 @@ function App() {
                   )}
                 </div>
 
-                {/* Restaurants Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {[...FAMOUS_RESTAURANTS]
-                    .map((r) => {
-                      const dist = userLocation 
-                        ? getDistance(userLocation.lat, userLocation.lon, r.latitude, r.longitude)
-                        : 2.5; // fallback
-                      return { ...r, distance: dist };
-                    })
-                    .sort((a, b) => a.distance - b.distance)
-                    .filter((r) => 
-                      r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      r.cuisine.toLowerCase().includes(searchQuery.toLowerCase())
-                    )
-                    .map((restaurant) => (
-                      <div
-                        key={restaurant.id}
-                        onClick={() => setSelectedRestaurant(restaurant)}
-                        className="glass-card glass-shimmer rounded-[2rem] p-5 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
-                      >
-                        <div className="h-48 bg-white/60 rounded-2xl flex items-center justify-center text-5xl mb-4 relative overflow-hidden shadow-inner shadow-black/10">
-                          <img src={restaurant.image} alt={restaurant.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                          <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl text-[11px] font-black border border-black/5 flex items-center gap-1 shadow-black/5 shadow-2xl">
-                            <Star className="w-3.5 h-3.5 fill-[#fc8019] text-[#fc8019]" />
-                            <span className="text-slate-900 font-black">{restaurant.rating}</span>
+                  {restaurantsLoading ? (
+                    <div className="col-span-3 flex items-center justify-center py-20">
+                      <Loader2 className="w-10 h-10 text-[#fc8019] animate-spin" />
+                      <span className="ml-3 text-slate-600 font-semibold">Loading restaurants...</span>
+                    </div>
+                  ) : restaurants.length === 0 ? (
+                    <div className="col-span-3 text-center py-20 text-slate-500 font-medium">
+                      No restaurants available at the moment.
+                    </div>
+                  ) : (
+                    [...restaurants]
+                      .map((r) => {
+                        const dist = userLocation 
+                          ? getDistance(userLocation.lat, userLocation.lon, r.latitude, r.longitude)
+                          : 2.5; // fallback
+                        return { ...r, distance: dist };
+                      })
+                      .sort((a, b) => a.distance - b.distance)
+                      .filter((r) => 
+                        r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        (r.cuisine || '').toLowerCase().includes(searchQuery.toLowerCase())
+                      )
+                      .map((restaurant) => (
+                        <div
+                          key={restaurant.id}
+                          onClick={() => setSelectedRestaurant(restaurant)}
+                          className="glass-card glass-shimmer rounded-[2rem] p-5 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
+                        >
+                          <div className="h-48 bg-white/60 rounded-2xl flex items-center justify-center text-5xl mb-4 relative overflow-hidden shadow-inner shadow-black/10">
+                            <img src={restaurant.image} alt={restaurant.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl text-[11px] font-black border border-black/5 flex items-center gap-1 shadow-black/5 shadow-2xl">
+                              <Star className="w-3.5 h-3.5 fill-[#fc8019] text-[#fc8019]" />
+                              <span className="text-slate-900 font-black">{restaurant.rating}</span>
+                            </div>
+                            <div className="absolute bottom-3 right-3 bg-[#fc8019] text-slate-900 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg shadow-lg">
+                              {restaurant.time}
+                            </div>
                           </div>
-                          <div className="absolute bottom-3 right-3 bg-[#fc8019] text-slate-900 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg shadow-lg">
-                            {restaurant.time}
-                          </div>
-                        </div>
 
-                        <div className="space-y-1">
-                          <div className="flex justify-between items-baseline gap-2">
-                            <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-[#fc8019] transition-colors truncate max-w-[70%]">{restaurant.name}</h3>
-                            <span className="text-[10px] font-black text-[#fc8019] bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded-lg whitespace-nowrap">
-                              {restaurant.distance ? `${restaurant.distance.toFixed(1)} km away` : 'Nearby'}
+                          <div className="space-y-1">
+                            <div className="flex justify-between items-baseline gap-2">
+                              <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-[#fc8019] transition-colors truncate max-w-[70%]">{restaurant.name}</h3>
+                              <span className="text-[10px] font-black text-[#fc8019] bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded-lg whitespace-nowrap">
+                                {restaurant.distance ? `${restaurant.distance.toFixed(1)} km away` : 'Nearby'}
+                              </span>
+                            </div>
+                            
+                            <div className="text-[11px] text-slate-600 font-bold uppercase tracking-wider truncate">
+                              {restaurant.cuisine}
+                            </div>
+
+                            <p className="text-slate-500 text-xs leading-relaxed line-clamp-2 pt-1">{restaurant.desc}</p>
+                            
+                            {restaurant.highlight && (
+                              <div className="text-[10px] italic text-slate-500 border-l-2 border-[#fc8019]/60 pl-2 line-clamp-1 py-1 bg-orange-50/20 rounded-r-md">
+                                {restaurant.highlight}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="pt-3.5 mt-4 flex justify-between items-center text-xs font-bold border-t border-slate-100">
+                            <span className="text-slate-600 font-extrabold">{restaurant.costForTwo}</span>
+                            <span className={(restaurant.closesIn || '').includes('Closed') ? 'text-red-500' : 'text-green-600'}>
+                              {restaurant.closesIn}
                             </span>
                           </div>
-                          
-                          <div className="text-[11px] text-slate-600 font-bold uppercase tracking-wider truncate">
-                            {restaurant.cuisine}
-                          </div>
-
-                          <p className="text-slate-500 text-xs leading-relaxed line-clamp-2 pt-1">{restaurant.desc}</p>
-                          
-                          {restaurant.highlight && (
-                            <div className="text-[10px] italic text-slate-500 border-l-2 border-[#fc8019]/60 pl-2 line-clamp-1 py-1 bg-orange-50/20 rounded-r-md">
-                              {restaurant.highlight}
-                            </div>
-                          )}
                         </div>
-
-                        <div className="pt-3.5 mt-4 flex justify-between items-center text-xs font-bold border-t border-slate-100">
-                          <span className="text-slate-600 font-extrabold">{restaurant.costForTwo}</span>
-                          <span className={restaurant.closesIn.includes('Closed') ? 'text-red-500' : 'text-green-600'}>
-                            {restaurant.closesIn}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      ))
+                  )}
                 </div>
               </div>
             </div>
