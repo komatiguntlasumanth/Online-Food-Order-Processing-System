@@ -13,7 +13,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -44,7 +44,7 @@ services:
   # ─────────────────────────────────────────
   order-service:
     build:
-      context: .
+      context: ./backend
       dockerfile: order-service/Dockerfile
     container_name: order-service
     ports:
@@ -71,7 +71,7 @@ services:
   # ─────────────────────────────────────────
   payment-service:
     build:
-      context: .
+      context: ./backend
       dockerfile: payment-service/Dockerfile
     container_name: payment-service
     ports:
@@ -98,7 +98,7 @@ services:
   # ─────────────────────────────────────────
   kitchen-service:
     build:
-      context: .
+      context: ./backend
       dockerfile: kitchen-service/Dockerfile
     container_name: kitchen-service
     ports:
@@ -125,7 +125,7 @@ services:
   # ─────────────────────────────────────────
   delivery-service:
     build:
-      context: .
+      context: ./backend
       dockerfile: delivery-service/Dockerfile
     container_name: delivery-service
     ports:
@@ -152,7 +152,7 @@ services:
   # ─────────────────────────────────────────
   food-delivery-ui:
     build:
-      context: food-delivery-ui
+      context: ./frontend/food-delivery-ui
       dockerfile: Dockerfile
     container_name: food-delivery-ui
     ports:

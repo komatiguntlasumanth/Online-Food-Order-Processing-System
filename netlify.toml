@@ -1,5 +1,5 @@
 [build]
-  base = "food-delivery-ui"
+  base = "frontend/food-delivery-ui"
   publish = "dist"
   command = "npm run build"
 
